@@ -28,8 +28,10 @@ class _SearchInputState extends State<SearchInput> {
               filled: true,
               fillColor: Colors.white,
               contentPadding: EdgeInsets.symmetric(vertical: 12),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey, width: 0.3)),
               focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 0.5)),
+                  borderSide: BorderSide(color: Colors.grey, width: 0.3)),
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.search, color: Colors.grey),
               hintText: "CZEGO SZUKASZ?"),
