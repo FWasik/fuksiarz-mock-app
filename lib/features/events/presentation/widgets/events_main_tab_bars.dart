@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MainTabBar extends StatelessWidget {
-  const MainTabBar({Key? key}) : super(key: key);
+class EventsMainTabBars extends StatelessWidget {
+  const EventsMainTabBars({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

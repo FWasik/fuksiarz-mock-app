@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_filter.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_header.dart';
+import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_main_tab_bars.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_search.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/main_tab_bar.dart';
+import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_main_tab_bars.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -24,6 +25,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
+
+    List<dynamic> sports = [
+      ["PIŁKA NOŻNA", false],
+      ["KOSZYKÓWKA", false],
+      ["SIATKÓWKA", false],
+      ["TENIS", false],
+      ["BASEBALL", false]
+    ];
 
     return DefaultTabController(
       length: 6,
@@ -96,16 +105,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   SearchInput(
                     searchController: searchController,
                   ),
-                  MainTabBar()
+                  EventsMainTabBars()
                 ],
               ),
             ),
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
             Icon(Icons.directions_car),
-            EventFilter(),
+            EventFilter(sports: sports),
             Icon(Icons.directions_bike),
             Icon(Icons.directions_bike),
             Icon(Icons.directions_bike),
