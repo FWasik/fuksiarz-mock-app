@@ -26,12 +26,12 @@ class _MyHomePageState extends State<MyHomePage> {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
 
-    List<dynamic> sports = [
-      ["PIŁKA NOŻNA", false],
-      ["KOSZYKÓWKA", false],
-      ["SIATKÓWKA", false],
-      ["TENIS", false],
-      ["BASEBALL", false]
+    List<SportCategory> sports = [
+      SportCategory(name: "PIŁKA NOŻNA", isSelected: true),
+      SportCategory(name: "KOSZYKÓWKA", isSelected: true),
+      SportCategory(name: "SIATKÓWKA", isSelected: false),
+      SportCategory(name: "TENIS", isSelected: true),
+      SportCategory(name: "BASEBALL", isSelected: false)
     ];
 
     return DefaultTabController(
@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: TabBarView(
           children: [
             Icon(Icons.directions_car),
-            EventFilter(sports: sports),
+            EventsFilter(sports: sports),
             Icon(Icons.directions_bike),
             Icon(Icons.directions_bike),
             Icon(Icons.directions_bike),
@@ -124,4 +124,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
+
+class SportCategory {
+  String name;
+  bool isSelected;
+
+  SportCategory({required this.name, required this.isSelected});
 }

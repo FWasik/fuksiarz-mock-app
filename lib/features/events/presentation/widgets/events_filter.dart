@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:fuksiarz_mock_app/features/events/presentation/pages/events_page.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_button.dart';
 
-class EventFilter extends StatefulWidget {
-  List<dynamic> sports;
+class EventsFilter extends StatefulWidget {
+  List<SportCategory> sports;
 
-  EventFilter({Key? key, required this.sports}) : super(key: key);
+  EventsFilter({Key? key, required this.sports}) : super(key: key);
 
   @override
-  State<EventFilter> createState() => _EventFilterState();
+  State<EventsFilter> createState() => _EventsFilterState();
 }
 
-class _EventFilterState extends State<EventFilter> {
+class _EventsFilterState extends State<EventsFilter> {
   bool isDropdownOpen = false;
 
   @override
@@ -31,13 +32,20 @@ class _EventFilterState extends State<EventFilter> {
               itemCount: widget.sports.length,
               itemBuilder: (BuildContext context, int index) {
                 return CustomButton(
-                    text: widget.sports[index][0],
-                    isClicked: widget.sports[index][1],
+                    text: widget.sports[index].name,
+                    isClicked: widget.sports[index].isSelected,
                     onPressed: (() {
                       setState(() {
-                        widget.sports[index][1] = !widget.sports[index][1];
+                        widget.sports[index].isSelected =
+                            !widget.sports[index].isSelected;
 
-                        widget.sports.sort(((a, b) => a[1] ? -1 : 1));
+                        widget.sports.sort(((a, b) {
+                          if (a.isSelected == b.isSelected) {
+                            return a.name.compareTo(b.name);
+                          } else {
+                            return a.isSelected ? -1 : 1;
+                          }
+                        }));
                       });
                     }));
               }),
