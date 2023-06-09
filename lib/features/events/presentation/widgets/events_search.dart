@@ -17,10 +17,12 @@ class _SearchInputState extends State<SearchInput> {
     final double width = MediaQuery.of(context).size.width;
 
     return Container(
-      color: const Color.fromARGB(119, 243, 243, 243),
+      decoration: BoxDecoration(
+          color: Color.fromARGB(119, 243, 243, 243),
+          border: Border.all(color: Colors.grey, width: 0.2)),
       child: Padding(
         padding:
-            EdgeInsets.symmetric(vertical: height / 40, horizontal: width / 30),
+            EdgeInsets.symmetric(vertical: height / 50, horizontal: width / 30),
         child: TextField(
           controller: widget.searchController,
           style: const TextStyle(backgroundColor: Colors.white, fontSize: 14),

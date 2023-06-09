@@ -27,12 +27,21 @@ class _MyHomePageState extends State<MyHomePage> {
     final double width = MediaQuery.of(context).size.width;
 
     List<SportCategory> sports = [
-      SportCategory(name: "PIŁKA NOŻNA", isSelected: true),
-      SportCategory(name: "KOSZYKÓWKA", isSelected: true),
-      SportCategory(name: "SIATKÓWKA", isSelected: false),
-      SportCategory(name: "TENIS", isSelected: true),
-      SportCategory(name: "BASEBALL", isSelected: false)
+      SportCategory(name: "WSZYSTKO", isSelected: false, importance: 1),
+      SportCategory(name: "PIŁKA NOŻNA", isSelected: true, importance: 2),
+      SportCategory(name: "KOSZYKÓWKA", isSelected: true, importance: 3),
+      SportCategory(name: "SIATKÓWKA", isSelected: false, importance: 5),
+      SportCategory(name: "TENIS", isSelected: true, importance: 4),
+      SportCategory(name: "BASEBALL", isSelected: false, importance: 6),
     ];
+
+    sports.sort(((a, b) {
+      if (a.isSelected == b.isSelected) {
+        return a.importance.compareTo(b.importance);
+      } else {
+        return a.isSelected ? -1 : 1;
+      }
+    }));
 
     return DefaultTabController(
       length: 6,
@@ -97,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(height / 6),
+            preferredSize: Size.fromHeight(height / 6.5),
             child: Material(
               color: Colors.white,
               child: Column(
@@ -129,6 +138,9 @@ class _MyHomePageState extends State<MyHomePage> {
 class SportCategory {
   String name;
   bool isSelected;
+  bool isDropdownOpen = false;
+  int importance;
 
-  SportCategory({required this.name, required this.isSelected});
+  SportCategory(
+      {required this.name, required this.isSelected, required this.importance});
 }

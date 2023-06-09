@@ -17,14 +17,12 @@ class _EventsFilterState extends State<EventsFilter> {
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
 
     return Column(
       children: [
         Container(
           height: height / 11,
-          decoration: const BoxDecoration(
-              border:
-                  Border(bottom: BorderSide(color: Colors.grey, width: 0.5))),
           padding: const EdgeInsets.all(12.0),
           child: ListView.builder(
               shrinkWrap: true,
@@ -36,12 +34,26 @@ class _EventsFilterState extends State<EventsFilter> {
                     isClicked: widget.sports[index].isSelected,
                     onPressed: (() {
                       setState(() {
-                        widget.sports[index].isSelected =
-                            !widget.sports[index].isSelected;
+                        if (widget.sports[index].name == "WSZYSTKO") {
+                          bool allSelected = widget.sports[index].isSelected;
+
+                          if (allSelected) {
+                            widget.sports.forEach((element) {
+                              element.isSelected = false;
+                            });
+                          } else {
+                            widget.sports.forEach((element) {
+                              element.isSelected = true;
+                            });
+                          }
+                        } else {
+                          widget.sports[index].isSelected =
+                              !widget.sports[index].isSelected;
+                        }
 
                         widget.sports.sort(((a, b) {
                           if (a.isSelected == b.isSelected) {
-                            return a.name.compareTo(b.name);
+                            return a.importance.compareTo(b.importance);
                           } else {
                             return a.isSelected ? -1 : 1;
                           }
@@ -50,53 +62,95 @@ class _EventsFilterState extends State<EventsFilter> {
                     }));
               }),
         ),
-        // GestureDetector(
-        //   onTap: () {
-        //     setState(() {
-        //       isDropdownOpen = !isDropdownOpen;
-        //     });
-        //   },
-        //   child: Column(
-        //     children: [
-        //       AnimatedContainer(
-        //         duration: Duration(milliseconds: 300),
-        //         height: 40.0,
-        //         color: Colors.grey[300],
-        //         alignment: Alignment.center,
-        //         child: Text('Click Me'),
-        //       ),
-        //       AnimatedOpacity(
-        //         duration: Duration(milliseconds: 300),
-        //         opacity: isDropdownOpen ? 1.0 : 0.0,
-        //         child: Column(
-        //           children: [
-        //             AnimatedContainer(
-        //               duration: Duration(milliseconds: 300),
-        //               height: isDropdownOpen ? 40.0 : 0.0,
-        //               color: Colors.grey[300],
-        //               alignment: Alignment.center,
-        //               child: Text('Dropdown Item 1'),
-        //             ),
-        //             AnimatedContainer(
-        //               duration: Duration(milliseconds: 300),
-        //               height: isDropdownOpen ? 40.0 : 0.0,
-        //               color: Colors.grey[300],
-        //               alignment: Alignment.center,
-        //               child: Text('Dropdown Item 2'),
-        //             ),
-        //             AnimatedContainer(
-        //               duration: Duration(milliseconds: 300),
-        //               height: isDropdownOpen ? 40.0 : 0.0,
-        //               color: Colors.grey[300],
-        //               alignment: Alignment.center,
-        //               child: Text('Dropdown Item 3'),
-        //             ),
-        //           ],
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // )
+        Expanded(
+          child: ListView.builder(
+            itemCount: widget.sports.length,
+            itemBuilder: (context, index) {
+              if (widget.sports[index].name != "WSZYSTKO") {
+                return Visibility(
+                  visible: widget.sports[index].isSelected,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border(top: BorderSide(width: 0.2))),
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            widget.sports[index].isDropdownOpen =
+                                !widget.sports[index].isDropdownOpen;
+                          });
+                        },
+                        child: Column(
+                          children: [
+                            Container(
+                              height: height / 20,
+                              alignment: Alignment.center,
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      widget.sports[index].name,
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Container(
+                                      width: width / 11,
+                                      height: height / 25,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(5)),
+                                          border: Border.all(
+                                              color: Colors.grey, width: 0.2)),
+                                      child: widget.sports[index].isDropdownOpen
+                                          ? Icon(Icons.arrow_drop_up)
+                                          : Icon(Icons.arrow_drop_down),
+                                    ),
+                                  ]),
+                            ),
+                            Visibility(
+                              visible: widget.sports[index].isDropdownOpen,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 200.0,
+                                    height: 40.0,
+                                    color: Colors.grey[300],
+                                    alignment: Alignment.center,
+                                    child: Text('Dropdown Item 1'),
+                                  ),
+                                  Container(
+                                    width: 200.0,
+                                    height: 40.0,
+                                    color: Colors.grey[300],
+                                    alignment: Alignment.center,
+                                    child: Text('Dropdown Item 2'),
+                                  ),
+                                  Container(
+                                    width: 200.0,
+                                    height: 40.0,
+                                    color: Colors.grey[300],
+                                    alignment: Alignment.center,
+                                    child: Text('Dropdown Item 3'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                return Container();
+              }
+            },
+          ),
+        )
       ],
     );
   }
