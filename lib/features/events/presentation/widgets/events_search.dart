@@ -18,7 +18,7 @@ class _SearchInputState extends State<SearchInput> {
 
     return Container(
       decoration: BoxDecoration(
-          color: Color.fromARGB(119, 243, 243, 243),
+          color: const Color.fromARGB(119, 243, 243, 243),
           border: Border.all(color: Colors.grey, width: 0.2)),
       child: Padding(
         padding:

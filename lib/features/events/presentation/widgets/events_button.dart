@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -19,13 +18,15 @@ class CustomButton extends StatelessWidget {
       padding: const EdgeInsets.all(6.0),
       child: OutlinedButton(
         onPressed: onPressed,
-        child: Text(text, style: TextStyle(fontWeight: FontWeight.bold)),
         style: OutlinedButton.styleFrom(
-            primary: Colors.black,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            backgroundColor:
-                isClicked ? Colors.white : Color.fromARGB(255, 228, 228, 228)),
+          foregroundColor: Colors.black,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          backgroundColor: isClicked
+              ? Colors.white
+              : const Color.fromARGB(255, 228, 228, 228),
+        ),
+        child: Text(text, style: const TextStyle(fontWeight: FontWeight.bold)),
       ),
     );
   }

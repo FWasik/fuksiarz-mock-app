@@ -6,7 +6,7 @@ class EventsMainTabBars extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color.fromARGB(255, 245, 245, 245),
       ),
       child: TabBar(
@@ -21,12 +21,12 @@ class EventsMainTabBars extends StatelessWidget {
               color: Colors.black.withOpacity(0.2),
               blurRadius: 4.0,
               spreadRadius: 0.0,
-              offset: Offset(0, -4), // Offset to move the shadow upwards
+              offset: const Offset(0, -4),
             ),
           ],
         ),
         unselectedLabelColor: Colors.black,
-        tabs: [
+        tabs: const [
           Tab(
             child: Text(
               "Oferta",

@@ -44,7 +44,7 @@ class Header extends StatelessWidget {
                     OutlinedButton.icon(
                       onPressed: () {},
                       style: OutlinedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0))),
                       icon: const Icon(

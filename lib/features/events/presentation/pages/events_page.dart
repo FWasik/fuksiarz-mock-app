@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_filter.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_header.dart';
+import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_content.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_main_tab_bars.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_search.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_main_tab_bars.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -26,22 +24,13 @@ class _MyHomePageState extends State<MyHomePage> {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
 
-    List<SportCategory> sports = [
-      SportCategory(name: "WSZYSTKO", isSelected: false, importance: 1),
-      SportCategory(name: "PIŁKA NOŻNA", isSelected: true, importance: 2),
-      SportCategory(name: "KOSZYKÓWKA", isSelected: true, importance: 3),
-      SportCategory(name: "SIATKÓWKA", isSelected: false, importance: 5),
-      SportCategory(name: "TENIS", isSelected: true, importance: 4),
-      SportCategory(name: "BASEBALL", isSelected: false, importance: 6),
-    ];
-
-    sports.sort(((a, b) {
-      if (a.isSelected == b.isSelected) {
-        return a.importance.compareTo(b.importance);
-      } else {
-        return a.isSelected ? -1 : 1;
-      }
-    }));
+    // sports.sort(((a, b) {
+    //   if (a.isSelected == b.isSelected) {
+    //     return a.importance.compareTo(b.importance);
+    //   } else {
+    //     return a.isSelected ? -1 : 1;
+    //   }
+    // }));
 
     return DefaultTabController(
       length: 6,
@@ -56,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: OutlinedButton.icon(
                 onPressed: () {},
                 style: OutlinedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0))),
                 icon: const Icon(
@@ -114,16 +103,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   SearchInput(
                     searchController: searchController,
                   ),
-                  EventsMainTabBars()
+                  const EventsMainTabBars()
                 ],
               ),
             ),
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
             Icon(Icons.directions_car),
-            EventsFilter(sports: sports),
+            EventsContent(),
             Icon(Icons.directions_bike),
             Icon(Icons.directions_bike),
             Icon(Icons.directions_bike),
@@ -133,14 +122,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-}
-
-class SportCategory {
-  String name;
-  bool isSelected;
-  bool isDropdownOpen = false;
-  int importance;
-
-  SportCategory(
-      {required this.name, required this.isSelected, required this.importance});
 }
