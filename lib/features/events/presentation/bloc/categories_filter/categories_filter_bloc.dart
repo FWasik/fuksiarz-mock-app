@@ -13,6 +13,11 @@ List<SportCategory> sports = [
   SportCategory(name: "WSZYSTKO", isSelected: false, importance: 1),
   SportCategory(name: "SIATKÓWKA", isSelected: false, importance: 5),
   SportCategory(name: "BASEBALL", isSelected: false, importance: 6),
+  SportCategory(name: "COUNTER STRIKE", isSelected: false, importance: 7),
+  SportCategory(name: "BOKS", isSelected: false, importance: 8),
+  SportCategory(name: "HOKEJ NA LODZIE", isSelected: false, importance: 9),
+  SportCategory(name: "DARTS", isSelected: false, importance: 10),
+  SportCategory(name: "F1", isSelected: false, importance: 11)
 ];
 
 class CategoriesFilterBloc
