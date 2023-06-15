@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/bloc/categories_filter/categories_filter_bloc.dart';
+import 'package:fuksiarz_mock_app/features/events/presentation/bloc/events_bloc.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/categories/events_football.dart';
 
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/category.dart';
@@ -21,137 +21,142 @@ class _EventsContentState extends State<EventsContent> {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
 
-    return BlocBuilder<CategoriesFilterBloc, CategoriesFilterState>(
-        builder: (contextCategories, stateCategories) {
-      if (stateCategories is CategoriesFilterInital) {
-        List<SportCategory> sports = stateCategories.sports;
+    return BlocBuilder<EventsBloc, EventsState>(
+      builder: (context, state) {
+        if (state is FetchedEventsState) {
+          List<SportCategory> categoriesEvents = state.categories;
 
-        return Container(
-          color: Color.fromARGB(255, 246, 246, 246),
-          child: Column(
-            children: [
-              Container(
-                height: height / 11,
-                padding: const EdgeInsets.all(12.0),
-                decoration: const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(width: 1, color: Colors.grey))),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(children: [
-                    SizedBox(
-                        width: 40,
-                        child: IconButton(
-                          icon: const Icon(Icons.tune),
-                          onPressed: _showOptionsDialog,
-                        )),
-                    SizedBox(
-                      width: width - 60,
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: sports.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return CustomButton(
-                                text: sports[index].name,
-                                isClicked: sports[index].isSelected,
-                                onPressed: (() {
-                                  BlocProvider.of<CategoriesFilterBloc>(
-                                          contextCategories)
-                                      .add(CategriesFilterRequested(
-                                          index: index, currentSports: sports));
-                                }));
-                          }),
-                    ),
-                  ]),
+          return Container(
+            color: Color.fromARGB(255, 246, 246, 246),
+            child: Column(
+              children: [
+                Container(
+                  height: height / 11,
+                  padding: const EdgeInsets.all(12.0),
+                  decoration: const BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(width: 1, color: Colors.grey))),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(children: [
+                      SizedBox(
+                          width: 40,
+                          child: IconButton(
+                            icon: const Icon(Icons.tune),
+                            onPressed: _showOptionsDialog,
+                          )),
+                      SizedBox(
+                        width: width - 60,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: categoriesEvents.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return CustomButton(
+                                  text: categoriesEvents[index].name,
+                                  isClicked: categoriesEvents[index].isSelected,
+                                  onPressed: (() {
+                                    BlocProvider.of<EventsBloc>(context).add(
+                                        CategoriesFilterEvent(
+                                            index: index,
+                                            categories: categoriesEvents));
+                                  }));
+                            }),
+                      ),
+                    ]),
+                  ),
                 ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                    itemCount: sports.length,
-                    itemBuilder: (context, index) {
-                      if (sports[index].name != "WSZYSTKO") {
-                        return Visibility(
-                          visible: sports[index].isSelected,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        width: 1, color: Colors.grey))),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: height / 20,
-                                    alignment: Alignment.center,
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            sports[index].name,
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                sports[index].isDropdownOpen =
-                                                    !sports[index]
-                                                        .isDropdownOpen;
-                                              });
-                                            },
-                                            child: Container(
-                                              width: width / 10,
-                                              height: height / 22,
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(5)),
-                                                  border: Border.all(
-                                                      color: Colors.grey,
-                                                      width: 0.2)),
-                                              child: sports[index]
-                                                      .isDropdownOpen
-                                                  ? const Icon(
-                                                      Icons.keyboard_arrow_up)
-                                                  : const Icon(Icons
-                                                      .keyboard_arrow_down),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: categoriesEvents.length,
+                      itemBuilder: (context, index) {
+                        if (categoriesEvents[index].name != "WSZYSTKO") {
+                          return Visibility(
+                            visible: categoriesEvents[index].isSelected,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          width: 1, color: Colors.grey))),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: height / 20,
+                                      alignment: Alignment.center,
+                                      child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              categoriesEvents[index].name,
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
                                             ),
-                                          ),
-                                        ]),
-                                  ),
-                                  Visibility(
-                                    visible: sports[index].isDropdownOpen,
-                                    child: ListView.builder(
-                                      itemCount: 5,
-                                      shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        return EventsFootball();
-                                      },
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  categoriesEvents[index]
+                                                          .isDropdownOpen =
+                                                      !categoriesEvents[index]
+                                                          .isDropdownOpen;
+                                                });
+                                              },
+                                              child: Container(
+                                                width: width / 10,
+                                                height: height / 22,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                            Radius.circular(5)),
+                                                    border: Border.all(
+                                                        color: Colors.grey,
+                                                        width: 0.2)),
+                                                child: categoriesEvents[index]
+                                                        .isDropdownOpen
+                                                    ? const Icon(
+                                                        Icons.keyboard_arrow_up)
+                                                    : const Icon(Icons
+                                                        .keyboard_arrow_down),
+                                              ),
+                                            ),
+                                          ]),
                                     ),
-                                  ),
-                                ],
+                                    Visibility(
+                                      visible: categoriesEvents[index]
+                                          .isDropdownOpen,
+                                      child: ListView.builder(
+                                        itemCount: 5,
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          return EventsFootball();
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      } else {
-                        return Container();
-                      }
-                    }),
-              )
-            ],
-          ),
-        );
-      } else {
-        return Container();
-      }
-    });
+                          );
+                        } else {
+                          return Container();
+                        }
+                      }),
+                )
+              ],
+            ),
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
   }
 
   void _showOptionsDialog() {
@@ -160,84 +165,91 @@ class _EventsContentState extends State<EventsContent> {
     showDialog(
         context: context,
         builder: (_) {
-          return BlocBuilder<CategoriesFilterBloc, CategoriesFilterState>(
-              builder: (contextCategories, stateCategories) {
-            return Dismissible(
-              key: UniqueKey(),
-              direction: DismissDirection.down,
-              onDismissed: (direction) {
-                Navigator.pop(context);
-              },
-              child: AlertDialog(
-                insetPadding: EdgeInsets.zero,
-                titlePadding: EdgeInsets.zero,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-                shape: const RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(20))),
-                title: SizedBox(
-                  height: height / 12,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      const Positioned(
-                        child: Text(
-                          "Dyscypliny",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
+          return BlocBuilder<EventsBloc, EventsState>(
+              builder: (context, state) {
+            if (state is FetchedEventsState) {
+              List<SportCategory> categoriesEvents = state.categories;
+
+              return Dismissible(
+                key: UniqueKey(),
+                direction: DismissDirection.down,
+                onDismissed: (direction) {
+                  Navigator.pop(context);
+                },
+                child: AlertDialog(
+                  insetPadding: EdgeInsets.zero,
+                  titlePadding: EdgeInsets.zero,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20))),
+                  title: SizedBox(
+                    height: height / 12,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        const Positioned(
+                          child: Text(
+                            "Dyscypliny",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
                         ),
-                      ),
-                      Positioned(
-                        right: 0,
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(Icons.close),
-                        ),
-                      )
-                    ],
+                        Positioned(
+                          right: 0,
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(Icons.close),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  content: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: ListView.builder(
+                        itemCount: categoriesEvents.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  border:
+                                      Border.all(width: 1, color: Colors.grey),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(5.0),
+                                  ),
+                                ),
+                                child: CheckboxListTile(
+                                  activeColor: Colors.black,
+                                  value: categoriesEvents[index].isSelected,
+                                  onChanged: (bool? value) {
+                                    BlocProvider.of<EventsBloc>(context).add(
+                                        CategoriesFilterEvent(
+                                            index: index,
+                                            categories: categoriesEvents));
+                                  },
+                                  title: Text(
+                                    categoriesEvents[index].name,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            categoriesEvents[index].isSelected
+                                                ? Colors.black
+                                                : Colors.grey),
+                                  ),
+                                )),
+                          );
+                        }),
                   ),
                 ),
-                content: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: ListView.builder(
-                      itemCount: sports.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Container(
-                              decoration: BoxDecoration(
-                                border:
-                                    Border.all(width: 1, color: Colors.grey),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(5.0),
-                                ),
-                              ),
-                              child: CheckboxListTile(
-                                activeColor: Colors.black,
-                                value: sports[index].isSelected,
-                                onChanged: (bool? value) {
-                                  BlocProvider.of<CategoriesFilterBloc>(
-                                          contextCategories)
-                                      .add(CategriesFilterRequested(
-                                          index: index, currentSports: sports));
-                                },
-                                title: Text(
-                                  sports[index].name,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: sports[index].isSelected
-                                          ? Colors.black
-                                          : Colors.grey),
-                                ),
-                              )),
-                        );
-                      }),
-                ),
-              ),
-            );
+              );
+            } else {
+              return Container();
+            }
           });
         });
   }
