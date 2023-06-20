@@ -5,15 +5,17 @@ class Event extends Equatable {
   final String eventName;
   final String category1Name;
   final String category2Name;
+  final String category3Name;
   final List<EventGame> eventGames;
 
   const Event(
       {required this.eventName,
       required this.category1Name,
       required this.category2Name,
+      required this.category3Name,
       required this.eventGames});
 
   @override
   List<Object?> get props =>
-      [eventName, category1Name, category2Name, eventGames];
+      [eventName, category1Name, category2Name, category3Name, eventGames];
 }

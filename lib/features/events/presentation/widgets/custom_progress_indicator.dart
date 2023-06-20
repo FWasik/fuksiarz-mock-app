@@ -10,11 +10,11 @@ class CustomProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: LinearProgressIndicator(
           value: time,
           backgroundColor: Colors.grey,
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+          valueColor: const AlwaysStoppedAnimation<Color>(Colors.red),
         ),
       ),
     );

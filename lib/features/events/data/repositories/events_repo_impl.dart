@@ -9,8 +9,8 @@ class EventsRepoImpl extends IEvents {
   EventsRepoImpl({required this.eventsDataSource});
 
   @override
-  Future<List<Event>> getAllEvents(int id) async {
-    final json = await eventsDataSource.fetchAllEvents(id);
+  Future<List<Event>> getEventsById(int id) async {
+    final json = await eventsDataSource.fetchEventsById(id);
 
     List<Event> events = [];
 

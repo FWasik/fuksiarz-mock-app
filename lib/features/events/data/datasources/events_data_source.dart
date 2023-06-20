@@ -9,6 +9,6 @@ class EventsDataSource {
 
     final response = await http.get(url);
 
-    return jsonDecode(response.body);
+    return jsonDecode(utf8.decode(response.bodyBytes));
   }
 }

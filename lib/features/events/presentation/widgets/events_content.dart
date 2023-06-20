@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
+import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/bloc/events_bloc.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/categories/events_football.dart';
 
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/category.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_button.dart';
+import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_category.dart';
 
 class EventsContent extends StatefulWidget {
   const EventsContent({Key? key}) : super(key: key);
@@ -27,7 +30,7 @@ class _EventsContentState extends State<EventsContent> {
           List<SportCategory> categoriesEvents = state.categories;
 
           return Container(
-            color: Color.fromARGB(255, 246, 246, 246),
+            color: const Color.fromARGB(255, 246, 246, 246),
             child: Column(
               children: [
                 Container(
@@ -57,101 +60,34 @@ class _EventsContentState extends State<EventsContent> {
                                   isClicked: categoriesEvents[index].isSelected,
                                   onPressed: (() {
                                     BlocProvider.of<EventsBloc>(context).add(
-                                        CategoriesFilterEvent(
-                                            index: index,
-                                            categories: categoriesEvents));
+                                      CategoriesFilterEvent(
+                                          index: index,
+                                          categories: categoriesEvents),
+                                    );
                                   }));
                             }),
                       ),
                     ]),
                   ),
                 ),
-                Expanded(
+                Flexible(
                   child: ListView.builder(
+                      shrinkWrap: true,
                       itemCount: categoriesEvents.length,
                       itemBuilder: (context, index) {
                         if (categoriesEvents[index].name != "WSZYSTKO") {
-                          return Visibility(
-                            visible: categoriesEvents[index].isSelected,
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                          width: 1, color: Colors.grey))),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height: height / 20,
-                                      alignment: Alignment.center,
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              categoriesEvents[index].name,
-                                              style: const TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  categoriesEvents[index]
-                                                          .isDropdownOpen =
-                                                      !categoriesEvents[index]
-                                                          .isDropdownOpen;
-                                                });
-                                              },
-                                              child: Container(
-                                                width: width / 10,
-                                                height: height / 22,
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                            Radius.circular(5)),
-                                                    border: Border.all(
-                                                        color: Colors.grey,
-                                                        width: 0.2)),
-                                                child: categoriesEvents[index]
-                                                        .isDropdownOpen
-                                                    ? const Icon(
-                                                        Icons.keyboard_arrow_up)
-                                                    : const Icon(Icons
-                                                        .keyboard_arrow_down),
-                                              ),
-                                            ),
-                                          ]),
-                                    ),
-                                    Visibility(
-                                      visible: categoriesEvents[index]
-                                          .isDropdownOpen,
-                                      child: ListView.builder(
-                                        itemCount: 5,
-                                        shrinkWrap: true,
-                                        physics: NeverScrollableScrollPhysics(),
-                                        itemBuilder: (context, index) {
-                                          return EventsFootball();
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
+                          return EventsCategory(
+                              category: categoriesEvents[index]);
                         } else {
                           return Container();
                         }
                       }),
-                )
+                ),
               ],
             ),
           );
         } else {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
