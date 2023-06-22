@@ -34,7 +34,7 @@ class _EventsContentState extends State<EventsContent> {
             child: Column(
               children: [
                 Container(
-                  height: height / 11,
+                  height: 70.0,
                   padding: const EdgeInsets.all(12.0),
                   decoration: const BoxDecoration(
                       border: Border(

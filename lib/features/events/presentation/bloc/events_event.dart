@@ -20,17 +20,19 @@ class CategoriesFilterEvent extends EventsEvent {
 }
 
 class SubcategoriesFilterEvent extends EventsEvent {
-  final int indexCategory;
-  final int indexSubcategory;
+  final SportSubsubcategory currentSubsubcategory;
+  final SportCategory currentCategory;
+
   final List<SportCategory> categories;
 
   const SubcategoriesFilterEvent(
-      {required this.indexCategory,
-      required this.indexSubcategory,
+      {required this.currentSubsubcategory,
+      required this.currentCategory,
       required this.categories});
 
   @override
-  List<Object> get props => [indexCategory, indexSubcategory, categories];
+  List<Object> get props =>
+      [currentSubsubcategory, currentCategory, categories];
 }
 
 class TypeEventFilterEvent extends EventsEvent {
@@ -48,31 +50,24 @@ class TypeEventFilterEvent extends EventsEvent {
 }
 
 class DropdownEventChangeEvent extends EventsEvent {
-  final bool dropdownValue;
   final SportCategory currentCategory;
   final List<SportCategory> categories;
 
   const DropdownEventChangeEvent(
-      {required this.dropdownValue,
-      required this.currentCategory,
-      required this.categories});
+      {required this.currentCategory, required this.categories});
 
   @override
-  List<Object> get props => [dropdownValue, currentCategory, categories];
+  List<Object> get props => [currentCategory, categories];
 }
 
 class ExpansionEventChangeEvent extends EventsEvent {
-  final bool expansionValue;
-  final SportSubcategory currentSubcategory;
-  final SportCategory currentCategory;
+  final SportSubsubcategory currentSubsubcategory;
+
   final List<SportCategory> categories;
 
   const ExpansionEventChangeEvent(
-      {required this.expansionValue,
-      required this.currentSubcategory,
-      required this.currentCategory,
-      required this.categories});
+      {required this.currentSubsubcategory, required this.categories});
 
   @override
-  List<Object> get props => [expansionValue, currentCategory, currentCategory];
+  List<Object> get props => [currentSubsubcategory, categories];
 }

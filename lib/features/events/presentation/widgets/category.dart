@@ -7,8 +7,8 @@ class SportCategory {
   bool isDropdownOpen = false;
   int importance;
   List<SportSubcategory> subcategories;
-  List<String> typesOfEventGames;
-  String currentType;
+  List<String>? typesOfEventGames;
+  String? currentType;
 
   SportCategory(
       {required this.name,
@@ -18,11 +18,19 @@ class SportCategory {
       required this.currentType});
 }
 
-class SportSubcategory {
+class SportSubsubcategory {
   String name;
   List<EventGame> eventGames;
+
   bool isSelected = false;
   bool isExpanded = false;
 
-  SportSubcategory({required this.name, required this.eventGames});
+  SportSubsubcategory({required this.name, required this.eventGames});
+}
+
+class SportSubcategory {
+  String name;
+  List<SportSubsubcategory> subsubcategories;
+
+  SportSubcategory({required this.name, required this.subsubcategories});
 }

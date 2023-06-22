@@ -30,31 +30,31 @@ class EventsMainTabBars extends StatelessWidget {
           Tab(
             child: Text(
               "Oferta",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 16),
             ),
           ),
           Tab(
             child: Text(
               "Moje",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 16),
             ),
           ),
           Tab(
             child: Text(
               "Live",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 16),
             ),
           ),
           Tab(
             child: Text(
               "Hot",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 16),
             ),
           ),
           Tab(
             child: Text(
               "Cashback",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 16),
             ),
           ),
           Tab(

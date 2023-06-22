@@ -35,18 +35,14 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
         for (int idx = 1; idx <= 6; idx++) {
           List<Event> events = await getEvents.call(idx);
 
-          List<String> typesOfEventGames = [];
           List<SportSubcategory> subcategories = [];
+          List<SportSubsubcategory> subsubcategories = [];
 
           for (Event event in events) {
-            typesOfEventGames.addAll(event.eventGames
-                .map((eventGame) => eventGame.gameName)
-                .toList());
-
-            // String nameOfSubcategory =
-            //     "${event.category2Name} > ${event.category3Name}";
-
             String nameOfSubcategory = event.category2Name;
+            String nameOfSubsubcategory =
+                "${event.category2Name} > ${event.category3Name}";
+
             SportSubcategory? existingSubcategory =
                 subcategories.cast<SportSubcategory?>().firstWhere(
                       (subcategory) => subcategory!.name == nameOfSubcategory,
@@ -54,22 +50,39 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
                     );
 
             if (existingSubcategory != null) {
-              existingSubcategory.eventGames.addAll(event.eventGames);
+              SportSubsubcategory? existingSubsubcategory = existingSubcategory
+                  .subsubcategories
+                  .cast<SportSubsubcategory?>()
+                  .firstWhere(
+                    (subsubcategory) =>
+                        subsubcategory!.name == nameOfSubsubcategory,
+                    orElse: () => null,
+                  );
+
+              if (existingSubsubcategory != null) {
+                existingSubsubcategory!.eventGames.addAll(event.eventGames);
+              } else {
+                existingSubcategory.subsubcategories.add(SportSubsubcategory(
+                    name: nameOfSubsubcategory, eventGames: event.eventGames));
+              }
             } else {
               subcategories.add(SportSubcategory(
-                  name: nameOfSubcategory, eventGames: event.eventGames));
+                  name: nameOfSubcategory,
+                  subsubcategories: [
+                    SportSubsubcategory(
+                        name: nameOfSubsubcategory,
+                        eventGames: event.eventGames)
+                  ]));
             }
           }
-
-          typesOfEventGames = Set<String>.from(typesOfEventGames).toList();
 
           categories.add(
             SportCategory(
                 name: categoriesNames[idx],
                 importance: idx,
                 subcategories: subcategories,
-                typesOfEventGames: typesOfEventGames,
-                currentType: typesOfEventGames[0]),
+                typesOfEventGames: null,
+                currentType: null),
           );
         }
 
@@ -116,18 +129,30 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
     });
 
     on<SubcategoriesFilterEvent>((event, emit) {
-      int indexSubcategory = event.indexSubcategory;
-      int indexCategory = event.indexCategory;
-
+      SportSubsubcategory currentSubsubcategory = event.currentSubsubcategory;
+      SportCategory currentCategory = event.currentCategory;
       List<SportCategory> categories = event.categories;
 
       emit(Loading());
 
-      bool isSelected =
-          categories[indexCategory].subcategories[indexSubcategory].isSelected;
+      currentSubsubcategory.isSelected = !currentSubsubcategory.isSelected;
 
-      categories[indexCategory].subcategories[indexSubcategory].isSelected =
-          !isSelected;
+      List<String> typesOfEventGames = [];
+      for (SportSubcategory subcategory in currentCategory.subcategories) {
+        typesOfEventGames.addAll(
+          subcategory.subsubcategories
+              .where((subsub) => subsub.isSelected)
+              .expand(
+                (subsub) =>
+                    subsub.eventGames.map((eventGame) => eventGame.gameName),
+              ),
+        );
+      }
+
+      typesOfEventGames = Set<String>.from(typesOfEventGames).toList();
+
+      currentCategory.typesOfEventGames = typesOfEventGames;
+      currentCategory.currentType = typesOfEventGames[0];
 
       emit(FetchedEventsState(categories: categories));
     });
@@ -139,43 +164,29 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
 
       emit(Loading());
 
-      int index = categories.indexOf(currentCategory);
-
-      categories[index].currentType = type;
+      currentCategory.currentType = type;
 
       emit(FetchedEventsState(categories: categories));
     });
 
     on<DropdownEventChangeEvent>((event, emit) {
-      bool dropdownValue = event.dropdownValue;
       SportCategory currentCategory = event.currentCategory;
       List<SportCategory> categories = event.categories;
 
       emit(Loading());
 
-      int index = categories.indexOf(currentCategory);
-
-      categories[index].isDropdownOpen = dropdownValue;
+      currentCategory.isDropdownOpen = !currentCategory.isDropdownOpen;
 
       emit(FetchedEventsState(categories: categories));
     });
 
     on<ExpansionEventChangeEvent>((event, emit) {
-      bool expansionValue = event.expansionValue;
-      SportSubcategory currentSubcategory = event.currentSubcategory;
-      SportCategory currentCategory = event.currentCategory;
+      SportSubsubcategory currentSubsubcategory = event.currentSubsubcategory;
       List<SportCategory> categories = event.categories;
 
       emit(Loading());
 
-      int indexSub = currentCategory.subcategories.indexOf(currentSubcategory);
-
-      currentSubcategory.isExpanded = expansionValue;
-      currentCategory.subcategories[indexSub].isExpanded = expansionValue;
-
-      int index = event.categories.indexOf(currentCategory);
-
-      categories[index] = currentCategory;
+      currentSubsubcategory.isExpanded = !currentSubsubcategory.isExpanded;
 
       emit(FetchedEventsState(categories: categories));
     });
