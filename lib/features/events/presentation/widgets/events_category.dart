@@ -292,7 +292,6 @@ Widget buildExpansionPanel(
           },
           children: [
             ExpansionPanel(
-              backgroundColor: const Color.fromARGB(255, 246, 246, 246),
               headerBuilder: (BuildContext context, bool isExpanded) {
                 return ListTile(
                   title: Text(subsubcategory.name),
@@ -300,7 +299,7 @@ Widget buildExpansionPanel(
               },
               body: ListView.builder(
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
                 itemCount: filteredEventGames.length,
                 itemBuilder: (BuildContext context, int indexGame) {
                   EventGame eventGame = filteredEventGames[indexGame];

@@ -29,62 +29,62 @@ class _EventsContentState extends State<EventsContent> {
         if (state is FetchedEventsState) {
           List<SportCategory> categoriesEvents = state.categories;
 
-          return Container(
-            color: const Color.fromARGB(255, 246, 246, 246),
-            child: Column(
-              children: [
-                Container(
-                  height: 70.0,
-                  padding: const EdgeInsets.all(12.0),
-                  decoration: const BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(width: 1, color: Colors.grey))),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(children: [
-                      SizedBox(
-                          width: 40,
-                          child: IconButton(
-                            icon: const Icon(Icons.tune),
-                            onPressed: _showOptionsDialog,
-                          )),
-                      SizedBox(
-                        width: width - 60,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: categoriesEvents.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return CustomButton(
-                                  text: categoriesEvents[index].name,
-                                  isClicked: categoriesEvents[index].isSelected,
-                                  onPressed: (() {
-                                    BlocProvider.of<EventsBloc>(context).add(
-                                      CategoriesFilterEvent(
-                                          index: index,
-                                          categories: categoriesEvents),
-                                    );
-                                  }));
-                            }),
-                      ),
-                    ]),
-                  ),
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: 75,
+                padding: const EdgeInsets.all(12.0),
+                decoration: const BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(width: 1, color: Colors.grey))),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(children: [
+                    SizedBox(
+                        width: 40,
+                        child: IconButton(
+                          icon: const Icon(Icons.tune),
+                          onPressed: _showOptionsDialog,
+                        )),
+                    SizedBox(
+                      width: width - 60,
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: categoriesEvents.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return CustomButton(
+                                text: categoriesEvents[index].name,
+                                isClicked: categoriesEvents[index].isSelected,
+                                onPressed: (() {
+                                  BlocProvider.of<EventsBloc>(context).add(
+                                    CategoriesFilterEvent(
+                                        index: index,
+                                        categories: categoriesEvents),
+                                  );
+                                }));
+                          }),
+                    ),
+                  ]),
                 ),
-                Flexible(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: categoriesEvents.length,
-                      itemBuilder: (context, index) {
-                        if (categoriesEvents[index].name != "WSZYSTKO") {
-                          return EventsCategory(
-                              category: categoriesEvents[index]);
-                        } else {
-                          return Container();
-                        }
-                      }),
-                ),
-              ],
-            ),
+              ),
+              Flexible(
+                child: ListView.builder(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: categoriesEvents.length,
+                    itemBuilder: (context, index) {
+                      if (categoriesEvents[index].name != "WSZYSTKO") {
+                        return EventsCategory(
+                            category: categoriesEvents[index]);
+                      } else {
+                        return Container();
+                      }
+                    }),
+              ),
+            ],
           );
         } else {
           return const Center(

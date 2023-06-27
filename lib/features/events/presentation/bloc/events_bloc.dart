@@ -60,7 +60,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
                   );
 
               if (existingSubsubcategory != null) {
-                existingSubsubcategory!.eventGames.addAll(event.eventGames);
+                existingSubsubcategory.eventGames.addAll(event.eventGames);
               } else {
                 existingSubcategory.subsubcategories.add(SportSubsubcategory(
                     name: nameOfSubsubcategory, eventGames: event.eventGames));
