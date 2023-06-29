@@ -35,75 +35,75 @@ class _EventsCategoryState extends State<EventsCategory> {
           }
 
           return Container(
-            decoration: const BoxDecoration(
-                border:
-                    Border(bottom: BorderSide(width: 1, color: Colors.grey))),
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.grey[300]!))),
             child: Column(
               children: [
                 Container(
                   padding: EdgeInsets.all(10.0),
                   height: 60.0,
                   alignment: Alignment.center,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          widget.category.name,
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        Spacer(flex: 8),
-                        GestureDetector(
-                          onTap: () {
-                            _showOptionsDialog(widget.category);
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(5.0),
-                            width: width / 5.5,
-                            height: height / 22,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(5)),
-                                border:
-                                    Border.all(color: Colors.grey, width: 0.2)),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Icon(Icons.tune, size: 23.0),
-                                  Text(
-                                    "LIGI",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )
-                                ]),
+                  child: Row(children: [
+                    Text(
+                      widget.category.name,
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              _showOptionsDialog(widget.category);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 8.0),
+                              width: 75.0,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(5)),
+                                  border: Border.all(color: Colors.grey[300]!)),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(Icons.tune, size: 20.0),
+                                    Text(
+                                      "LIGI",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ]),
+                            ),
                           ),
-                        ),
-                        Spacer(flex: 1),
-                        GestureDetector(
-                          onTap: () {
-                            BlocProvider.of<EventsBloc>(context).add(
-                              DropdownEventChangeEvent(
-                                  currentCategory: widget.category,
-                                  categories: state.categories),
-                            );
-                          },
-                          child: Container(
-                            width: width / 10,
-                            height: height / 22,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(5)),
-                                border:
-                                    Border.all(color: Colors.grey, width: 0.2)),
-                            child: widget.category.isDropdownOpen
-                                ? const Icon(Icons.keyboard_arrow_up)
-                                : const Icon(Icons.keyboard_arrow_down),
+                          SizedBox(width: 15),
+                          GestureDetector(
+                            onTap: () {
+                              BlocProvider.of<EventsBloc>(context).add(
+                                DropdownEventChangeEvent(
+                                    currentCategory: widget.category,
+                                    categories: state.categories),
+                              );
+                            },
+                            child: Container(
+                              width: width / 10,
+                              height: height / 22,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(5)),
+                                  border: Border.all(color: Colors.grey[300]!)),
+                              child: widget.category.isDropdownOpen
+                                  ? const Icon(Icons.keyboard_arrow_up)
+                                  : const Icon(Icons.keyboard_arrow_down),
+                            ),
                           ),
-                        ),
-                      ]),
+                        ],
+                      ),
+                    )
+                  ]),
                 ),
                 widget.category.isDropdownOpen
                     ? filteredList.isNotEmpty
@@ -145,7 +145,7 @@ class _EventsCategoryState extends State<EventsCategory> {
                             ),
                           )
                         : Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
+                            padding: EdgeInsets.all(12.0),
                             child: Container(
                               decoration: BoxDecoration(
                                   color: Colors.blueGrey[100],
@@ -231,8 +231,7 @@ class _EventsCategoryState extends State<EventsCategory> {
                             padding: const EdgeInsets.symmetric(vertical: 10.0),
                             child: Container(
                                 decoration: BoxDecoration(
-                                  border:
-                                      Border.all(width: 1, color: Colors.grey),
+                                  border: Border.all(color: Colors.grey[300]!),
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(5.0),
                                   ),
@@ -293,19 +292,30 @@ Widget buildExpansionPanel(
           children: [
             ExpansionPanel(
               headerBuilder: (BuildContext context, bool isExpanded) {
-                return ListTile(
-                  title: Text(subsubcategory.name),
+                return Padding(
+                  padding: EdgeInsets.only(left: 12.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      subsubcategory.name,
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 );
               },
-              body: ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: filteredEventGames.length,
-                itemBuilder: (BuildContext context, int indexGame) {
-                  EventGame eventGame = filteredEventGames[indexGame];
+              body: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.0),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: filteredEventGames.length,
+                  itemBuilder: (BuildContext context, int indexGame) {
+                    EventGame eventGame = filteredEventGames[indexGame];
 
-                  return EventsFootball(eventGame: eventGame);
-                },
+                    return EventsFootball(eventGame: eventGame);
+                  },
+                ),
               ),
               isExpanded: subsubcategory.isExpanded,
             ),

@@ -21,13 +21,13 @@ class EventsFootball extends StatelessWidget {
     int time = 45;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      padding: const EdgeInsets.only(bottom: 15.0),
       child: Container(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
         height: height / 6,
         decoration: BoxDecoration(
-            border: Border.all(width: 1, color: Colors.grey),
-            borderRadius: const BorderRadius.all(Radius.circular(5.0))),
+            border: Border.all(color: Colors.grey[300]!),
+            borderRadius: const BorderRadius.all(Radius.circular(10.0))),
         child: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

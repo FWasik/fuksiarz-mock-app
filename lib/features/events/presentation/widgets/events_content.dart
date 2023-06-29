@@ -35,9 +35,9 @@ class _EventsContentState extends State<EventsContent> {
               Container(
                 height: 75,
                 padding: const EdgeInsets.all(12.0),
-                decoration: const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(width: 1, color: Colors.grey))),
+                decoration: BoxDecoration(
+                    border:
+                        Border(bottom: BorderSide(color: Colors.grey[300]!))),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(children: [
@@ -87,8 +87,11 @@ class _EventsContentState extends State<EventsContent> {
             ],
           );
         } else {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return const SizedBox(
+            height: 500,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
       },
