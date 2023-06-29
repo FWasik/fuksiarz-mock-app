@@ -27,7 +27,7 @@ class _EventsContentState extends State<EventsContent> {
     return BlocBuilder<EventsBloc, EventsState>(
       builder: (context, state) {
         if (state is FetchedEventsState) {
-          List<SportCategory> categoriesEvents = state.categories;
+          List<SportCategory1Name> categoriesEvents = state.categories;
 
           return Column(
             mainAxisSize: MainAxisSize.min,
@@ -107,7 +107,7 @@ class _EventsContentState extends State<EventsContent> {
           return BlocBuilder<EventsBloc, EventsState>(
               builder: (context, state) {
             if (state is FetchedEventsState) {
-              List<SportCategory> categoriesEvents = state.categories;
+              List<SportCategory1Name> categoriesEvents = state.categories;
 
               return Dismissible(
                 key: UniqueKey(),

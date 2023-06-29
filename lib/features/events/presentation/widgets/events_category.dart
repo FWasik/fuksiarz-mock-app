@@ -9,7 +9,7 @@ import 'package:fuksiarz_mock_app/features/events/presentation/widgets/category.
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_button.dart';
 
 class EventsCategory extends StatefulWidget {
-  final SportCategory category;
+  final SportCategory1Name category;
 
   const EventsCategory({Key? key, required this.category}) : super(key: key);
 
@@ -26,9 +26,10 @@ class _EventsCategoryState extends State<EventsCategory> {
     return BlocBuilder<EventsBloc, EventsState>(
       builder: (context, state) {
         if (state is FetchedEventsState && widget.category.isSelected) {
-          List<SportSubsubcategory> filteredList = [];
+          List<SportCategory3Name> filteredList = [];
 
-          for (SportSubcategory subcategory in widget.category.subcategories) {
+          for (SportCategory2Name subcategory
+              in widget.category.subcategories) {
             filteredList.addAll(subcategory.subsubcategories
                 .where((element) => element.isSelected)
                 .toList());
@@ -108,22 +109,21 @@ class _EventsCategoryState extends State<EventsCategory> {
                 widget.category.isDropdownOpen
                     ? filteredList.isNotEmpty
                         ? DefaultTabController(
-                            length: widget.category.typesOfEventGames!.length,
+                            length: widget.category.gameNames!.length,
                             child: Column(
                               children: [
                                 TabBar(
                                   isScrollable: true,
                                   onTap: (index) {
                                     BlocProvider.of<EventsBloc>(context).add(
-                                      TypeEventFilterEvent(
-                                          type: widget.category
-                                              .typesOfEventGames![index],
+                                      GameNameEventFilterEvent(
+                                          gameName:
+                                              widget.category.gameNames![index],
                                           currentCategory: widget.category,
                                           categories: state.categories),
                                     );
                                   },
-                                  tabs: widget.category.typesOfEventGames!
-                                      .map((type) {
+                                  tabs: widget.category.gameNames!.map((type) {
                                     return Tab(
                                       child: Text(
                                         type,
@@ -134,7 +134,7 @@ class _EventsCategoryState extends State<EventsCategory> {
                                   }).toList(),
                                 ),
                                 ...filteredList.map((subsubcategory) {
-                                  if (subsubcategory.eventGames.isNotEmpty) {
+                                  if (subsubcategory.events.isNotEmpty) {
                                     return buildExpansionPanel(
                                         widget.category, subsubcategory);
                                   } else {
@@ -169,7 +169,7 @@ class _EventsCategoryState extends State<EventsCategory> {
     );
   }
 
-  void _showOptionsDialog(SportCategory category) {
+  void _showOptionsDialog(SportCategory1Name category) {
     final double height = MediaQuery.of(context).size.height;
 
     showDialog(
@@ -178,9 +178,9 @@ class _EventsCategoryState extends State<EventsCategory> {
           return BlocBuilder<EventsBloc, EventsState>(
               builder: (context, state) {
             if (state is FetchedEventsState) {
-              List<SportSubsubcategory> subsubcategories = [];
+              List<SportCategory3Name> subsubcategories = [];
 
-              for (SportSubcategory subcategory in category.subcategories) {
+              for (SportCategory2Name subcategory in category.subcategories) {
                 subsubcategories.addAll(subcategory.subsubcategories);
               }
 
@@ -271,14 +271,15 @@ class _EventsCategoryState extends State<EventsCategory> {
 }
 
 Widget buildExpansionPanel(
-    SportCategory category, SportSubsubcategory subsubcategory) {
+    SportCategory1Name category, SportCategory3Name subsubcategory) {
   return BlocBuilder<EventsBloc, EventsState>(
     builder: (context, state) {
-      var filteredEventGames = subsubcategory.eventGames
-          .where((eventGame) => eventGame.gameName == category.currentType)
+      var areAnyEventGames = subsubcategory.events
+          .expand((event) => event.eventGames)
+          .where((eventGame) => eventGame.gameName == category.currentGameName)
           .toList();
 
-      if (state is FetchedEventsState && filteredEventGames.isNotEmpty) {
+      if (state is FetchedEventsState && areAnyEventGames.isNotEmpty) {
         return ExpansionPanelList(
           elevation: 0,
           expandedHeaderPadding: EdgeInsets.zero,
@@ -307,15 +308,29 @@ Widget buildExpansionPanel(
               body: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12.0),
                 child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: filteredEventGames.length,
-                  itemBuilder: (BuildContext context, int indexGame) {
-                    EventGame eventGame = filteredEventGames[indexGame];
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: subsubcategory.events.length,
+                    itemBuilder: (BuildContext context, int indexEvent) {
+                      var filteredEventGames = subsubcategory
+                          .events[indexEvent].eventGames
+                          .where((eventGame) =>
+                              eventGame.gameName == category.currentGameName)
+                          .toList();
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: filteredEventGames.length,
+                        itemBuilder: (BuildContext context, int indexGame) {
+                          EventGame eventGame = filteredEventGames[indexGame];
 
-                    return EventsFootball(eventGame: eventGame);
-                  },
-                ),
+                          return EventsFootball(
+                              eventType:
+                                  subsubcategory.events[indexEvent].eventType,
+                              eventGame: eventGame);
+                        },
+                      );
+                    }),
               ),
               isExpanded: subsubcategory.isExpanded,
             ),

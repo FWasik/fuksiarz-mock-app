@@ -3,6 +3,7 @@ import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dar
 
 class Event extends Equatable {
   final String eventName;
+  final int eventType;
   final String category1Name;
   final String category2Name;
   final String category3Name;
@@ -10,12 +11,19 @@ class Event extends Equatable {
 
   const Event(
       {required this.eventName,
+      required this.eventType,
       required this.category1Name,
       required this.category2Name,
       required this.category3Name,
       required this.eventGames});
 
   @override
-  List<Object?> get props =>
-      [eventName, category1Name, category2Name, category3Name, eventGames];
+  List<Object?> get props => [
+        eventName,
+        eventType,
+        category1Name,
+        category2Name,
+        category3Name,
+        eventGames
+      ];
 }

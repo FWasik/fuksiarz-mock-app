@@ -11,7 +11,7 @@ class FetchedEventsEvent extends EventsEvent {}
 
 class CategoriesFilterEvent extends EventsEvent {
   final int index;
-  final List<SportCategory> categories;
+  final List<SportCategory1Name> categories;
 
   const CategoriesFilterEvent({required this.index, required this.categories});
 
@@ -20,10 +20,10 @@ class CategoriesFilterEvent extends EventsEvent {
 }
 
 class SubcategoriesFilterEvent extends EventsEvent {
-  final SportSubsubcategory currentSubsubcategory;
-  final SportCategory currentCategory;
+  final SportCategory3Name currentSubsubcategory;
+  final SportCategory1Name currentCategory;
 
-  final List<SportCategory> categories;
+  final List<SportCategory1Name> categories;
 
   const SubcategoriesFilterEvent(
       {required this.currentSubsubcategory,
@@ -35,23 +35,23 @@ class SubcategoriesFilterEvent extends EventsEvent {
       [currentSubsubcategory, currentCategory, categories];
 }
 
-class TypeEventFilterEvent extends EventsEvent {
-  final String type;
-  final SportCategory currentCategory;
-  final List<SportCategory> categories;
+class GameNameEventFilterEvent extends EventsEvent {
+  final String gameName;
+  final SportCategory1Name currentCategory;
+  final List<SportCategory1Name> categories;
 
-  const TypeEventFilterEvent(
-      {required this.type,
+  const GameNameEventFilterEvent(
+      {required this.gameName,
       required this.currentCategory,
       required this.categories});
 
   @override
-  List<Object> get props => [type, currentCategory, categories];
+  List<Object> get props => [gameName, currentCategory, categories];
 }
 
 class DropdownEventChangeEvent extends EventsEvent {
-  final SportCategory currentCategory;
-  final List<SportCategory> categories;
+  final SportCategory1Name currentCategory;
+  final List<SportCategory1Name> categories;
 
   const DropdownEventChangeEvent(
       {required this.currentCategory, required this.categories});
@@ -61,9 +61,9 @@ class DropdownEventChangeEvent extends EventsEvent {
 }
 
 class ExpansionEventChangeEvent extends EventsEvent {
-  final SportSubsubcategory currentSubsubcategory;
+  final SportCategory3Name currentSubsubcategory;
 
-  final List<SportCategory> categories;
+  final List<SportCategory1Name> categories;
 
   const ExpansionEventChangeEvent(
       {required this.currentSubsubcategory, required this.categories});

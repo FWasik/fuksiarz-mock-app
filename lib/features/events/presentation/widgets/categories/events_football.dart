@@ -6,9 +6,12 @@ import 'package:fuksiarz_mock_app/features/events/presentation/widgets/bet_widge
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/custom_progress_indicator.dart';
 
 class EventsFootball extends StatelessWidget {
+  final int eventType;
   final EventGame eventGame;
 
-  const EventsFootball({Key? key, required this.eventGame}) : super(key: key);
+  const EventsFootball(
+      {Key? key, required this.eventType, required this.eventGame})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
@@ -91,7 +94,7 @@ class EventsFootball extends StatelessWidget {
                     const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
               ),
               const Spacer(flex: 4),
-              if (eventGame.outcomes.length > 3) ...[
+              if (eventType != 1) ...[
                 ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(

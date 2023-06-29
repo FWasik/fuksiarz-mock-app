@@ -10,7 +10,7 @@ abstract class EventsState extends Equatable {
 class EventsInitial extends EventsState {}
 
 class FetchedEventsState extends EventsState {
-  final List<SportCategory> categories;
+  final List<SportCategory1Name> categories;
 
   const FetchedEventsState({required this.categories});
 

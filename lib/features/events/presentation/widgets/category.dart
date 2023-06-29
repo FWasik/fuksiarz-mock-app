@@ -1,36 +1,36 @@
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
 
-class SportCategory {
+class SportCategory1Name {
   String name;
   bool isSelected = false;
   bool isDropdownOpen = false;
   int importance;
-  List<SportSubcategory> subcategories;
-  List<String>? typesOfEventGames;
-  String? currentType;
+  List<SportCategory2Name> subcategories;
+  List<String>? gameNames;
+  String? currentGameName;
 
-  SportCategory(
+  SportCategory1Name(
       {required this.name,
       required this.importance,
       required this.subcategories,
-      required this.typesOfEventGames,
-      required this.currentType});
+      required this.gameNames,
+      required this.currentGameName});
 }
 
-class SportSubsubcategory {
+class SportCategory3Name {
   String name;
-  List<EventGame> eventGames;
+  List<Event> events;
 
   bool isSelected = false;
   bool isExpanded = false;
 
-  SportSubsubcategory({required this.name, required this.eventGames});
+  SportCategory3Name({required this.name, required this.events});
 }
 
-class SportSubcategory {
+class SportCategory2Name {
   String name;
-  List<SportSubsubcategory> subsubcategories;
+  List<SportCategory3Name> subsubcategories;
 
-  SportSubcategory({required this.name, required this.subsubcategories});
+  SportCategory2Name({required this.name, required this.subsubcategories});
 }
