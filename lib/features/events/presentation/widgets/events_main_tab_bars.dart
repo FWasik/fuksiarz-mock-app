@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 
-class EventsMainTabBars extends StatelessWidget {
-  const EventsMainTabBars({Key? key}) : super(key: key);
+class EventsMainTabBars extends StatefulWidget {
+  Function(int) changeIndexCallback;
 
+  EventsMainTabBars({Key? key, required this.changeIndexCallback})
+      : super(key: key);
+
+  @override
+  State<EventsMainTabBars> createState() => _EventsMainTabBarsState();
+}
+
+class _EventsMainTabBarsState extends State<EventsMainTabBars> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,6 +34,9 @@ class EventsMainTabBars extends StatelessWidget {
           ],
         ),
         unselectedLabelColor: Colors.black,
+        onTap: (index) {
+          widget.changeIndexCallback(index);
+        },
         tabs: const [
           Tab(
             child: Text(

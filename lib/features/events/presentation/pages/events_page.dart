@@ -13,7 +13,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController searchController = TextEditingController();
 
-  int currenctIndex = 0;
+  int currentIndex = 0;
 
   @override
   void dispose() {
@@ -92,73 +92,9 @@ class _MyHomePageState extends State<MyHomePage> {
           child: ListView(
             children: [
               SearchInput(searchController: searchController),
-              Container(
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 245, 245, 245),
-                ),
-                child: TabBar(
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  onTap: (index) {
-                    setState(() {
-                      currenctIndex = index;
-                    });
-
-                    print(currenctIndex);
-                  },
-                  isScrollable: true,
-                  indicatorColor: Colors.white,
-                  labelColor: Colors.black,
-                  indicator: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        blurRadius: 4.0,
-                        spreadRadius: 0.0,
-                        offset: const Offset(0, -4),
-                      ),
-                    ],
-                  ),
-                  unselectedLabelColor: Colors.black,
-                  tabs: const [
-                    Tab(
-                      child: Text(
-                        "Oferta",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        "Moje",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        "Live",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        "Hot",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        "Cashback",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                    Tab(
-                      icon: Icon(Icons.calendar_month),
-                    ),
-                  ],
-                ),
-              ),
+              EventsMainTabBars(changeIndexCallback: _changeIndexCallback),
               Builder(builder: (_) {
-                if (currenctIndex == 1) {
+                if (currentIndex == 1) {
                   return EventsContent();
                 } else {
                   return Icon(Icons.abc);
@@ -167,5 +103,11 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           )),
     );
+  }
+
+  void _changeIndexCallback(int index) {
+    setState(() {
+      currentIndex = index;
+    });
   }
 }

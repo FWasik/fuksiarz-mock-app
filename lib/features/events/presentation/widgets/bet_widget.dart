@@ -47,7 +47,7 @@ class BetWidget extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
-            width: width / 7,
+            width: width / 10,
             child: Center(
               child: Text(
                 outcome.outcomeName,

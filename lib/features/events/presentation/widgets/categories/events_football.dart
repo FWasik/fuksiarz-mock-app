@@ -117,44 +117,7 @@ class EventsFootball extends StatelessWidget {
               ] else
                 for (Outcome outcome in eventGame.outcomes) ...[
                   const Spacer(flex: 1),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12.0, horizontal: 6.0),
-                      backgroundColor: Colors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                          side:
-                              const BorderSide(color: Colors.grey, width: 0.8)),
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: width / 7,
-                          child: Center(
-                            child: Text(
-                              outcome.outcomeName,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 3.0),
-                        Text(
-                          outcome.outcomeOdds.toString(),
-                          style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        )
-                      ],
-                    ),
-                  )
+                  BetWidget(outcome: outcome)
                 ]
             ],
           )
