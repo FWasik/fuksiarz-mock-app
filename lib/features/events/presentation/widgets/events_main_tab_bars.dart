@@ -15,7 +15,7 @@ class _EventsMainTabBarsState extends State<EventsMainTabBars> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 245, 245, 245),
+        color: Colors.white,
       ),
       child: TabBar(
         indicatorSize: TabBarIndicatorSize.tab,
@@ -23,21 +23,26 @@ class _EventsMainTabBarsState extends State<EventsMainTabBars> {
         indicatorColor: Colors.white,
         labelColor: Colors.black,
         indicator: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 4.0,
-              spreadRadius: 0.0,
-              offset: const Offset(0, -4),
+            color: Color.fromARGB(26, 158, 158, 158),
+            border: Border(
+              top: BorderSide(color: Colors.grey[300]!),
+              left: BorderSide(color: Colors.grey[300]!),
+              right: BorderSide(color: Colors.grey[300]!),
+            )
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Colors.black.withOpacity(0.2),
+            //     blurRadius: 4.0,
+            //     spreadRadius: 0.0,
+            //     offset: const Offset(0, -4),
+            //   ),
+            // ],
             ),
-          ],
-        ),
         unselectedLabelColor: Colors.black,
         onTap: (index) {
           widget.changeIndexCallback(index);
         },
-        tabs: const [
+        tabs: [
           Tab(
             child: Text(
               "Oferta",
@@ -69,7 +74,7 @@ class _EventsMainTabBarsState extends State<EventsMainTabBars> {
             ),
           ),
           Tab(
-            icon: Icon(Icons.calendar_month),
+            child: Icon(Icons.calendar_month),
           ),
         ],
       ),

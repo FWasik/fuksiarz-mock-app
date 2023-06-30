@@ -13,16 +13,12 @@ class SearchInput extends StatefulWidget {
 class _SearchInputState extends State<SearchInput> {
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
-    final double width = MediaQuery.of(context).size.width;
-
     return Container(
       decoration: BoxDecoration(
           color: const Color.fromARGB(119, 243, 243, 243),
-          border: Border.all(color: Colors.grey, width: 0.2)),
+          border: Border.all(color: Colors.grey[300]!)),
       child: Padding(
-        padding:
-            EdgeInsets.symmetric(vertical: height / 50, horizontal: width / 30),
+        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         child: TextField(
           controller: widget.searchController,
           style: const TextStyle(backgroundColor: Colors.white, fontSize: 14),

@@ -16,8 +16,10 @@ class BetWidget extends StatelessWidget {
             width: 55,
             padding: const EdgeInsets.all(5.0),
             decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey[300]!),
-                borderRadius: const BorderRadius.all(Radius.circular(5.0))),
+              color: Colors.white,
+              border: Border.all(color: Colors.grey[300]!),
+              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

@@ -284,7 +284,10 @@ Widget buildExpansionPanel(
       if (state is FetchedEventsState && areAnyEventGames.isNotEmpty) {
         return Container(
           decoration: BoxDecoration(
-              border: Border(top: BorderSide(color: Colors.grey[300]!))),
+            border: Border(
+              top: BorderSide(color: Colors.grey[300]!),
+            ),
+          ),
           child: ExpansionPanelList(
             elevation: 0,
             expandedHeaderPadding: EdgeInsets.zero,
@@ -297,6 +300,7 @@ Widget buildExpansionPanel(
             },
             children: [
               ExpansionPanel(
+                backgroundColor: Color.fromARGB(26, 213, 213, 213),
                 headerBuilder: (BuildContext context, bool isExpanded) {
                   return Padding(
                     padding: const EdgeInsets.only(left: 12.0),
