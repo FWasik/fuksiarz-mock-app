@@ -1,5 +1,4 @@
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
-import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
 
 class SportCategory1Name {
   String name;

@@ -36,7 +36,6 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
           List<Event> events = await getEvents.call(idx);
 
           List<SportCategory2Name> subcategories = [];
-          List<SportCategory3Name> subsubcategories = [];
 
           for (Event event in events) {
             String nameOfSubcategory = event.category2Name;

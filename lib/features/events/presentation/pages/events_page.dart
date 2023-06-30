@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
               bottom: 0,
               child: Container(
                 width: width,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(40.0),
@@ -51,8 +51,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 30.0, vertical: 15.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 30.0, vertical: 15.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -95,9 +95,9 @@ class _MyHomePageState extends State<MyHomePage> {
               EventsMainTabBars(changeIndexCallback: _changeIndexCallback),
               Builder(builder: (_) {
                 if (currentIndex == 1) {
-                  return EventsContent();
+                  return const EventsContent();
                 } else {
-                  return Icon(Icons.abc);
+                  return const Icon(Icons.abc);
                 }
               })
             ],

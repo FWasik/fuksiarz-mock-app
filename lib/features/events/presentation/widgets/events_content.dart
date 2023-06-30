@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
-import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/bloc/events_bloc.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/categories/events_football.dart';
 
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/category.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_button.dart';
@@ -21,7 +18,6 @@ class _EventsContentState extends State<EventsContent> {
 
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
 
     return BlocBuilder<EventsBloc, EventsState>(
@@ -73,7 +69,7 @@ class _EventsContentState extends State<EventsContent> {
                 child: ListView.builder(
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: categoriesEvents.length,
                     itemBuilder: (context, index) {
                       if (categoriesEvents[index].name != "WSZYSTKO") {
@@ -99,8 +95,6 @@ class _EventsContentState extends State<EventsContent> {
   }
 
   void _showOptionsDialog() {
-    final double height = MediaQuery.of(context).size.height;
-
     showDialog(
         context: context,
         builder: (_) {
@@ -123,7 +117,7 @@ class _EventsContentState extends State<EventsContent> {
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(20))),
                   title: SizedBox(
-                    height: height / 12,
+                    height: 50,
                     child: Stack(
                       alignment: Alignment.center,
                       children: [

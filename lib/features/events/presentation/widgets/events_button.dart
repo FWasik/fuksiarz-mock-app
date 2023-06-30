@@ -22,9 +22,7 @@ class CustomButton extends StatelessWidget {
           foregroundColor: Colors.black,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-          backgroundColor: isClicked
-              ? Colors.white
-              : const Color.fromARGB(255, 228, 228, 228),
+          backgroundColor: isClicked ? Colors.blueGrey[100] : Colors.white,
         ),
         child: Text(text,
             style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),

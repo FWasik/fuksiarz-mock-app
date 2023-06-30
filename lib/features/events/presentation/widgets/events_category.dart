@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/bloc/events_bloc.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/categories/events_football.dart';
+import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_event_game.dart';
 
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/category.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_button.dart';
 
 class EventsCategory extends StatefulWidget {
   final SportCategory1Name category;
@@ -20,9 +18,6 @@ class EventsCategory extends StatefulWidget {
 class _EventsCategoryState extends State<EventsCategory> {
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
-    final double width = MediaQuery.of(context).size.width;
-
     return BlocBuilder<EventsBloc, EventsState>(
       builder: (context, state) {
         if (state is FetchedEventsState && widget.category.isSelected) {
@@ -41,9 +36,8 @@ class _EventsCategoryState extends State<EventsCategory> {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   height: 60.0,
-                  alignment: Alignment.center,
                   child: Row(children: [
                     Text(
                       widget.category.name,
@@ -59,14 +53,15 @@ class _EventsCategoryState extends State<EventsCategory> {
                               _showOptionsDialog(widget.category);
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 8.0),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
                               width: 75.0,
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(5)),
                                   border: Border.all(color: Colors.grey[300]!)),
-                              child: Row(
+                              child: const Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
@@ -79,7 +74,7 @@ class _EventsCategoryState extends State<EventsCategory> {
                                   ]),
                             ),
                           ),
-                          SizedBox(width: 15),
+                          const SizedBox(width: 15),
                           GestureDetector(
                             onTap: () {
                               BlocProvider.of<EventsBloc>(context).add(
@@ -89,17 +84,20 @@ class _EventsCategoryState extends State<EventsCategory> {
                               );
                             },
                             child: Container(
-                              width: width / 10,
-                              height: height / 22,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(5)),
-                                  border: Border.all(color: Colors.grey[300]!)),
-                              child: widget.category.isDropdownOpen
-                                  ? const Icon(Icons.keyboard_arrow_up)
-                                  : const Icon(Icons.keyboard_arrow_down),
-                            ),
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(5)),
+                                    border:
+                                        Border.all(color: Colors.grey[300]!)),
+                                child: Icon(
+                                  widget.category.isDropdownOpen
+                                      ? Icons.keyboard_arrow_up
+                                      : Icons.keyboard_arrow_down,
+                                  size: 30.0,
+                                )),
                           ),
                         ],
                       ),
@@ -112,26 +110,32 @@ class _EventsCategoryState extends State<EventsCategory> {
                             length: widget.category.gameNames!.length,
                             child: Column(
                               children: [
-                                TabBar(
-                                  isScrollable: true,
-                                  onTap: (index) {
-                                    BlocProvider.of<EventsBloc>(context).add(
-                                      GameNameEventFilterEvent(
-                                          gameName:
-                                              widget.category.gameNames![index],
-                                          currentCategory: widget.category,
-                                          categories: state.categories),
-                                    );
-                                  },
-                                  tabs: widget.category.gameNames!.map((type) {
-                                    return Tab(
-                                      child: Text(
-                                        type,
-                                        style: const TextStyle(
-                                            color: Colors.black),
-                                      ),
-                                    );
-                                  }).toList(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: TabBar(
+                                    isScrollable: true,
+                                    indicatorColor: const Color.fromARGB(
+                                        255, 109, 138, 188),
+                                    onTap: (index) {
+                                      BlocProvider.of<EventsBloc>(context).add(
+                                        GameNameEventFilterEvent(
+                                            gameName: widget
+                                                .category.gameNames![index],
+                                            currentCategory: widget.category,
+                                            categories: state.categories),
+                                      );
+                                    },
+                                    tabs:
+                                        widget.category.gameNames!.map((type) {
+                                      return Tab(
+                                        child: Text(
+                                          type,
+                                          style: TextStyle(
+                                              color: Colors.blueGrey[700]),
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
                                 ),
                                 ...filteredList.map((subsubcategory) {
                                   if (subsubcategory.events.isNotEmpty) {
@@ -145,14 +149,14 @@ class _EventsCategoryState extends State<EventsCategory> {
                             ),
                           )
                         : Padding(
-                            padding: EdgeInsets.all(12.0),
+                            padding: const EdgeInsets.all(12.0),
                             child: Container(
                               decoration: BoxDecoration(
                                   color: Colors.blueGrey[100],
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0))),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10.0))),
                               height: 50,
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                     "Aktualnie nie ma żadnych wydarzeń w wybranej dyscyplinie"),
                               ),
@@ -170,8 +174,6 @@ class _EventsCategoryState extends State<EventsCategory> {
   }
 
   void _showOptionsDialog(SportCategory1Name category) {
-    final double height = MediaQuery.of(context).size.height;
-
     showDialog(
         context: context,
         builder: (_) {
@@ -198,7 +200,7 @@ class _EventsCategoryState extends State<EventsCategory> {
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(20))),
                   title: SizedBox(
-                    height: height / 12,
+                    height: 50,
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
@@ -280,61 +282,65 @@ Widget buildExpansionPanel(
           .toList();
 
       if (state is FetchedEventsState && areAnyEventGames.isNotEmpty) {
-        return ExpansionPanelList(
-          elevation: 0,
-          expandedHeaderPadding: EdgeInsets.zero,
-          expansionCallback: (int index, bool isExpanded) {
-            BlocProvider.of<EventsBloc>(context).add(
-              ExpansionEventChangeEvent(
-                  currentSubsubcategory: subsubcategory,
-                  categories: state.categories),
-            );
-          },
-          children: [
-            ExpansionPanel(
-              headerBuilder: (BuildContext context, bool isExpanded) {
-                return Padding(
-                  padding: EdgeInsets.only(left: 12.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      subsubcategory.name,
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        return Container(
+          decoration: BoxDecoration(
+              border: Border(top: BorderSide(color: Colors.grey[300]!))),
+          child: ExpansionPanelList(
+            elevation: 0,
+            expandedHeaderPadding: EdgeInsets.zero,
+            expansionCallback: (int index, bool isExpanded) {
+              BlocProvider.of<EventsBloc>(context).add(
+                ExpansionEventChangeEvent(
+                    currentSubsubcategory: subsubcategory,
+                    categories: state.categories),
+              );
+            },
+            children: [
+              ExpansionPanel(
+                headerBuilder: (BuildContext context, bool isExpanded) {
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 12.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        subsubcategory.name,
+                        style: const TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                );
-              },
-              body: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.0),
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: subsubcategory.events.length,
-                    itemBuilder: (BuildContext context, int indexEvent) {
-                      var filteredEventGames = subsubcategory
-                          .events[indexEvent].eventGames
-                          .where((eventGame) =>
-                              eventGame.gameName == category.currentGameName)
-                          .toList();
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: filteredEventGames.length,
-                        itemBuilder: (BuildContext context, int indexGame) {
-                          EventGame eventGame = filteredEventGames[indexGame];
+                  );
+                },
+                body: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: subsubcategory.events.length,
+                      itemBuilder: (BuildContext context, int indexEvent) {
+                        var filteredEventGames = subsubcategory
+                            .events[indexEvent].eventGames
+                            .where((eventGame) =>
+                                eventGame.gameName == category.currentGameName)
+                            .toList();
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: filteredEventGames.length,
+                          itemBuilder: (BuildContext context, int indexGame) {
+                            EventGame eventGame = filteredEventGames[indexGame];
 
-                          return EventsFootball(
-                              eventType:
-                                  subsubcategory.events[indexEvent].eventType,
-                              eventGame: eventGame);
-                        },
-                      );
-                    }),
+                            return EventsEventGame(
+                                eventType:
+                                    subsubcategory.events[indexEvent].eventType,
+                                eventGame: eventGame);
+                          },
+                        );
+                      }),
+                ),
+                isExpanded: subsubcategory.isExpanded,
               ),
-              isExpanded: subsubcategory.isExpanded,
-            ),
-          ],
+            ],
+          ),
         );
       } else {
         return Container();

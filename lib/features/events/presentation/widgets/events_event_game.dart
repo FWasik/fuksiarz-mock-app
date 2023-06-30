@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
-import 'package:fuksiarz_mock_app/features/events/domain/entities/outcome.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/bet_widget.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/custom_progress_indicator.dart';
 
-class EventsFootball extends StatelessWidget {
+class EventsEventGame extends StatelessWidget {
   final int eventType;
   final EventGame eventGame;
 
-  const EventsFootball(
+  const EventsEventGame(
       {Key? key, required this.eventType, required this.eventGame})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
-    final double width = MediaQuery.of(context).size.width;
-
     List<String> team_splitted = eventGame.eventName.split(" - ");
     String first_team = team_splitted[0];
     String second_team = team_splitted[1];
@@ -26,8 +21,8 @@ class EventsFootball extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
       child: Container(
+        height: 150,
         padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-        height: height / 6,
         decoration: BoxDecoration(
             border: Border.all(color: Colors.grey[300]!),
             borderRadius: const BorderRadius.all(Radius.circular(10.0))),
@@ -64,27 +59,6 @@ class EventsFootball extends StatelessWidget {
           const Spacer(flex: 2),
           Row(
             children: [
-              // SizedBox(
-              //   width: width / 3,
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(first_team,
-              //           maxLines: 1,
-              //           overflow: TextOverflow.ellipsis,
-              //           softWrap: false,
-              //           style: const TextStyle(
-              //               fontSize: 12, fontWeight: FontWeight.bold)),
-              //       const SizedBox(height: 5),
-              //       Text(second_team,
-              //           maxLines: 1,
-              //           overflow: TextOverflow.ellipsis,
-              //           softWrap: false,
-              //           style: const TextStyle(
-              //               fontSize: 12, fontWeight: FontWeight.bold))
-              //     ],
-              //   ),
-              // ),
               Text(
                 first_team + "\n" + second_team,
                 maxLines: 2,
@@ -93,7 +67,6 @@ class EventsFootball extends StatelessWidget {
                 style:
                     const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
               ),
-              const Spacer(flex: 4),
               if (eventType != 1) ...[
                 ElevatedButton(
                     onPressed: () {},
@@ -114,11 +87,18 @@ class EventsFootball extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
                     )),
-              ] else
-                for (Outcome outcome in eventGame.outcomes) ...[
-                  const Spacer(flex: 1),
-                  BetWidget(outcome: outcome)
-                ]
+              ] else ...[
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: eventGame.outcomes
+                        .map(
+                          (outcome) => BetWidget(outcome: outcome),
+                        )
+                        .toList(),
+                  ),
+                )
+              ]
             ],
           )
         ]),
