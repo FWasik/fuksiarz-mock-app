@@ -37,7 +37,6 @@ class _EventsCategoryState extends State<EventsCategory> {
               children: [
                 Container(
                   padding: const EdgeInsets.all(10.0),
-                  height: 60.0,
                   child: Row(children: [
                     Text(
                       widget.category.name,
@@ -334,8 +333,7 @@ Widget buildExpansionPanel(
                             EventGame eventGame = filteredEventGames[indexGame];
 
                             return EventsEventGame(
-                                eventType:
-                                    subsubcategory.events[indexEvent].eventType,
+                                event: subsubcategory.events[indexEvent],
                                 eventGame: eventGame);
                           },
                         );
@@ -352,96 +350,3 @@ Widget buildExpansionPanel(
     },
   );
 }
-
-
-// return Container(
-  //           decoration: const BoxDecoration(
-  //               border:
-  //                   Border(bottom: BorderSide(width: 1, color: Colors.grey))),
-  //           child: Padding(
-  //               padding: const EdgeInsets.all(10.0),
-  //               child: ExpansionPanelList(
-  //                 elevation: 1,
-  //                 expandedHeaderPadding: EdgeInsets.all(0),
-  //                 expansionCallback: (int index, bool isExpanded) {
-  //                   BlocProvider.of<EventsBloc>(context).add(
-  //                     DropdownEventChangeEvent(
-  //                         dropdownValue: !widget.category.isDropdownOpen,
-  //                         currentCategory: widget.category,
-  //                         categories: state.categories),
-  //                   );
-  //                 },
-  //                 children: [
-  //                   ExpansionPanel(
-  //                     headerBuilder: (BuildContext context, bool isExpanded) {
-  //                       return Text(widget.category.name);
-  //                     },
-  //                     body: DefaultTabController(
-  //                       length: widget.category.typesOfEvents.length,
-  //                       child: Column(
-  //                         children: [
-  //                           TabBar(
-  //                             isScrollable: true,
-  //                             controller: _tabController,
-  //                             onTap: (index) {
-  //                               // setState(() {
-  //                               //   String currentType =
-  //                               //       widget.category.typesOfEvents[index];
-  //                               // });
-
-  //                               BlocProvider.of<EventsBloc>(context).add(
-  //                                 TypeEventFilterEvent(
-  //                                     type:
-  //                                         widget.category.typesOfEvents[index],
-  //                                     currentCategory: widget.category,
-  //                                     categories: state.categories),
-  //                               );
-  //                             },
-  //                             tabs: widget.category.typesOfEvents.map((type) {
-  //                               return Tab(
-  //                                 child: Text(
-  //                                   type,
-  //                                   style: const TextStyle(color: Colors.black),
-  //                                 ),
-  //                               );
-  //                             }).toList(),
-  //                           ),
-  //                           ListView.builder(
-  //                             shrinkWrap: true,
-  //                             itemCount: widget.category.events.length,
-  //                             physics: const NeverScrollableScrollPhysics(),
-  //                             itemBuilder: (context, indexEvent) {
-  //                               Event currentEvent =
-  //                                   widget.category.events[indexEvent];
-
-  //                               final filteredEventGames = currentEvent
-  //                                   .eventGames
-  //                                   .where((game) =>
-  //                                       game.gameName ==
-  //                                       widget.category.currentType)
-  //                                   .toList();
-  //                               return ListView.builder(
-  //                                 shrinkWrap: true,
-  //                                 itemCount: filteredEventGames.length,
-  //                                 physics: const NeverScrollableScrollPhysics(),
-  //                                 itemBuilder: (context, indexEventGame) {
-  //                                   EventGame eventGame =
-  //                                       filteredEventGames[indexEventGame];
-
-  //                                   if (eventGame.outcomes.length < 4) {
-  //                                     return EventsFootball(
-  //                                         event: currentEvent,
-  //                                         eventGame: eventGame);
-  //                                   }
-  //                                 },
-  //                               );
-  //                             },
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                     isExpanded: widget.category.isDropdownOpen,
-  //                   ),
-  //                 ],
-  //               )),
-  //         );

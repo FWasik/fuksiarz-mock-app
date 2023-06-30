@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/bet_widget.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/custom_progress_indicator.dart';
 
 class EventsEventGame extends StatelessWidget {
-  final int eventType;
+  final Event event;
   final EventGame eventGame;
 
   const EventsEventGame(
-      {Key? key, required this.eventType, required this.eventGame})
+      {Key? key, required this.event, required this.eventGame})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class EventsEventGame extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "${eventGame.category3Name} 16.06",
+                "${eventGame.category3Name} ${event.eventDate}",
                 style:
                     const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
@@ -45,8 +46,8 @@ class EventsEventGame extends StatelessWidget {
           const Spacer(flex: 1),
           Row(
             children: [
-              const Text(
-                "18:00",
+              Text(
+                event.eventTime,
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
               CustomProgressIndicator(time: time / 45),
@@ -67,7 +68,7 @@ class EventsEventGame extends StatelessWidget {
                 style:
                     const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
               ),
-              if (eventType != 1) ...[
+              if (event.eventType != 1) ...[
                 ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
