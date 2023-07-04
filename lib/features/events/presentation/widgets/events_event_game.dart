@@ -13,9 +13,9 @@ class EventsEventGame extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    List<String> team_splitted = eventGame.eventName.split(" - ");
-    String first_team = team_splitted[0];
-    String second_team = team_splitted[1];
+    List<String> teamSplitted = eventGame.eventName.split(" - ");
+    String firstTeam = teamSplitted[0];
+    String secondTeam = teamSplitted[1];
 
     int time = 45;
 
@@ -23,7 +23,7 @@ class EventsEventGame extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 15.0),
       child: Container(
         height: 150,
-        padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+        padding: const EdgeInsets.all(10.0),
         decoration: BoxDecoration(
             border: Border.all(color: Colors.grey[300]!),
             borderRadius: const BorderRadius.all(Radius.circular(10.0))),
@@ -48,7 +48,8 @@ class EventsEventGame extends StatelessWidget {
             children: [
               Text(
                 event.eventTime,
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
               CustomProgressIndicator(time: time / 45),
               const Text(
@@ -59,35 +60,48 @@ class EventsEventGame extends StatelessWidget {
           ),
           const Spacer(flex: 2),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                first_team + "\n" + second_team,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                softWrap: false,
-                style:
-                    const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+              SizedBox(
+                height: 35,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      firstTeam,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                      style: const TextStyle(
+                          fontSize: 11, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      secondTeam,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                      style: const TextStyle(
+                          fontSize: 11, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
               ),
               if (event.eventType != 1) ...[
-                ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 18.0, horizontal: 10.0),
-                      backgroundColor: Colors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                          side:
-                              const BorderSide(color: Colors.grey, width: 0.8)),
-                    ),
-                    child: Text(
-                      "DO WYDARZENIA".toString(),
-                      style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    )),
+                GestureDetector(
+                  child: Container(
+                      padding: const EdgeInsets.all(13.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.grey[300]!),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                      ),
+                      child: const Text(
+                        "DO WYDARZENIA",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                ),
               ] else ...[
                 Expanded(
                   child: Row(

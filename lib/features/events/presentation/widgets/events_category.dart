@@ -20,15 +20,15 @@ class EventsCategory extends StatefulWidget {
 class _EventsCategoryState extends State<EventsCategory> {
   @override
   Widget build(BuildContext context) {
-    List<SportCategory3Name> filteredList = [];
-
-    for (SportCategory2Name subcategory in widget.category.subcategories) {
-      filteredList.addAll(subcategory.subsubcategories
-          .where((element) => element.isSelected)
-          .toList());
-    }
-
     if (widget.category.isSelected) {
+      List<SportCategory3Name> filteredList = [];
+
+      for (SportCategory2Name subcategory in widget.category.subcategories) {
+        filteredList.addAll(subcategory.subsubcategories
+            .where((element) => element.isSelected)
+            .toList());
+      }
+
       return Container(
         decoration: BoxDecoration(
             border: Border(bottom: BorderSide(color: Colors.grey[300]!))),
@@ -291,7 +291,7 @@ Widget buildExpansionPanel(
             },
             children: [
               ExpansionPanel(
-                backgroundColor: Color.fromARGB(26, 213, 213, 213),
+                backgroundColor: const Color.fromARGB(26, 213, 213, 213),
                 headerBuilder: (BuildContext context, bool isExpanded) {
                   return Padding(
                     padding: const EdgeInsets.only(left: 12.0),

@@ -18,7 +18,7 @@ class _SearchInputState extends State<SearchInput> {
           color: const Color.fromARGB(119, 243, 243, 243),
           border: Border.all(color: Colors.grey[300]!)),
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         child: TextField(
           controller: widget.searchController,
           style: const TextStyle(backgroundColor: Colors.white, fontSize: 14),

@@ -23,26 +23,18 @@ class _EventsMainTabBarsState extends State<EventsMainTabBars> {
         indicatorColor: Colors.white,
         labelColor: Colors.black,
         indicator: BoxDecoration(
-            color: Color.fromARGB(26, 158, 158, 158),
-            border: Border(
-              top: BorderSide(color: Colors.grey[300]!),
-              left: BorderSide(color: Colors.grey[300]!),
-              right: BorderSide(color: Colors.grey[300]!),
-            )
-            // boxShadow: [
-            //   BoxShadow(
-            //     color: Colors.black.withOpacity(0.2),
-            //     blurRadius: 4.0,
-            //     spreadRadius: 0.0,
-            //     offset: const Offset(0, -4),
-            //   ),
-            // ],
-            ),
+          color: const Color.fromARGB(26, 158, 158, 158),
+          border: Border(
+            top: BorderSide(color: Colors.grey[300]!),
+            left: BorderSide(color: Colors.grey[300]!),
+            right: BorderSide(color: Colors.grey[300]!),
+          ),
+        ),
         unselectedLabelColor: Colors.black,
         onTap: (index) {
           widget.changeIndexCallback(index);
         },
-        tabs: [
+        tabs: const [
           Tab(
             child: Text(
               "Oferta",

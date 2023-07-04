@@ -27,7 +27,7 @@ class _EventsContentState extends State<EventsContent> {
           List<SportCategory1Name> categoriesEvents = state.categories;
 
           return Container(
-            color: Color.fromARGB(26, 213, 213, 213),
+            color: const Color.fromARGB(26, 213, 213, 213),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -89,7 +89,7 @@ class _EventsContentState extends State<EventsContent> {
         } else {
           return SizedBox(
             height: height * 0.4,
-            child: Center(
+            child: const Center(
               child: CircularProgressIndicator(),
             ),
           );
