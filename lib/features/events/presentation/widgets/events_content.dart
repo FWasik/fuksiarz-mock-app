@@ -19,6 +19,7 @@ class _EventsContentState extends State<EventsContent> {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
 
     return BlocBuilder<EventsBloc, EventsState>(
       builder: (context, state) {
@@ -76,7 +77,7 @@ class _EventsContentState extends State<EventsContent> {
                       itemBuilder: (context, index) {
                         if (categoriesEvents[index].name != "WSZYSTKO") {
                           return EventsCategory(
-                              category: categoriesEvents[index]);
+                              state: state, category: categoriesEvents[index]);
                         } else {
                           return Container();
                         }
@@ -86,8 +87,8 @@ class _EventsContentState extends State<EventsContent> {
             ),
           );
         } else {
-          return const SizedBox(
-            height: 500,
+          return SizedBox(
+            height: height * 0.4,
             child: Center(
               child: CircularProgressIndicator(),
             ),

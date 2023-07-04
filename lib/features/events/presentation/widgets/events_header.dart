@@ -15,12 +15,13 @@ class EventsHeader extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 60,
+          top: 50,
           left: 0,
           right: 0,
           bottom: 0,
           child: Container(
             width: width,
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -28,36 +29,31 @@ class EventsHeader extends StatelessWidget {
                 topLeft: Radius.circular(40.0),
               ),
             ),
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset(
-                    "assets/logo-bck.png",
-                    width: 130,
-                    height: 100,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset(
+                  "assets/logo-bck.png",
+                  width: 130,
+                ),
+                OutlinedButton.icon(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0))),
+                  icon: const Icon(
+                    Icons.add_circle_sharp,
+                    color: Colors.red,
+                    size: 28,
                   ),
-                  OutlinedButton.icon(
-                    onPressed: () {},
-                    style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0))),
-                    icon: const Icon(
-                      Icons.add_circle_sharp,
-                      color: Colors.red,
-                      size: 28,
-                    ),
-                    label: const Text(
-                      "21,37 zł",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.black),
-                    ),
+                  label: const Text(
+                    "21,37 zł",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

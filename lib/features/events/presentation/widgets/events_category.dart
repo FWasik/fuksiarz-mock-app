@@ -7,9 +7,11 @@ import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_ev
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/category.dart';
 
 class EventsCategory extends StatefulWidget {
+  final FetchedEventsState state;
   final SportCategory1Name category;
 
-  const EventsCategory({Key? key, required this.category}) : super(key: key);
+  const EventsCategory({Key? key, required this.state, required this.category})
+      : super(key: key);
 
   @override
   State<EventsCategory> createState() => _EventsCategoryState();
@@ -18,158 +20,148 @@ class EventsCategory extends StatefulWidget {
 class _EventsCategoryState extends State<EventsCategory> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EventsBloc, EventsState>(
-      builder: (context, state) {
-        if (state is FetchedEventsState && widget.category.isSelected) {
-          List<SportCategory3Name> filteredList = [];
+    List<SportCategory3Name> filteredList = [];
 
-          for (SportCategory2Name subcategory
-              in widget.category.subcategories) {
-            filteredList.addAll(subcategory.subsubcategories
-                .where((element) => element.isSelected)
-                .toList());
-          }
+    for (SportCategory2Name subcategory in widget.category.subcategories) {
+      filteredList.addAll(subcategory.subsubcategories
+          .where((element) => element.isSelected)
+          .toList());
+    }
 
-          return Container(
-            decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.grey[300]!))),
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(children: [
-                    Text(
-                      widget.category.name,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              _showOptionsDialog(widget.category);
-                            },
-                            child: Container(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
-                              width: 75.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(5)),
-                                  border: Border.all(color: Colors.grey[300]!)),
-                              child: const Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Icon(Icons.tune, size: 20.0),
-                                    Text(
-                                      "LIGI",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ]),
-                            ),
-                          ),
-                          const SizedBox(width: 15),
-                          GestureDetector(
-                            onTap: () {
-                              BlocProvider.of<EventsBloc>(context).add(
-                                DropdownEventChangeEvent(
-                                    currentCategory: widget.category,
-                                    categories: state.categories),
-                              );
-                            },
-                            child: Container(
-                                width: 40,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(5)),
-                                    border:
-                                        Border.all(color: Colors.grey[300]!)),
-                                child: Icon(
-                                  widget.category.isDropdownOpen
-                                      ? Icons.keyboard_arrow_up
-                                      : Icons.keyboard_arrow_down,
-                                  size: 30.0,
-                                )),
-                          ),
-                        ],
-                      ),
-                    )
-                  ]),
+    if (widget.category.isSelected) {
+      return Container(
+        decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(color: Colors.grey[300]!))),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(children: [
+                Text(
+                  widget.category.name,
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                widget.category.isDropdownOpen
-                    ? filteredList.isNotEmpty
-                        ? DefaultTabController(
-                            length: widget.category.gameNames!.length,
-                            child: Column(
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          _showOptionsDialog(widget.category);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          width: 75.0,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(5)),
+                              border: Border.all(color: Colors.grey[300]!)),
+                          child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: TabBar(
-                                    isScrollable: true,
-                                    indicatorColor: const Color.fromARGB(
-                                        255, 109, 138, 188),
-                                    onTap: (index) {
-                                      BlocProvider.of<EventsBloc>(context).add(
-                                        GameNameEventFilterEvent(
-                                            gameName: widget
-                                                .category.gameNames![index],
-                                            currentCategory: widget.category,
-                                            categories: state.categories),
-                                      );
-                                    },
-                                    tabs:
-                                        widget.category.gameNames!.map((type) {
-                                      return Tab(
-                                        child: Text(
-                                          type,
-                                          style: TextStyle(
-                                              color: Colors.blueGrey[700]),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
-                                ...filteredList.map((subsubcategory) {
-                                  if (subsubcategory.events.isNotEmpty) {
-                                    return buildExpansionPanel(
-                                        widget.category, subsubcategory);
-                                  } else {
-                                    return Container();
-                                  }
-                                }).toList()
-                              ],
-                            ),
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.blueGrey[100],
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10.0))),
-                              height: 50,
-                              child: const Center(
-                                child: Text(
-                                    "Aktualnie nie ma żadnych wydarzeń w wybranej dyscyplinie"),
+                                Icon(Icons.tune, size: 20.0),
+                                Text(
+                                  "LIGI",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                )
+                              ]),
+                        ),
+                      ),
+                      const SizedBox(width: 15),
+                      GestureDetector(
+                        onTap: () {
+                          BlocProvider.of<EventsBloc>(context).add(
+                            DropdownEventChangeEvent(
+                                currentCategory: widget.category,
+                                categories: widget.state.categories),
+                          );
+                        },
+                        child: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(5)),
+                                border: Border.all(color: Colors.grey[300]!)),
+                            child: Icon(
+                              widget.category.isDropdownOpen
+                                  ? Icons.keyboard_arrow_up
+                                  : Icons.keyboard_arrow_down,
+                              size: 30.0,
+                            )),
+                      ),
+                    ],
+                  ),
+                )
+              ]),
+            ),
+            widget.category.isDropdownOpen
+                ? filteredList.isNotEmpty
+                    ? DefaultTabController(
+                        length: widget.category.gameNames!.length,
+                        child: Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: TabBar(
+                                isScrollable: true,
+                                indicatorColor:
+                                    const Color.fromARGB(255, 109, 138, 188),
+                                onTap: (index) {
+                                  BlocProvider.of<EventsBloc>(context).add(
+                                    GameNameEventFilterEvent(
+                                        gameName:
+                                            widget.category.gameNames![index],
+                                        currentCategory: widget.category,
+                                        categories: widget.state.categories),
+                                  );
+                                },
+                                tabs: widget.category.gameNames!.map((type) {
+                                  return Tab(
+                                    child: Text(
+                                      type,
+                                      style: TextStyle(
+                                          color: Colors.blueGrey[700]),
+                                    ),
+                                  );
+                                }).toList(),
                               ),
                             ),
-                          )
-                    : Container()
-              ],
-            ),
-          );
-        } else {
-          return Container();
-        }
-      },
-    );
+                            ...filteredList.map((subsubcategory) {
+                              if (subsubcategory.events.isNotEmpty) {
+                                return buildExpansionPanel(
+                                    widget.category, subsubcategory);
+                              } else {
+                                return Container();
+                              }
+                            }).toList()
+                          ],
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.blueGrey[100],
+                              borderRadius: const BorderRadius.all(
+                                  Radius.circular(10.0))),
+                          height: 50,
+                          child: const Center(
+                            child: Text(
+                                "Aktualnie nie ma żadnych wydarzeń w wybranej dyscyplinie"),
+                          ),
+                        ),
+                      )
+                : Container()
+          ],
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 
   void _showOptionsDialog(SportCategory1Name category) {

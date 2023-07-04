@@ -24,13 +24,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: AppBar(
-          toolbarHeight: 80, elevation: 0, flexibleSpace: const EventsHeader()),
+        toolbarHeight: 90,
+        elevation: 0,
+        flexibleSpace: const EventsHeader(),
+      ),
       body: DefaultTabController(
-          length: 8,
+          length: 6,
           child: ListView(
             children: [
               SearchInput(searchController: searchController),
