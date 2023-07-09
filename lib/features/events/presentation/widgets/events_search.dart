@@ -1,35 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:fuksiarz_mock_app/features/events/presentation/pages/events_search_page.dart';
 
-class SearchInput extends StatefulWidget {
-  final TextEditingController searchController;
+class SearchInputNavigator extends StatelessWidget {
+  const SearchInputNavigator({
+    Key? key,
+  }) : super(key: key);
 
-  const SearchInput({Key? key, required this.searchController})
-      : super(key: key);
-
-  @override
-  State<SearchInput> createState() => _SearchInputState();
-}
-
-class _SearchInputState extends State<SearchInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: const Color.fromARGB(119, 243, 243, 243),
-          border: Border.all(color: Colors.grey[300]!)),
+        color: Colors.grey[100]!,
+        border: Border.all(color: Colors.grey[300]!),
+      ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         child: TextField(
-          controller: widget.searchController,
+          readOnly: true,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const EventsSearchPage(),
+              ),
+            );
+          },
           style: const TextStyle(backgroundColor: Colors.white, fontSize: 14),
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
               contentPadding: EdgeInsets.symmetric(vertical: 12),
               enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 0.3)),
+                borderSide: BorderSide(color: Colors.grey[300]!),
+              ),
               focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 0.3)),
+                borderSide: BorderSide(color: Colors.grey[300]!),
+              ),
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.search, color: Colors.grey),
               hintText: "CZEGO SZUKASZ?"),

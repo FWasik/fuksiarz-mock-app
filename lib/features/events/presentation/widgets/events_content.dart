@@ -27,7 +27,7 @@ class _EventsContentState extends State<EventsContent> {
           List<SportCategory1Name> categoriesEvents = state.categories;
 
           return Container(
-            color: const Color.fromARGB(26, 213, 213, 213),
+            color: Colors.grey[100]!,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
