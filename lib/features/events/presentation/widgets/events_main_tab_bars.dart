@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class EventsMainTabBars extends StatefulWidget {
   final Function(int) changeIndexCallback;
 
-  EventsMainTabBars({Key? key, required this.changeIndexCallback})
+  const EventsMainTabBars({Key? key, required this.changeIndexCallback})
       : super(key: key);
 
   @override

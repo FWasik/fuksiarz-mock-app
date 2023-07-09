@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
           length: 6,
           child: ListView(
             children: [
-              SearchInputNavigator(),
+              const SearchInputNavigator(),
               EventsMainTabBars(changeIndexCallback: _changeIndexCallback),
               Builder(builder: (_) {
                 if (currentIndex == 1) {

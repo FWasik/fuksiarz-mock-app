@@ -9,16 +9,36 @@ class EventsSearchPage extends StatefulWidget {
 }
 
 class _EventsSearchPageState extends State<EventsSearchPage> {
+  final TextEditingController _controller = TextEditingController();
+  bool _showSuffixIcon = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {
+      setState(() {
+        _showSuffixIcon = _controller.text.isNotEmpty;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: 120,
+          toolbarHeight: 110,
           elevation: 0,
           automaticallyImplyLeading: false,
-          flexibleSpace:
-              EventsHeader(appBarWidget: appBarWidget(context, width)),
+          flexibleSpace: EventsHeader(
+              appBarWidget:
+                  appBarWidget(context, _controller, _showSuffixIcon, width)),
         ),
         body: Container(
           color: Colors.red,
@@ -28,7 +48,8 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
   }
 }
 
-Widget appBarWidget(BuildContext context, double width) {
+Widget appBarWidget(BuildContext context, TextEditingController _controller,
+    bool _showSuffixIcon, double width) {
   return Positioned(
     top: 50,
     bottom: 0,
@@ -36,36 +57,52 @@ Widget appBarWidget(BuildContext context, double width) {
     right: 0,
     child: Container(
       width: width,
-      padding: EdgeInsets.only(top: 35, bottom: 10, left: 20, right: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
       decoration: BoxDecoration(
         color: Colors.grey[100]!,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topRight: Radius.circular(40.0),
           topLeft: Radius.circular(40.0),
         ),
       ),
       child: TextField(
+        controller: _controller,
         style: const TextStyle(
           backgroundColor: Colors.white,
-          fontSize: 16,
+          fontSize: 18,
           fontWeight: FontWeight.bold,
         ),
         decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.white,
-            contentPadding: EdgeInsets.symmetric(vertical: 20.0),
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey[300]!)),
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey[300]!)),
-            border: OutlineInputBorder(),
-            prefixIcon: IconButton(
-              icon: Icon(Icons.keyboard_arrow_left, color: Colors.grey),
-              onPressed: () {
-                Navigator.pop(context);
-              },
+          filled: true,
+          fillColor: Colors.white,
+          contentPadding: const EdgeInsets.symmetric(vertical: 15.0),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey[300]!),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey[300]!),
+          ),
+          border: const OutlineInputBorder(),
+          prefixIcon: IconButton(
+            icon: Icon(
+              Icons.keyboard_arrow_left,
+              color: Colors.grey[350]!,
+              size: 32.0,
             ),
-            hintText: "CZEGO SZUKASZ?"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          suffixIcon: _showSuffixIcon
+              ? IconButton(
+                  onPressed: _controller.clear,
+                  icon: Icon(
+                    Icons.highlight_off,
+                    color: Colors.grey[350]!,
+                  ),
+                )
+              : null,
+        ),
       ),
     ),
   );
