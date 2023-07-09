@@ -1,9 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 class Outcome extends Equatable {
-  String outcomeName;
+  final String outcomeName;
   final double outcomeOdds;
-  bool isClicked = false;
 
   Outcome({required this.outcomeName, required this.outcomeOdds});
 

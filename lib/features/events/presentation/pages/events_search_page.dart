@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_content.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_header.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_main_tab_bars.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_search.dart';
 
 class EventsSearchPage extends StatefulWidget {
   const EventsSearchPage({super.key});

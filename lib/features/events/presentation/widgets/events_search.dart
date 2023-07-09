@@ -29,15 +29,15 @@ class SearchInputNavigator extends StatelessWidget {
           decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
-              contentPadding: EdgeInsets.symmetric(vertical: 12),
+              contentPadding: const EdgeInsets.symmetric(vertical: 12),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey[300]!),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey[300]!),
               ),
-              border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.search, color: Colors.grey),
+              border: const OutlineInputBorder(),
+              prefixIcon: const Icon(Icons.search, color: Colors.grey),
               hintText: "CZEGO SZUKASZ?"),
         ),
       ),

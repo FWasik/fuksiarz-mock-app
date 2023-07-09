@@ -22,11 +22,11 @@ class EventGameDTO extends EventGame {
       outcomes.add(OutcomeDTO.fromJson(outcome));
     }
 
-    if (outcomes[0].outcomeName.contains("/") &&
-        outcomes[1].outcomeName.contains("/")) {
-      outcomes[0].outcomeName = "1";
-      outcomes[0].outcomeName = "2";
-    }
+    // if (outcomes[0].outcomeName.contains("/") &&
+    //     outcomes[1].outcomeName.contains("/")) {
+    //   outcomes[0].outcomeName = "1";
+    //   outcomes[0].outcomeName = "2";
+    // }
 
     return EventGameDTO(
         gameName: json["gameName"],
