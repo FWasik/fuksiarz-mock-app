@@ -90,26 +90,26 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
     });
 
     on<CategoriesFilterEvent>((event, emit) {
-      int index = event.index;
+      SportCategory1Name currentCategory = event.currentCategory;
       List<SportCategory1Name> categories = event.categories;
 
       emit(Loading());
 
-      if (categories[index].name == "WSZYSTKO") {
-        bool allSelected = categories[index].isSelected;
+      if (currentCategory.name == "WSZYSTKO") {
+        bool allSelected = currentCategory.isSelected;
 
         for (var category in categories) {
           category.isSelected = !allSelected;
         }
       } else {
-        categories[index].isSelected = !categories[index].isSelected;
+        currentCategory.isSelected = !currentCategory.isSelected;
 
         int count = categories.where((element) => element.isSelected).length;
 
         if (count == categories.length - 1) {
           categories
               .firstWhere((element) => element.name == "WSZYSTKO")
-              .isSelected = categories[index].isSelected;
+              .isSelected = currentCategory.isSelected;
         }
       }
 
@@ -150,7 +150,22 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
       gameNames = Set<String>.from(gameNames).toList();
 
       currentCategory.gameNames = gameNames;
-      currentCategory.currentGameName = gameNames[0];
+
+      if (gameNames.isNotEmpty) {
+        currentCategory.currentGameName = gameNames[0];
+      } else {
+        currentCategory.currentGameName = null;
+      }
+
+      bool anySubsubcategoryIsSelected = currentCategory.subcategories.any(
+          (subcategory) => subcategory.subsubcategories
+              .any((subsubcategory) => subsubcategory.isSelected));
+
+      if (anySubsubcategoryIsSelected) {
+        currentCategory.isDropdownOpen = true;
+      } else {
+        currentCategory.isDropdownOpen = false;
+      }
 
       emit(FetchedEventsState(categories: categories));
     });

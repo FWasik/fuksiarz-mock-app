@@ -10,13 +10,14 @@ abstract class EventsEvent extends Equatable {
 class FetchedEventsEvent extends EventsEvent {}
 
 class CategoriesFilterEvent extends EventsEvent {
-  final int index;
+  final SportCategory1Name currentCategory;
   final List<SportCategory1Name> categories;
 
-  const CategoriesFilterEvent({required this.index, required this.categories});
+  const CategoriesFilterEvent(
+      {required this.currentCategory, required this.categories});
 
   @override
-  List<Object> get props => [index, categories];
+  List<Object> get props => [currentCategory, categories];
 }
 
 class SubcategoriesFilterEvent extends EventsEvent {

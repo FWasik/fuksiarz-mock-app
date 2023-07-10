@@ -22,7 +22,7 @@ class _EventsContentState extends State<EventsContent> {
     return BlocBuilder<EventsBloc, EventsState>(
       builder: (context, state) {
         if (state is FetchedEventsState) {
-          List<SportCategory1Name> categoriesEvents = state.categories;
+          List<SportCategory1Name> categories = state.categories;
 
           return Container(
             color: Colors.grey[100]!,
@@ -49,16 +49,16 @@ class _EventsContentState extends State<EventsContent> {
                         child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
-                            itemCount: categoriesEvents.length,
+                            itemCount: categories.length,
                             itemBuilder: (BuildContext context, int index) {
                               return CustomButton(
-                                  text: categoriesEvents[index].name,
-                                  isClicked: categoriesEvents[index].isSelected,
+                                  text: categories[index].name,
+                                  isClicked: categories[index].isSelected,
                                   onPressed: (() {
                                     BlocProvider.of<EventsBloc>(context).add(
                                       CategoriesFilterEvent(
-                                          index: index,
-                                          categories: categoriesEvents),
+                                          currentCategory: categories[index],
+                                          categories: categories),
                                     );
                                   }));
                             }),
@@ -71,11 +71,11 @@ class _EventsContentState extends State<EventsContent> {
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: categoriesEvents.length,
+                      itemCount: categories.length,
                       itemBuilder: (context, index) {
-                        if (categoriesEvents[index].name != "WSZYSTKO") {
+                        if (categories[index].name != "WSZYSTKO") {
                           return EventsCategory(
-                              state: state, category: categoriesEvents[index]);
+                              state: state, category: categories[index]);
                         } else {
                           return Container();
                         }
@@ -103,7 +103,7 @@ class _EventsContentState extends State<EventsContent> {
           return BlocBuilder<EventsBloc, EventsState>(
               builder: (context, state) {
             if (state is FetchedEventsState) {
-              List<SportCategory1Name> categoriesEvents = state.categories;
+              List<SportCategory1Name> categories = state.categories;
 
               return Dismissible(
                 key: UniqueKey(),
@@ -146,7 +146,7 @@ class _EventsContentState extends State<EventsContent> {
                   content: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: ListView.builder(
-                        itemCount: categoriesEvents.length,
+                        itemCount: categories.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -160,21 +160,20 @@ class _EventsContentState extends State<EventsContent> {
                                 ),
                                 child: CheckboxListTile(
                                   activeColor: Colors.black,
-                                  value: categoriesEvents[index].isSelected,
+                                  value: categories[index].isSelected,
                                   onChanged: (bool? value) {
                                     BlocProvider.of<EventsBloc>(context).add(
                                         CategoriesFilterEvent(
-                                            index: index,
-                                            categories: categoriesEvents));
+                                            currentCategory: categories[index],
+                                            categories: categories));
                                   },
                                   title: Text(
-                                    categoriesEvents[index].name,
+                                    categories[index].name,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        color:
-                                            categoriesEvents[index].isSelected
-                                                ? Colors.black
-                                                : Colors.grey),
+                                        color: categories[index].isSelected
+                                            ? Colors.black
+                                            : Colors.grey),
                                   ),
                                 )),
                           );
