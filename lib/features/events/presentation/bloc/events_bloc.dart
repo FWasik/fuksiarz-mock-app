@@ -157,14 +157,13 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
         currentCategory.currentGameName = null;
       }
 
-      bool anySubsubcategoryIsSelected = currentCategory.subcategories.any(
-          (subcategory) => subcategory.subsubcategories
-              .any((subsubcategory) => subsubcategory.isSelected));
+      int numOfSubsubcategorySelected = currentCategory.subcategories
+          .expand((subcategory) => subcategory.subsubcategories
+              .where((subsubcategory) => subsubcategory.isSelected))
+          .length;
 
-      if (anySubsubcategoryIsSelected) {
+      if (numOfSubsubcategorySelected == 1) {
         currentCategory.isDropdownOpen = true;
-      } else {
-        currentCategory.isDropdownOpen = false;
       }
 
       emit(FetchedEventsState(categories: categories));
