@@ -21,12 +21,12 @@ class _EventsCategoryState extends State<EventsCategory> {
   @override
   Widget build(BuildContext context) {
     if (widget.category.isSelected) {
-      List<SportCategory3Name> filteredList = [];
+      List<SportCategory2Name> filteredList = [];
 
       for (SportCategory2Name subcategory in widget.category.subcategories) {
-        filteredList.addAll(subcategory.subsubcategories
-            .where((element) => element.isSelected)
-            .toList());
+        if (subcategory.subsubcategories.any((element) => element.isSelected)) {
+          filteredList.add(subcategory);
+        }
       }
 
       return Container(
@@ -130,13 +130,12 @@ class _EventsCategoryState extends State<EventsCategory> {
                                 }).toList(),
                               ),
                             ),
-                            ...filteredList.map((subsubcategory) {
-                              if (subsubcategory.events.isNotEmpty) {
-                                return buildExpansionPanel(
-                                    widget.category, subsubcategory);
-                              } else {
-                                return Container();
-                              }
+                            ...filteredList.expand((subcategory) {
+                              return subcategory.subsubcategories
+                                  .map((subsubcategory) {
+                                return buildExpansionPanel(widget.category,
+                                    subcategory, subsubcategory);
+                              });
                             }).toList()
                           ],
                         ),
@@ -171,12 +170,6 @@ class _EventsCategoryState extends State<EventsCategory> {
           return BlocBuilder<EventsBloc, EventsState>(
               builder: (context, state) {
             if (state is FetchedEventsState) {
-              List<SportCategory3Name> subsubcategories = [];
-
-              for (SportCategory2Name subcategory in category.subcategories) {
-                subsubcategories.addAll(subcategory.subsubcategories);
-              }
-
               return Dismissible(
                 key: UniqueKey(),
                 direction: DismissDirection.down,
@@ -216,43 +209,59 @@ class _EventsCategoryState extends State<EventsCategory> {
                     ),
                   ),
                   content: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: ListView.builder(
-                        itemCount: subsubcategories.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey[300]!),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(5.0),
-                                  ),
-                                ),
-                                child: CheckboxListTile(
-                                  activeColor: Colors.black,
-                                  value: subsubcategories[index].isSelected,
-                                  onChanged: (bool? value) {
-                                    BlocProvider.of<EventsBloc>(context).add(
-                                        SubcategoriesFilterEvent(
-                                            currentSubsubcategory:
-                                                subsubcategories[index],
-                                            currentCategory: category,
-                                            categories: state.categories));
-                                  },
-                                  title: Text(
-                                    subsubcategories[index].name,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color:
-                                            subsubcategories[index].isSelected
-                                                ? Colors.black
-                                                : Colors.grey),
-                                  ),
-                                )),
-                          );
-                        }),
-                  ),
+                      width: MediaQuery.of(context).size.width,
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: category.subcategories.length,
+                          itemBuilder:
+                              (BuildContext context, int indexSubcategory) {
+                            SportCategory2Name subcategory =
+                                category.subcategories[indexSubcategory];
+                            return ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: subcategory.subsubcategories.length,
+                                itemBuilder: (BuildContext context,
+                                    int indexSubsubcategory) {
+                                  SportCategory3Name subsubcategory =
+                                      subcategory.subsubcategories[
+                                          indexSubsubcategory];
+
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10.0),
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Colors.grey[300]!),
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(5.0),
+                                          ),
+                                        ),
+                                        child: CheckboxListTile(
+                                          activeColor: Colors.black,
+                                          value: subsubcategory.isSelected,
+                                          onChanged: (bool? value) {
+                                            BlocProvider.of<EventsBloc>(context)
+                                                .add(SubcategoriesFilterEvent(
+                                                    currentSubsubcategory:
+                                                        subsubcategory,
+                                                    currentCategory: category,
+                                                    categories:
+                                                        state.categories));
+                                          },
+                                          title: Text(
+                                            "${subcategory.name} > ${subsubcategory.name}",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: subsubcategory.isSelected
+                                                    ? Colors.black
+                                                    : Colors.grey),
+                                          ),
+                                        )),
+                                  );
+                                });
+                          })),
                 ),
               );
             } else {
@@ -263,8 +272,8 @@ class _EventsCategoryState extends State<EventsCategory> {
   }
 }
 
-Widget buildExpansionPanel(
-    SportCategory1Name category, SportCategory3Name subsubcategory) {
+Widget buildExpansionPanel(SportCategory1Name category,
+    SportCategory2Name subcategory, SportCategory3Name subsubcategory) {
   return BlocBuilder<EventsBloc, EventsState>(
     builder: (context, state) {
       var areAnyEventGames = subsubcategory.events
@@ -272,7 +281,9 @@ Widget buildExpansionPanel(
           .where((eventGame) => eventGame.gameName == category.currentGameName)
           .toList();
 
-      if (state is FetchedEventsState && areAnyEventGames.isNotEmpty) {
+      if (state is FetchedEventsState &&
+          areAnyEventGames.isNotEmpty &&
+          subsubcategory.isSelected) {
         return Container(
           decoration: BoxDecoration(
             border: Border(
@@ -298,7 +309,7 @@ Widget buildExpansionPanel(
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        subsubcategory.name,
+                        "${subcategory.name} > ${subsubcategory.name}",
                         style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       ),
@@ -325,6 +336,7 @@ Widget buildExpansionPanel(
                             EventGame eventGame = filteredEventGames[indexGame];
 
                             return EventsEventGame(
+                                subsubcategory: subsubcategory,
                                 event: subsubcategory.events[indexEvent],
                                 eventGame: eventGame);
                           },

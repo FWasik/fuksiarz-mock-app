@@ -39,8 +39,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
 
           for (Event event in events) {
             String nameOfSubcategory = event.category2Name;
-            String nameOfSubsubcategory =
-                "${event.category2Name}  >  ${event.category3Name}";
+            String nameOfSubsubcategory = event.category3Name;
 
             SportCategory2Name? existingSubcategory =
                 subcategories.cast<SportCategory2Name?>().firstWhere(

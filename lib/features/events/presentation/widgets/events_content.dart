@@ -14,8 +14,6 @@ class EventsContent extends StatefulWidget {
 }
 
 class _EventsContentState extends State<EventsContent> {
-  bool isDropdownOpen = false;
-
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;

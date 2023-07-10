@@ -27,8 +27,7 @@ class EventDTO extends Event {
     List<EventGame> eventGames = [];
 
     for (Map<String, dynamic> game in json["eventGames"]) {
-      eventGames.add(EventGameDTO.fromJson(
-          game, json["eventName"], json["category3Name"]));
+      eventGames.add(EventGameDTO.fromJson(game));
     }
 
     DateTime dt =

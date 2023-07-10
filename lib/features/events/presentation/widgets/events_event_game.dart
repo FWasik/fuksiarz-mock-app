@@ -2,18 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/bet_widget.dart';
+import 'package:fuksiarz_mock_app/features/events/presentation/widgets/category.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/custom_progress_indicator.dart';
 
 class EventsEventGame extends StatelessWidget {
+  final SportCategory3Name subsubcategory;
   final Event event;
   final EventGame eventGame;
 
   const EventsEventGame(
-      {Key? key, required this.event, required this.eventGame})
+      {Key? key,
+      required this.subsubcategory,
+      required this.event,
+      required this.eventGame})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    List<String> teamSplitted = eventGame.eventName.split(" - ");
+    List<String> teamSplitted = event.eventName.split(" - ");
     String firstTeam = teamSplitted[0];
     String secondTeam = teamSplitted[1];
 
@@ -32,7 +37,7 @@ class EventsEventGame extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "${eventGame.category3Name} ${event.eventDate}",
+                "${subsubcategory.name} ${event.eventDate}",
                 style:
                     const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),

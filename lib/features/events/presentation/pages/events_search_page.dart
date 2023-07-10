@@ -48,8 +48,8 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
   }
 }
 
-Widget appBarWidget(BuildContext context, TextEditingController _controller,
-    bool _showSuffixIcon, double width) {
+Widget appBarWidget(BuildContext context, TextEditingController controller,
+    bool showSuffixIcon, double width) {
   return Positioned(
     top: 50,
     bottom: 0,
@@ -66,7 +66,7 @@ Widget appBarWidget(BuildContext context, TextEditingController _controller,
         ),
       ),
       child: TextField(
-        controller: _controller,
+        controller: controller,
         style: const TextStyle(
           backgroundColor: Colors.white,
           fontSize: 18,
@@ -93,9 +93,9 @@ Widget appBarWidget(BuildContext context, TextEditingController _controller,
               Navigator.pop(context);
             },
           ),
-          suffixIcon: _showSuffixIcon
+          suffixIcon: showSuffixIcon
               ? IconButton(
-                  onPressed: _controller.clear,
+                  onPressed: controller.clear,
                   icon: Icon(
                     Icons.highlight_off,
                     color: Colors.grey[350]!,
