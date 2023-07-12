@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/bloc/events_bloc.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_event_game.dart';
 
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/category.dart';
+import 'package:fuksiarz_mock_app/common/category.dart';
 
 class EventsCategory extends StatefulWidget {
   final FetchedEventsState state;
@@ -277,7 +278,7 @@ Widget buildExpansionPanel(SportCategory1Name category,
   return BlocBuilder<EventsBloc, EventsState>(
     builder: (context, state) {
       var areAnyEventGames = subsubcategory.events
-          .expand((event) => event.eventGames)
+          .expand((event) => (event as Event).eventGames)
           .where((eventGame) => eventGame.gameName == category.currentGameName)
           .toList();
 
@@ -323,8 +324,10 @@ Widget buildExpansionPanel(SportCategory1Name category,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: subsubcategory.events.length,
                       itemBuilder: (BuildContext context, int indexEvent) {
-                        var filteredEventGames = subsubcategory
-                            .events[indexEvent].eventGames
+                        Event event =
+                            subsubcategory.events[indexEvent] as Event;
+
+                        var filteredEventGames = event.eventGames
                             .where((eventGame) =>
                                 eventGame.gameName == category.currentGameName)
                             .toList();
@@ -337,7 +340,7 @@ Widget buildExpansionPanel(SportCategory1Name category,
 
                             return EventsEventGame(
                                 subsubcategory: subsubcategory,
-                                event: subsubcategory.events[indexEvent],
+                                event: event,
                                 eventGame: eventGame);
                           },
                         );

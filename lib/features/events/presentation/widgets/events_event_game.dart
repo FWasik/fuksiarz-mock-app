@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:fuksiarz_mock_app/common/events_base.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/bet_widget.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/category.dart';
+import 'package:fuksiarz_mock_app/common/category.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/custom_progress_indicator.dart';
 
 class EventsEventGame extends StatelessWidget {
   final SportCategory3Name subsubcategory;
-  final Event event;
-  final EventGame eventGame;
+  final EventBase event;
+  final EventGame? eventGame;
 
   const EventsEventGame(
       {Key? key,
       required this.subsubcategory,
       required this.event,
-      required this.eventGame})
+      this.eventGame})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -79,7 +80,7 @@ class EventsEventGame extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
                       style: const TextStyle(
-                          fontSize: 11, fontWeight: FontWeight.bold),
+                          fontSize: 12, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       secondTeam,
@@ -87,38 +88,39 @@ class EventsEventGame extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
                       style: const TextStyle(
-                          fontSize: 11, fontWeight: FontWeight.bold),
+                          fontSize: 12, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
               ),
-              if (event.eventType != 1) ...[
-                GestureDetector(
-                  child: Container(
-                      padding: const EdgeInsets.all(13.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.grey[300]!),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5.0)),
-                      ),
-                      child: const Text(
-                        "DO WYDARZENIA",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                ),
-              ] else ...[
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: eventGame.outcomes
-                        .map(
-                          (outcome) => BetWidget(outcome: outcome),
-                        )
-                        .toList(),
+              if (event is Event)
+                if ((event as Event).eventType != 1) ...[
+                  GestureDetector(
+                    child: Container(
+                        padding: const EdgeInsets.all(13.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.grey[300]!),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5.0)),
+                        ),
+                        child: const Text(
+                          "DO WYDARZENIA",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )),
                   ),
-                )
-              ]
+                ] else ...[
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: eventGame!.outcomes
+                          .map(
+                            (outcome) => BetWidget(outcome: outcome),
+                          )
+                          .toList(),
+                    ),
+                  )
+                ]
             ],
           )
         ]),

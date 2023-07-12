@@ -1,35 +1,34 @@
-import 'package:equatable/equatable.dart';
+import 'package:fuksiarz_mock_app/common/events_base.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
 
-class Event extends Equatable {
-  final String eventName;
+class Event extends EventBase {
   final int eventType;
-  final String category1Name;
   final String category2Name;
-  final String category3Name;
   final List<EventGame> eventGames;
-  final String eventTime;
-  final String eventDate;
 
-  const Event(
-      {required this.eventName,
-      required this.eventType,
-      required this.category1Name,
-      required this.category2Name,
-      required this.category3Name,
-      required this.eventGames,
-      required this.eventTime,
-      required this.eventDate});
+  const Event({
+    required eventName,
+    required eventTime,
+    required eventDate,
+    required category3Name,
+    required this.eventType,
+    required this.category2Name,
+    required this.eventGames,
+  }) : super(
+          eventName: eventName,
+          eventTime: eventTime,
+          eventDate: eventDate,
+          category3Name: category3Name,
+        );
 
   @override
   List<Object?> get props => [
         eventName,
         eventType,
-        category1Name,
-        category2Name,
-        category3Name,
         eventGames,
         eventTime,
-        eventDate
+        eventDate,
+        category2Name,
+        category3Name
       ];
 }

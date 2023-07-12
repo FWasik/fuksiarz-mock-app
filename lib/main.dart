@@ -5,6 +5,10 @@ import 'package:fuksiarz_mock_app/features/events/data/repositories/events_repo_
 import 'package:fuksiarz_mock_app/features/events/domain/usecases/get_events.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/bloc/events_bloc.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/pages/events_page.dart';
+import 'package:fuksiarz_mock_app/features/search/data/datasources/search_data_source.dart';
+import 'package:fuksiarz_mock_app/features/search/data/repositories/search_repo_impl.dart';
+import 'package:fuksiarz_mock_app/features/search/domain/usecases/get_searched_events.dart';
+import 'package:fuksiarz_mock_app/features/search/presentation/bloc/search_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +27,13 @@ class MyApp extends StatelessWidget {
               repository: EventsRepoImpl(eventsDataSource: EventsDataSource()),
             ),
           )..add(FetchedEventsEvent()),
+        ),
+        BlocProvider<SearchBloc>(
+          create: (context) => SearchBloc(
+            getSearchedEvents: GetSearchedEvents(
+              repository: SearchRepoImpl(searchDataSource: SearchDataSource()),
+            ),
+          ),
         )
       ],
       child: MaterialApp(

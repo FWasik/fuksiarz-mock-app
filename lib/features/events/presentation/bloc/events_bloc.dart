@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/usecases/get_events.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/category.dart';
+import 'package:fuksiarz_mock_app/common/category.dart';
 
 part 'events_event.dart';
 part 'events_state.dart';
@@ -140,8 +140,11 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
               .where((subsub) => subsub.isSelected)
               .expand(
                 (subsub) => subsub.events.expand(
-                  (event) =>
-                      event.eventGames.map((eventGame) => eventGame.gameName),
+                  (event) {
+                    event as Event;
+                    return event.eventGames
+                        .map((eventGame) => eventGame.gameName);
+                  },
                 ),
               ),
         );

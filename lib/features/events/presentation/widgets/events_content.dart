@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/bloc/events_bloc.dart';
 
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/category.dart';
+import 'package:fuksiarz_mock_app/common/category.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_button.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_category.dart';
 

@@ -1,6 +1,6 @@
-import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
+import 'package:fuksiarz_mock_app/common/events_base.dart';
 
-class SportCategoryBase {
+abstract class SportCategoryBase {
   String name;
 
   SportCategoryBase({required this.name});
@@ -24,7 +24,7 @@ class SportCategory1Name extends SportCategoryBase {
 }
 
 class SportCategory3Name extends SportCategoryBase {
-  List<Event> events;
+  List<EventBase> events;
 
   bool isSelected = false;
   bool isExpanded = false;

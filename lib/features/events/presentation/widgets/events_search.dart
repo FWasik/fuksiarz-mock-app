@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/pages/events_search_page.dart';
+import 'package:fuksiarz_mock_app/features/search/presentation/pages/events_search_page.dart';
 
 class SearchInputNavigator extends StatelessWidget {
   const SearchInputNavigator({
