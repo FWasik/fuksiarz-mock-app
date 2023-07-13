@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fuksiarz_mock_app/common/loading_widget.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/bloc/events_bloc.dart';
 
 import 'package:fuksiarz_mock_app/common/category.dart';
@@ -87,9 +88,7 @@ class _EventsContentState extends State<EventsContent> {
         } else {
           return SizedBox(
             height: height * 0.4,
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
+            child: LoadingWidget(),
           );
         }
       },

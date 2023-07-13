@@ -36,6 +36,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         }
       }
 
+      categories.sort((a, b) => a.name.compareTo(b.name));
+
       emit(FetchedEventsSearchedState(categories: categories));
     });
 

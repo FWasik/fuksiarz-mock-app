@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_mock_app/common/category.dart';
+import 'package:fuksiarz_mock_app/common/loading_widget.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_event_game.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_header.dart';
 import 'package:fuksiarz_mock_app/features/search/domain/entities/event_searched.dart';
@@ -87,7 +88,7 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
                     }),
               );
             } else if (state is Loading) {
-              return const Center(child: CircularProgressIndicator());
+              return LoadingWidget();
             } else {
               return Container(
                   height: MediaQuery.of(context).size.height,
@@ -119,7 +120,7 @@ Widget appBarWidget(BuildContext context, TextEditingController controller,
         controller: controller,
         onChanged: (value) {
           print(value);
-          if (value.length > 3) {
+          if (value.length > 2) {
             BlocProvider.of<SearchBloc>(context).add(
               FetchedEventsSearchedEvent(pattern: value),
             );
