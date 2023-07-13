@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomCategoryButton extends StatelessWidget {
   final String text;
   final bool isClicked;
   final VoidCallback onPressed;
 
-  const CustomButton(
+  const CustomCategoryButton(
       {Key? key,
       required this.text,
       required this.isClicked,

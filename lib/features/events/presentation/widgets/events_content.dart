@@ -52,7 +52,7 @@ class _EventsContentState extends State<EventsContent> {
                             scrollDirection: Axis.horizontal,
                             itemCount: categories.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return CustomButton(
+                              return CustomCategoryButton(
                                   text: categories[index].name,
                                   isClicked: categories[index].isSelected,
                                   onPressed: (() {
