@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_content.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_header.dart';
+import 'package:fuksiarz_mock_app/common/events_header.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_main_tab_bars.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_search.dart';
 
@@ -25,10 +25,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+
+    double resize;
+
+    if (height > 700) {
+      resize = 0.10;
+    } else {
+      resize = 0.15;
+    }
 
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 90,
+        toolbarHeight: height * resize,
         elevation: 0,
         flexibleSpace: EventsHeader(
           appBarWidget: appBarWidget(width),

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_mock_app/common/category.dart';
 import 'package:fuksiarz_mock_app/common/loading_widget.dart';
 import 'package:fuksiarz_mock_app/common/event_game_widget.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_header.dart';
+import 'package:fuksiarz_mock_app/common/events_header.dart';
 import 'package:fuksiarz_mock_app/features/search/domain/entities/event_searched.dart';
 import 'package:fuksiarz_mock_app/features/search/presentation/bloc/search_bloc.dart';
 
@@ -37,14 +37,27 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+
+    double resize;
+
+    if (height > 1000) {
+      resize = 0.12;
+    } else if (height > 700) {
+      resize = 0.15;
+    } else {
+      resize = 0.20;
+    }
+
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: 110,
           elevation: 0,
+          toolbarHeight: height * resize,
           automaticallyImplyLeading: false,
           flexibleSpace: EventsHeader(
-              appBarWidget:
-                  appBarWidget(context, _controller, _showSuffixIcon, width)),
+            appBarWidget:
+                appBarWidget(context, _controller, _showSuffixIcon, width),
+          ),
         ),
         body: BlocBuilder<SearchBloc, SearchState>(
           builder: (context, state) {
