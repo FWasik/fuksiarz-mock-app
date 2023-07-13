@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:fuksiarz_mock_app/common/events_base.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/bet_widget.dart';
+import 'package:fuksiarz_mock_app/features/events/presentation/widgets/bet_button.dart';
 import 'package:fuksiarz_mock_app/common/category.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/custom_progress_indicator.dart';
 
-class EventsEventGame extends StatelessWidget {
+class EventGameWidget extends StatelessWidget {
   final SportCategory3Name subsubcategory;
   final EventBase event;
   final EventGame? eventGame;
 
-  const EventsEventGame(
+  const EventGameWidget(
       {Key? key,
       required this.subsubcategory,
       required this.event,

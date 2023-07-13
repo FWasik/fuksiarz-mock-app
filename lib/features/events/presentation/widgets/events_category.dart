@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/bloc/events_bloc.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_event_game.dart';
+import 'package:fuksiarz_mock_app/common/event_game_widget.dart';
 
 import 'package:fuksiarz_mock_app/common/category.dart';
 
@@ -338,7 +338,7 @@ Widget buildExpansionPanel(SportCategory1Name category,
                           itemBuilder: (BuildContext context, int indexGame) {
                             EventGame eventGame = filteredEventGames[indexGame];
 
-                            return EventsEventGame(
+                            return EventGameWidget(
                                 subsubcategory: subsubcategory,
                                 event: event,
                                 eventGame: eventGame);
