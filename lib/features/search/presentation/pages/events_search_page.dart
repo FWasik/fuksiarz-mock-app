@@ -61,7 +61,41 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
         ),
         body: BlocBuilder<SearchBloc, SearchState>(
           builder: (context, state) {
-            if (state is FetchedEventsSearchedState) {
+            if (state is FetchedEventsSearchedState &&
+                state.categories.isEmpty) {
+              return Container(
+                color: Colors.grey[100],
+                width: width,
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: Icon(
+                        Icons.warning,
+                        size: 80.0,
+                        color: Colors.red,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: Text(
+                        "BRAK WYNIKÓW",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: Text(
+                        "SPRÓBUJ INNEGO ZAPYTANIA",
+                      ),
+                    )
+                  ],
+                ),
+              );
+            } else if (state is FetchedEventsSearchedState) {
               return Container(
                 padding: const EdgeInsets.only(
                     bottom: 15.0, left: 15.0, right: 15.0),
@@ -104,8 +138,9 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
               return const LoadingWidget();
             } else {
               return Container(
-                  height: MediaQuery.of(context).size.height,
-                  color: Colors.grey[100]);
+                height: MediaQuery.of(context).size.height,
+                color: Colors.grey[100],
+              );
             }
           },
         ));

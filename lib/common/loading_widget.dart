@@ -6,8 +6,11 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey[100],
-      child: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: SizedBox(
@@ -23,18 +26,17 @@ class LoadingWidget extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.all(3.0),
             child: Text(
-              "Daj mi chwile...",
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              "DAJ MI CHWILE...",
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
           ),
           const Padding(
             padding: EdgeInsets.all(3.0),
             child: Text(
-              "Przeszukuje baze...",
-              style: TextStyle(fontSize: 16.0),
+              "PRZESZUKUJĘ BAZE...",
             ),
           )
-        ]),
+        ],
       ),
     );
   }
