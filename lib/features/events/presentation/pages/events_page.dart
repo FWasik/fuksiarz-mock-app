@@ -76,7 +76,7 @@ Widget appBarWidget(double width) {
     bottom: 0,
     child: Container(
       width: width,
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(

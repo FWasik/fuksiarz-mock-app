@@ -36,8 +36,7 @@ class _EventsCategoryState extends State<EventsCategory> {
         child: Column(
           children: [
             Container(
-              padding:
-                  const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+              padding: const EdgeInsets.all(10.0),
               child: Row(children: [
                 Text(
                   widget.category.name,
@@ -109,6 +108,11 @@ class _EventsCategoryState extends State<EventsCategory> {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: TabBar(
+                                labelPadding: const EdgeInsets.only(
+                                    right: 10.0,
+                                    left: 10.0,
+                                    top: 3.0,
+                                    bottom: 15.0),
                                 isScrollable: true,
                                 indicatorColor:
                                     const Color.fromARGB(255, 109, 138, 188),
@@ -123,10 +127,10 @@ class _EventsCategoryState extends State<EventsCategory> {
                                 },
                                 tabs: widget.category.gameNames!.map((type) {
                                   return Tab(
+                                    height: 20.0,
                                     child: Text(
                                       type,
-                                      style: TextStyle(
-                                          color: Colors.blueGrey[700]),
+                                      style: TextStyle(color: Colors.black54),
                                     ),
                                   );
                                 }).toList(),
