@@ -88,7 +88,7 @@ class _EventsContentState extends State<EventsContent> {
         } else {
           return SizedBox(
             height: height * 0.4,
-            child: LoadingWidget(),
+            child: const LoadingWidget(),
           );
         }
       },

@@ -97,17 +97,18 @@ class EventsEventGame extends StatelessWidget {
                 if ((event as Event).eventType != 1) ...[
                   GestureDetector(
                     child: Container(
-                        padding: const EdgeInsets.all(13.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.grey[300]!),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5.0)),
-                        ),
-                        child: const Text(
-                          "DO WYDARZENIA",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )),
+                      padding: const EdgeInsets.all(13.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.grey[300]!),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                      ),
+                      child: const Text(
+                        "DO WYDARZENIA",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
                 ] else ...[
                   Expanded(
@@ -115,7 +116,7 @@ class EventsEventGame extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: eventGame!.outcomes
                           .map(
-                            (outcome) => BetWidget(outcome: outcome),
+                            (outcome) => BetButton(outcome: outcome),
                           )
                           .toList(),
                     ),
