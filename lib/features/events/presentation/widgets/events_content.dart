@@ -31,8 +31,8 @@ class _EventsContentState extends State<EventsContent> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  height: 75,
-                  padding: const EdgeInsets.all(12.0),
+                  height: 60,
+                  padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                       border:
                           Border(bottom: BorderSide(color: Colors.grey[300]!))),

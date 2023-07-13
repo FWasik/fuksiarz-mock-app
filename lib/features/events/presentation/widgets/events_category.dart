@@ -36,7 +36,8 @@ class _EventsCategoryState extends State<EventsCategory> {
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.all(10.0),
+              padding:
+                  const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
               child: Row(children: [
                 Text(
                   widget.category.name,
@@ -294,6 +295,7 @@ Widget buildExpansionPanel(SportCategory1Name category,
           child: ExpansionPanelList(
             elevation: 0,
             expandedHeaderPadding: EdgeInsets.zero,
+            expandIconColor: Colors.black,
             expansionCallback: (int index, bool isExpanded) {
               BlocProvider.of<EventsBloc>(context).add(
                 ExpansionEventChangeEvent(
@@ -303,7 +305,7 @@ Widget buildExpansionPanel(SportCategory1Name category,
             },
             children: [
               ExpansionPanel(
-                backgroundColor: const Color.fromARGB(26, 213, 213, 213),
+                backgroundColor: Colors.grey[100],
                 headerBuilder: (BuildContext context, bool isExpanded) {
                   return Padding(
                     padding: const EdgeInsets.only(left: 12.0),
