@@ -10,8 +10,8 @@ class BetButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(3.0),
-      height: 65,
-      width: 70,
+      height: 60,
+      width: 65,
       child: OutlinedButton(
         onPressed: () {},
         style: OutlinedButton.styleFrom(

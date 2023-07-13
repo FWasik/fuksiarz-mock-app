@@ -54,6 +54,7 @@ class _EventsCategoryState extends State<EventsCategory> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           width: 75.0,
+                          height: 35,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius:
@@ -80,8 +81,8 @@ class _EventsCategoryState extends State<EventsCategory> {
                           );
                         },
                         child: Container(
-                            width: 40,
-                            height: 40,
+                            width: 35,
+                            height: 35,
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius:
@@ -130,7 +131,8 @@ class _EventsCategoryState extends State<EventsCategory> {
                                     height: 20.0,
                                     child: Text(
                                       type,
-                                      style: TextStyle(color: Colors.black54),
+                                      style: const TextStyle(
+                                          color: Colors.black54),
                                     ),
                                   );
                                 }).toList(),
@@ -223,6 +225,7 @@ class _EventsCategoryState extends State<EventsCategory> {
                               (BuildContext context, int indexSubcategory) {
                             SportCategory2Name subcategory =
                                 category.subcategories[indexSubcategory];
+
                             return ListView.builder(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
@@ -315,10 +318,24 @@ Widget buildExpansionPanel(SportCategory1Name category,
                     padding: const EdgeInsets.only(left: 12.0),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(
-                        "${subcategory.name} > ${subsubcategory.name}",
-                        style: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
+                      child: Row(
+                        children: [
+                          Text(
+                            subcategory.name,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5.0),
+                            child: Icon(
+                              Icons.keyboard_arrow_right,
+                              size: 18,
+                            ),
+                          ),
+                          Text(
+                            subsubcategory.name,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          )
+                        ],
                       ),
                     ),
                   );
