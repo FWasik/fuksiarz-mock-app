@@ -68,27 +68,45 @@ class _EventsContentState extends State<EventsContent> {
                 ),
                 Flexible(
                   child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: categories.length,
-                      itemBuilder: (context, index) {
-                        if (categories[index].name != "WSZYSTKO") {
-                          return EventsCategory(
-                              state: state, category: categories[index]);
-                        } else {
-                          return Container();
-                        }
-                      }),
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: categories.length,
+                    itemBuilder: (context, index) {
+                      if (categories[index].name != "WSZYSTKO") {
+                        return EventsCategory(
+                            state: state, category: categories[index]);
+                      } else {
+                        return Container();
+                      }
+                    },
+                  ),
                 ),
               ],
             ),
           );
-        } else {
+        } else if (state is LoadingState) {
           return SizedBox(
             height: height * 0.7,
             child: const LoadingWidget(),
           );
+        } else if (state is ErrorState) {
+          return SizedBox(
+            height: height * 0.5,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Text(
+                  state.error,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          );
+        } else {
+          return Container();
         }
       },
     );

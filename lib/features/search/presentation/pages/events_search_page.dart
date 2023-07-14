@@ -167,7 +167,6 @@ Widget appBarWidget(BuildContext context, TextEditingController controller,
       child: TextField(
         controller: controller,
         onChanged: (value) {
-          print(value);
           if (value.length > 2) {
             BlocProvider.of<SearchBloc>(context).add(
               FetchedEventsSearchedEvent(pattern: value),

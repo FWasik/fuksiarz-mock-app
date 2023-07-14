@@ -9,6 +9,10 @@ class EventsDataSource {
 
     final response = await http.get(url);
 
-    return jsonDecode(utf8.decode(response.bodyBytes));
+    if (response.statusCode != 200) {
+      throw Exception();
+    } else {
+      return jsonDecode(utf8.decode(response.bodyBytes));
+    }
   }
 }

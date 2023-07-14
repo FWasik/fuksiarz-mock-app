@@ -18,4 +18,8 @@ class FetchedEventsState extends EventsState {
   List<Object> get props => [categories];
 }
 
-class Loading extends EventsState {}
+class LoadingState extends EventsState {}
+
+class ErrorState extends EventsState {
+  final String error = "Coś poszło nie tak. Spróbuj ponownie lub zgłoś błąd";
+}
