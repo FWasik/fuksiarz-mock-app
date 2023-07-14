@@ -4,7 +4,7 @@ import 'package:fuksiarz_mock_app/common/loading_widget.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/bloc/events_bloc.dart';
 
 import 'package:fuksiarz_mock_app/common/category.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_button.dart';
+import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_category_button.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_category.dart';
 
 class EventsContent extends StatefulWidget {
@@ -52,9 +52,8 @@ class _EventsContentState extends State<EventsContent> {
                             scrollDirection: Axis.horizontal,
                             itemCount: categories.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return CustomCategoryButton(
-                                  text: categories[index].name,
-                                  isClicked: categories[index].isSelected,
+                              return EventsCategoryButton(
+                                  category: categories[index],
                                   onPressed: (() {
                                     BlocProvider.of<EventsBloc>(context).add(
                                       CategoriesFilterEvent(

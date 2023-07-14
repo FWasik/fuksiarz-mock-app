@@ -11,16 +11,19 @@ class SportCategory1Name extends SportCategoryBase {
   bool isDropdownOpen = false;
   int importance;
   List<SportCategory2Name> subcategories;
+  int numOfGames;
+
   List<String>? gameNames;
   String? currentGameName;
 
-  SportCategory1Name(
-      {required name,
-      required this.importance,
-      required this.subcategories,
-      required this.gameNames,
-      required this.currentGameName})
-      : super(name: name);
+  SportCategory1Name({
+    required name,
+    required this.importance,
+    required this.subcategories,
+    required this.numOfGames,
+    this.gameNames,
+    this.currentGameName,
+  }) : super(name: name);
 }
 
 class SportCategory3Name extends SportCategoryBase {

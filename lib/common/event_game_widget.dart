@@ -20,8 +20,6 @@ class EventGameWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> teamSplitted = event.eventName.split(" - ");
-    String firstTeam = teamSplitted[0];
-    String secondTeam = teamSplitted[1];
 
     int time = 45;
 
@@ -68,31 +66,46 @@ class EventGameWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
-                height: 35,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      firstTeam,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: false,
-                      style: const TextStyle(
-                          fontSize: 12, fontWeight: FontWeight.bold),
+              teamSplitted.length > 1
+                  ? SizedBox(
+                      height: 35,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            teamSplitted[0],
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: false,
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.bold),
+                          ),
+                          if (teamSplitted.length > 1) ...[
+                            Text(
+                              teamSplitted[1],
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: false,
+                              style: const TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                          ]
+                        ],
+                      ),
+                    )
+                  : SizedBox(
+                      width: 200,
+                      height: 40,
+                      child: Text(
+                        teamSplitted[0],
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                        style: const TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    Text(
-                      secondTeam,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: false,
-                      style: const TextStyle(
-                          fontSize: 12, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
               if (event is Event)
                 if ((event as Event).eventType != 1) ...[
                   GestureDetector(

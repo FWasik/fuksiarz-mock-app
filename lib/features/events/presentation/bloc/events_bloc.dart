@@ -25,11 +25,11 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
       try {
         List<SportCategory1Name> categories = [
           SportCategory1Name(
-              name: "WSZYSTKO",
-              importance: 0,
-              subcategories: [],
-              gameNames: [],
-              currentGameName: "")
+            name: "WSZYSTKO",
+            importance: 0,
+            subcategories: [],
+            numOfGames: 0,
+          )
         ];
 
         for (int idx = 1; idx <= 6; idx++) {
@@ -75,11 +75,11 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
 
           categories.add(
             SportCategory1Name(
-                name: categoriesNames[idx],
-                importance: idx,
-                subcategories: subcategories,
-                gameNames: null,
-                currentGameName: null),
+              name: categoriesNames[idx],
+              importance: idx,
+              subcategories: subcategories,
+              numOfGames: 0,
+            ),
           );
         }
 
@@ -167,6 +167,23 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
 
       if (numOfSubsubcategorySelected == 1) {
         currentCategory.isDropdownOpen = true;
+      }
+
+      int numOfGames = 0;
+
+      for (Event event in currentSubsubcategory.events.cast<Event>()) {
+        numOfGames += event.eventGames.length;
+      }
+
+      SportCategory1Name all =
+          categories.firstWhere((category) => category.name == "WSZYSTKO");
+
+      if (currentSubsubcategory.isSelected) {
+        currentCategory.numOfGames += numOfGames;
+        all.numOfGames += numOfGames;
+      } else {
+        currentCategory.numOfGames -= numOfGames;
+        all.numOfGames -= numOfGames;
       }
 
       emit(FetchedEventsState(categories: categories));
