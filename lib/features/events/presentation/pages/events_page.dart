@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fuksiarz_mock_app/features/events/presentation/bloc/events_bloc.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_content.dart';
 import 'package:fuksiarz_mock_app/common/events_header.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_main_tab_bars.dart';
@@ -45,18 +47,23 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: DefaultTabController(
           length: 6,
-          child: ListView(
-            children: [
-              const SearchInputNavigator(),
-              EventsMainTabBars(changeIndexCallback: _changeIndexCallback),
-              Builder(builder: (_) {
-                if (currentIndex == 1) {
-                  return const EventsContent();
-                } else {
-                  return const Icon(Icons.abc);
-                }
-              })
-            ],
+          child: RefreshIndicator(
+            onRefresh: () async {
+              BlocProvider.of<EventsBloc>(context).add(FetchedEventsEvent());
+            },
+            child: ListView(
+              children: [
+                const SearchInputNavigator(),
+                EventsMainTabBars(changeIndexCallback: _changeIndexCallback),
+                Builder(builder: (_) {
+                  if (currentIndex == 1) {
+                    return const EventsContent();
+                  } else {
+                    return const Icon(Icons.abc);
+                  }
+                })
+              ],
+            ),
           )),
     );
   }
