@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fuksiarz_mock_app/common/dialog.dart';
 import 'package:fuksiarz_mock_app/common/loading_widget.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/bloc/events_bloc.dart';
 
@@ -43,7 +44,10 @@ class _EventsContentState extends State<EventsContent> {
                           width: 40,
                           child: IconButton(
                             icon: const Icon(Icons.tune),
-                            onPressed: _showOptionsDialog,
+                            onPressed: () {
+                              showOptionsDialog(context,
+                                  disciplines(categories), "Dyscypliny");
+                            },
                           )),
                       SizedBox(
                         width: width - 60,
@@ -112,95 +116,39 @@ class _EventsContentState extends State<EventsContent> {
     );
   }
 
-  void _showOptionsDialog() {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return BlocBuilder<EventsBloc, EventsState>(
-              builder: (context, state) {
-            if (state is FetchedEventsState) {
-              List<SportCategory1Name> categories = state.categories;
-
-              return Dismissible(
-                key: UniqueKey(),
-                direction: DismissDirection.down,
-                onDismissed: (direction) {
-                  Navigator.pop(context);
-                },
-                child: AlertDialog(
-                  insetPadding: EdgeInsets.zero,
-                  titlePadding: EdgeInsets.zero,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  shape: const RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(20))),
-                  title: SizedBox(
-                    height: 50,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        const Positioned(
-                          child: Text(
-                            "Dyscypliny",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Positioned(
-                          right: 0,
-                          child: IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: const Icon(Icons.close),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  content: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: ListView.builder(
-                        itemCount: categories.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                  border:
-                                      Border.all(width: 1, color: Colors.grey),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(5.0),
-                                  ),
-                                ),
-                                child: CheckboxListTile(
-                                  activeColor: Colors.black,
-                                  value: categories[index].isSelected,
-                                  onChanged: (bool? value) {
-                                    BlocProvider.of<EventsBloc>(context).add(
-                                        CategoriesFilterEvent(
-                                            currentCategory: categories[index],
-                                            categories: categories));
-                                  },
-                                  title: Text(
-                                    categories[index].name,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: categories[index].isSelected
-                                            ? Colors.black
-                                            : Colors.grey),
-                                  ),
-                                )),
-                          );
-                        }),
-                  ),
-                ),
-              );
-            } else {
-              return Container();
-            }
-          });
-        });
+  Widget disciplines(List<SportCategory1Name> categories) {
+    return ListView.builder(
+      itemCount: categories.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(5.0),
+              ),
+            ),
+            child: CheckboxListTile(
+              activeColor: Colors.black,
+              value: categories[index].isSelected,
+              onChanged: (bool? value) {
+                BlocProvider.of<EventsBloc>(context).add(CategoriesFilterEvent(
+                    currentCategory: categories[index],
+                    categories: categories));
+              },
+              title: Text(
+                categories[index].name,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: categories[index].isSelected
+                        ? Colors.black
+                        : Colors.grey),
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
