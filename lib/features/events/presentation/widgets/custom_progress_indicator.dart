@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 
 class CustomProgressIndicator extends StatelessWidget {
-  final double time;
-
-  const CustomProgressIndicator({Key? key, required this.time})
-      : super(key: key);
+  const CustomProgressIndicator({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return const Flexible(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: EdgeInsets.symmetric(horizontal: 8.0),
         child: LinearProgressIndicator(
-          value: time,
+          minHeight: 0.8,
+          value: 0,
           backgroundColor: Colors.grey,
-          valueColor: const AlwaysStoppedAnimation<Color>(Colors.red),
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
         ),
       ),
     );

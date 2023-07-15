@@ -21,8 +21,6 @@ class EventGameWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> teamSplitted = event.eventName.split(" - ");
 
-    int time = 45;
-
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
       child: Container(
@@ -36,7 +34,9 @@ class EventGameWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "${subsubcategory.name} ${event.eventDate}",
+                "${subsubcategory.name}  ${event.eventDate}",
+                overflow: TextOverflow.ellipsis,
+                softWrap: false,
                 style:
                     const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
@@ -55,7 +55,7 @@ class EventGameWidget extends StatelessWidget {
                 style:
                     const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
-              CustomProgressIndicator(time: time / 45),
+              const CustomProgressIndicator(),
               const Text(
                 "111",
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
