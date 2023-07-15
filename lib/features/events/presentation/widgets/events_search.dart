@@ -25,7 +25,7 @@ class SearchInputNavigator extends StatelessWidget {
             ),
           );
         },
-        style: const TextStyle(backgroundColor: Colors.white, fontSize: 14),
+        style: const TextStyle(backgroundColor: Colors.white, fontSize: 13),
         decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
@@ -38,7 +38,7 @@ class SearchInputNavigator extends StatelessWidget {
             ),
             border: const OutlineInputBorder(),
             prefixIcon: const Icon(Icons.search, color: Colors.grey),
-            hintText: "CZEGO SZUKASZ?"),
+            hintText: "CZEGO SZUKASZ"),
       ),
     );
   }

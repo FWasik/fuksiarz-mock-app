@@ -64,7 +64,7 @@ class _EventsCategoryState extends State<EventsCategory> {
                           _showOptionsDialog(widget.category);
                         },
                         child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(vertical: 6.0),
                           width: 75.0,
                           height: 35,
                           decoration: BoxDecoration(
