@@ -126,9 +126,9 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
                                     .events[indexEvent] as EventSearched;
 
                                 return EventGameWidget(
-                                    subsubcategory: category,
-                                    event: event,
-                                    eventGame: null);
+                                  subsubcategory: category,
+                                  event: event,
+                                );
                               })
                         ],
                       );

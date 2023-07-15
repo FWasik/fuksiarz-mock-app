@@ -89,9 +89,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
 
         emit(FetchedEventsState(categories: categories));
       } on Exception catch (e) {
-        emit(
-          ErrorState(),
-        );
+        emit(ErrorState());
       }
     });
 
@@ -133,9 +131,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
 
         emit(FetchedEventsState(categories: categories));
       } on Exception catch (e) {
-        emit(
-          ErrorState(),
-        );
+        emit(ErrorState());
       }
     });
 

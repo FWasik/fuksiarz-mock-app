@@ -68,7 +68,7 @@ class EventGameWidget extends StatelessWidget {
             children: [
               teamSplitted.length > 1
                   ? SizedBox(
-                      height: 35,
+                      width: 150,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,6 +82,7 @@ class EventGameWidget extends StatelessWidget {
                                 fontSize: 12, fontWeight: FontWeight.bold),
                           ),
                           if (teamSplitted.length > 1) ...[
+                            const SizedBox(height: 8.0),
                             Text(
                               teamSplitted[1],
                               maxLines: 2,
@@ -96,7 +97,6 @@ class EventGameWidget extends StatelessWidget {
                     )
                   : SizedBox(
                       width: 200,
-                      height: 40,
                       child: Text(
                         teamSplitted[0],
                         maxLines: 3,

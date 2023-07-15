@@ -330,24 +330,11 @@ Widget buildExpansionPanel(SportCategory1Name category,
                     padding: const EdgeInsets.only(left: 12.0),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: [
-                          Text(
-                            subcategory.name,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 5.0),
-                            child: Icon(
-                              Icons.keyboard_arrow_right,
-                              size: 18,
-                            ),
-                          ),
-                          Text(
-                            subsubcategory.name,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          )
-                        ],
+                      child: Text(
+                        "${subcategory.name}  >  ${subsubcategory.name}",
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                   );
