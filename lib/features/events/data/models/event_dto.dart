@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 class EventDTO extends Event {
   const EventDTO({
     required eventName,
+    required category1Name,
     required category2Name,
     required category3Name,
     required eventGames,
@@ -13,6 +14,7 @@ class EventDTO extends Event {
     required eventDate,
   }) : super(
             eventName: eventName,
+            category1Name: category1Name,
             category2Name: category2Name,
             category3Name: category3Name,
             eventGames: eventGames,
@@ -31,8 +33,9 @@ class EventDTO extends Event {
 
     return EventDTO(
       eventName: json["eventName"],
-      category2Name: json["category2Name"],
-      category3Name: json["category3Name"],
+      category1Name: json["category1Name"].toString().toUpperCase(),
+      category2Name: json["category2Name"].toString().toUpperCase(),
+      category3Name: json["category3Name"].toString().toUpperCase(),
       eventGames: eventGames,
       eventTime: DateFormat('HH:mm').format(dt),
       eventDate: DateFormat('dd.MM').format(dt),

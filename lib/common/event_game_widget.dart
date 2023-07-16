@@ -4,7 +4,6 @@ import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/bet_button.dart';
 import 'package:fuksiarz_mock_app/common/category.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/custom_progress_indicator.dart';
 
 class EventGameWidget extends StatelessWidget {
   final SportCategory3Name subsubcategory;

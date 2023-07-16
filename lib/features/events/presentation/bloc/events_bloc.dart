@@ -9,16 +9,6 @@ import 'package:fuksiarz_mock_app/common/category.dart';
 part 'events_event.dart';
 part 'events_state.dart';
 
-List<String> categoriesNames = [
-  "WSZYSTKO",
-  "PIŁKA NOŻNA",
-  "KOSZYKÓWKA",
-  "BASEBALL",
-  "HOKEJ NA LODZIE",
-  "TENIS",
-  "PIŁKA RĘCZNA"
-];
-
 class EventsBloc extends Bloc<EventsEvent, EventsState> {
   GetEvents getEvents;
 
@@ -36,55 +26,57 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
           )
         ];
 
-        for (int idx = 1; idx <= 6; idx++) {
-          List<Event> events = await getEvents.call(idx);
+        for (int idx = 1; idx <= 20; idx++) {
+          List<Event>? events = await getEvents.call(idx);
 
-          List<SportCategory2Name> subcategories = [];
+          if (events.isNotEmpty) {
+            List<SportCategory2Name> subcategories = [];
 
-          for (Event event in events) {
-            String nameOfSubcategory = event.category2Name;
-            String nameOfSubsubcategory = event.category3Name;
+            for (Event event in events) {
+              String nameOfSubcategory = event.category2Name;
+              String nameOfSubsubcategory = event.category3Name;
 
-            SportCategory2Name? existingSubcategory =
-                subcategories.cast<SportCategory2Name?>().firstWhere(
-                      (subcategory) => subcategory!.name == nameOfSubcategory,
+              SportCategory2Name? existingSubcategory =
+                  subcategories.cast<SportCategory2Name?>().firstWhere(
+                        (subcategory) => subcategory!.name == nameOfSubcategory,
+                        orElse: () => null,
+                      );
+
+              if (existingSubcategory != null) {
+                SportCategory3Name? existingSubsubcategory = existingSubcategory
+                    .subsubcategories
+                    .cast<SportCategory3Name?>()
+                    .firstWhere(
+                      (subsubcategory) =>
+                          subsubcategory!.name == nameOfSubsubcategory,
                       orElse: () => null,
                     );
 
-            if (existingSubcategory != null) {
-              SportCategory3Name? existingSubsubcategory = existingSubcategory
-                  .subsubcategories
-                  .cast<SportCategory3Name?>()
-                  .firstWhere(
-                    (subsubcategory) =>
-                        subsubcategory!.name == nameOfSubsubcategory,
-                    orElse: () => null,
-                  );
-
-              if (existingSubsubcategory != null) {
-                existingSubsubcategory.events.add(event);
+                if (existingSubsubcategory != null) {
+                  existingSubsubcategory.events.add(event);
+                } else {
+                  existingSubcategory.subsubcategories.add(SportCategory3Name(
+                      name: nameOfSubsubcategory, events: [event]));
+                }
               } else {
-                existingSubcategory.subsubcategories.add(SportCategory3Name(
-                    name: nameOfSubsubcategory, events: [event]));
+                subcategories.add(SportCategory2Name(
+                    name: nameOfSubcategory,
+                    subsubcategories: [
+                      SportCategory3Name(
+                          name: nameOfSubsubcategory, events: [event])
+                    ]));
               }
-            } else {
-              subcategories.add(SportCategory2Name(
-                  name: nameOfSubcategory,
-                  subsubcategories: [
-                    SportCategory3Name(
-                        name: nameOfSubsubcategory, events: [event])
-                  ]));
             }
-          }
 
-          categories.add(
-            SportCategory1Name(
-              name: categoriesNames[idx],
-              importance: idx,
-              subcategories: subcategories,
-              numOfGames: 0,
-            ),
-          );
+            categories.add(
+              SportCategory1Name(
+                name: events[0].category1Name,
+                importance: idx,
+                subcategories: subcategories,
+                numOfGames: 0,
+              ),
+            );
+          }
         }
 
         emit(FetchedEventsState(categories: categories));
@@ -106,7 +98,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
               .where((category) => category.isSelected == allSelected)
               .toList();
 
-          for (var category in otherCategories) {
+          for (SportCategory1Name category in otherCategories) {
             category.isSelected = !allSelected;
           }
         } else {
