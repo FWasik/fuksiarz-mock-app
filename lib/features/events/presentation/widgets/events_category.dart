@@ -211,9 +211,7 @@ class _EventsCategoryState extends State<EventsCategory> {
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey[300]!),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(5.0),
-                  ),
+                  borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: CheckboxListTile(
                   activeColor: Colors.black,

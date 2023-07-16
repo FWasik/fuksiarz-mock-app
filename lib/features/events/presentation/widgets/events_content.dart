@@ -126,9 +126,7 @@ class _EventsContentState extends State<EventsContent> {
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(5.0),
-              ),
+              borderRadius: BorderRadius.circular(5.0),
             ),
             child: CheckboxListTile(
               activeColor: Colors.black,
