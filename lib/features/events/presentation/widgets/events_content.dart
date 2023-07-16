@@ -118,6 +118,7 @@ class _EventsContentState extends State<EventsContent> {
 
   Widget disciplines(List<SportCategory1Name> categories) {
     return ListView.builder(
+      key: const PageStorageKey<String>("controllerA"),
       itemCount: categories.length,
       itemBuilder: (BuildContext context, int index) {
         return Padding(

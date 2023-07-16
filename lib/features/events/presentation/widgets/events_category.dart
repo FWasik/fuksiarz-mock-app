@@ -190,6 +190,7 @@ class _EventsCategoryState extends State<EventsCategory> {
   Widget leauges(
       List<SportCategory1Name> categories, SportCategory1Name category) {
     return ListView.builder(
+      key: const PageStorageKey<String>("controllerA"),
       shrinkWrap: true,
       itemCount: category.subcategories.length,
       itemBuilder: (BuildContext context, int indexSubcategory) {
@@ -197,6 +198,7 @@ class _EventsCategoryState extends State<EventsCategory> {
             category.subcategories[indexSubcategory];
 
         return ListView.builder(
+          key: const PageStorageKey<String>("controllerB"),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: subcategory.subsubcategories.length,
@@ -207,31 +209,32 @@ class _EventsCategoryState extends State<EventsCategory> {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey[300]!),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(5.0),
-                    ),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey[300]!),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(5.0),
                   ),
-                  child: CheckboxListTile(
-                    activeColor: Colors.black,
-                    value: subsubcategory.isSelected,
-                    onChanged: (bool? value) {
-                      BlocProvider.of<EventsBloc>(context).add(
-                          SubcategoriesFilterEvent(
-                              currentSubsubcategory: subsubcategory,
-                              currentCategory: category,
-                              categories: categories));
-                    },
-                    title: Text(
-                      "${subcategory.name} > ${subsubcategory.name}",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: subsubcategory.isSelected
-                              ? Colors.black
-                              : Colors.grey),
-                    ),
-                  )),
+                ),
+                child: CheckboxListTile(
+                  activeColor: Colors.black,
+                  value: subsubcategory.isSelected,
+                  onChanged: (bool? value) {
+                    BlocProvider.of<EventsBloc>(context).add(
+                        SubcategoriesFilterEvent(
+                            currentSubsubcategory: subsubcategory,
+                            currentCategory: category,
+                            categories: categories));
+                  },
+                  title: Text(
+                    "${subcategory.name} > ${subsubcategory.name}",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: subsubcategory.isSelected
+                            ? Colors.black
+                            : Colors.grey),
+                  ),
+                ),
+              ),
             );
           },
         );
@@ -280,7 +283,6 @@ class _EventsCategoryState extends State<EventsCategory> {
                         child: Text(
                           "${subcategory.name}  >  ${subsubcategory.name}",
                           overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
