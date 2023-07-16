@@ -52,9 +52,9 @@ class EventGameWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Icon(
-                          Icons.local_fire_department,
+                          Icons.local_fire_department_outlined,
                           color: Colors.white,
-                          size: 12.0,
+                          size: 14.0,
                         ),
                         Text(
                           "HOT",
