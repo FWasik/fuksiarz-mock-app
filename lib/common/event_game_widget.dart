@@ -24,12 +24,13 @@ class EventGameWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
       child: Container(
-        height: 150,
-        padding: const EdgeInsets.all(10.0),
+        height: 140,
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
         decoration: BoxDecoration(
             border: Border.all(color: Colors.grey[300]!),
-            borderRadius: const BorderRadius.all(Radius.circular(10.0))),
-        child: Column(children: [
+            borderRadius: BorderRadius.circular(10.0)),
+        child:
+            Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -65,7 +66,6 @@ class EventGameWidget extends StatelessWidget {
               )
             ],
           ),
-          const Spacer(flex: 1),
           Row(
             children: [
               Text(
@@ -80,7 +80,6 @@ class EventGameWidget extends StatelessWidget {
               )
             ],
           ),
-          const Spacer(flex: 2),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -99,17 +98,15 @@ class EventGameWidget extends StatelessWidget {
                             style: const TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.bold),
                           ),
-                          if (teamSplitted.length > 1) ...[
-                            const SizedBox(height: 8.0),
-                            Text(
-                              teamSplitted[1],
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: false,
-                              style: const TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
-                            ),
-                          ]
+                          const SizedBox(height: 8.0),
+                          Text(
+                            teamSplitted[1],
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: false,
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.bold),
+                          ),
                         ],
                       ),
                     )
@@ -125,7 +122,7 @@ class EventGameWidget extends StatelessWidget {
                       ),
                     ),
               if (event is Event)
-                if ((event as Event).eventType != 1) ...[
+                if (eventGame!.gameLayout > 3) ...[
                   GestureDetector(
                     child: Container(
                       padding: const EdgeInsets.all(13.0),

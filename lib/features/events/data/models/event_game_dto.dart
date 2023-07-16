@@ -6,7 +6,8 @@ class EventGameDTO extends EventGame {
   const EventGameDTO({
     required gameName,
     required outcomes,
-  }) : super(gameName: gameName, outcomes: outcomes);
+    required gameLayout,
+  }) : super(gameName: gameName, outcomes: outcomes, gameLayout: gameLayout);
 
   factory EventGameDTO.fromJson(Map<String, dynamic> json) {
     List<Outcome> outcomes = [];
@@ -15,12 +16,10 @@ class EventGameDTO extends EventGame {
       outcomes.add(OutcomeDTO.fromJson(outcome));
     }
 
-    // if (outcomes[0].outcomeName.contains("/") &&
-    //     outcomes[1].outcomeName.contains("/")) {
-    //   outcomes[0].outcomeName = "1";
-    //   outcomes[0].outcomeName = "2";
-    // }
-
-    return EventGameDTO(gameName: json["gameName"], outcomes: outcomes);
+    return EventGameDTO(
+      gameName: json["gameName"],
+      outcomes: outcomes,
+      gameLayout: json["gameLayout"],
+    );
   }
 }
