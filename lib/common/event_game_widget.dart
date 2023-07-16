@@ -41,9 +41,27 @@ class EventGameWidget extends StatelessWidget {
                     const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
               Container(
-                width: 20,
-                height: 30,
-                color: Colors.red,
+                width: 48,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: Colors.red,
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(
+                          Icons.local_fire_department,
+                          color: Colors.white,
+                          size: 12.0,
+                        ),
+                        Text(
+                          "HOT",
+                          style: TextStyle(color: Colors.white, fontSize: 10),
+                        )
+                      ]),
+                ),
               )
             ],
           ),
