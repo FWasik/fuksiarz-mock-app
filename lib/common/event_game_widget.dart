@@ -73,7 +73,17 @@ class EventGameWidget extends StatelessWidget {
                 style:
                     const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
-              const CustomProgressIndicator(),
+              const Flexible(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  child: LinearProgressIndicator(
+                    minHeight: 0.8,
+                    value: 0,
+                    backgroundColor: Colors.grey,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+                  ),
+                ),
+              ),
               const Text(
                 "111",
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
