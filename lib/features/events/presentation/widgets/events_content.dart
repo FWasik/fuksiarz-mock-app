@@ -27,9 +27,10 @@ class _EventsContentState extends State<EventsContent> {
           List<SportCategory1Name> categories = state.categories;
 
           return Container(
-            color: Colors.grey[100]!,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+            color: Colors.grey[50],
+            child: ListView(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
               children: [
                 Container(
                   height: 60,
@@ -37,9 +38,8 @@ class _EventsContentState extends State<EventsContent> {
                   decoration: BoxDecoration(
                       border:
                           Border(bottom: BorderSide(color: Colors.grey[300]!))),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(children: [
+                  child: Row(
+                    children: [
                       SizedBox(
                           width: 40,
                           child: IconButton(
@@ -50,7 +50,7 @@ class _EventsContentState extends State<EventsContent> {
                             },
                           )),
                       SizedBox(
-                        width: width - 60,
+                        width: width - 56,
                         child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
@@ -67,24 +67,22 @@ class _EventsContentState extends State<EventsContent> {
                                   }));
                             }),
                       ),
-                    ]),
+                    ],
                   ),
                 ),
-                Flexible(
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: categories.length,
-                    itemBuilder: (context, index) {
-                      if (categories[index].name != "WSZYSTKO") {
-                        return EventsCategory(
-                            state: state, category: categories[index]);
-                      } else {
-                        return Container();
-                      }
-                    },
-                  ),
+                ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: categories.length,
+                  itemBuilder: (context, index) {
+                    if (categories[index].name != "WSZYSTKO") {
+                      return EventsCategory(
+                          state: state, category: categories[index]);
+                    } else {
+                      return Container();
+                    }
+                  },
                 ),
               ],
             ),

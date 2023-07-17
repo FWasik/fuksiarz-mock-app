@@ -64,7 +64,7 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
             if (state is FetchedEventsSearchedState &&
                 state.categories.isEmpty) {
               return Container(
-                color: Colors.grey[100],
+                color: Colors.grey[50],
                 width: width,
                 child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -97,9 +97,8 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
               );
             } else if (state is FetchedEventsSearchedState) {
               return Container(
-                padding: const EdgeInsets.only(
-                    bottom: 15.0, left: 15.0, right: 15.0),
-                color: Colors.grey[100]!,
+                padding: const EdgeInsets.all(15.0),
+                color: Colors.grey[50],
                 child: ListView.builder(
                     itemCount: state.categories.length,
                     itemBuilder: (context, index) {
@@ -139,7 +138,7 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
             } else {
               return Container(
                 height: MediaQuery.of(context).size.height,
-                color: Colors.grey[100],
+                color: Colors.grey[50],
               );
             }
           },
@@ -158,7 +157,7 @@ Widget appBarWidget(BuildContext context, TextEditingController controller,
       width: width,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
       decoration: BoxDecoration(
-        color: Colors.grey[100]!,
+        color: Colors.grey[50],
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(40.0),
           topLeft: Radius.circular(40.0),

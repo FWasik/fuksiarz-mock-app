@@ -272,7 +272,7 @@ class _EventsCategoryState extends State<EventsCategory> {
               },
               children: [
                 ExpansionPanel(
-                  backgroundColor: Colors.grey[100],
+                  backgroundColor: Colors.grey[50],
                   headerBuilder: (BuildContext context, bool isExpanded) {
                     return Padding(
                       padding: const EdgeInsets.only(left: 12.0),

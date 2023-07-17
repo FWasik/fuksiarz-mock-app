@@ -12,7 +12,7 @@ class SearchInputNavigator extends StatelessWidget {
       height: 70,
       padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 10),
       decoration: BoxDecoration(
-        color: Colors.grey[100]!,
+        color: Colors.grey[50],
         border: Border.all(color: Colors.grey[300]!),
       ),
       child: TextField(
