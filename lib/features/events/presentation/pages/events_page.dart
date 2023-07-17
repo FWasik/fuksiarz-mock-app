@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/bloc/events_bloc.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_content.dart';
 import 'package:fuksiarz_mock_app/common/events_header.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_main_tab_bars.dart';
+import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_custom_widget_switcher.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_search.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -54,7 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ListView(
               children: [
                 const SearchInputNavigator(),
-                EventsMainTabBars(changeIndexCallback: _changeIndexCallback),
+                EventsCustomWidgetSwitcher(
+                    changeIndexCallback: _changeIndexCallback),
                 Builder(builder: (_) {
                   if (currentIndex == 1) {
                     return const EventsContent();
