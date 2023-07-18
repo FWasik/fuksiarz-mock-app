@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fuksiarz_mock_app/common/events_base.dart';
-import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/bet_button.dart';
 import 'package:fuksiarz_mock_app/common/category.dart';
+import 'package:fuksiarz_mock_app/features/search/domain/entities/event_searched.dart';
 
 class EventGameWidget extends StatelessWidget {
   final SportCategory3Name subsubcategory;
@@ -19,12 +19,11 @@ class EventGameWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    List<String> teamSplitted = event.eventName.split(" - ");
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
       child: Container(
-        height: 140,
+        constraints: const BoxConstraints(minHeight: 140),
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
         decoration: BoxDecoration(
             border: Border.all(color: Colors.grey[300]!),
@@ -46,14 +45,12 @@ class EventGameWidget extends StatelessWidget {
               const Spacer(flex: 1),
               Text(
                 event.eventDate,
-                overflow: TextOverflow.ellipsis,
-                softWrap: false,
                 style:
                     const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
-              const Spacer(flex: 10),
+              const Spacer(flex: 30),
               Container(
-                width: 48,
+                width: 50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                   color: Colors.red,
@@ -104,84 +101,83 @@ class EventGameWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              teamSplitted.length > 1
-                  ? SizedBox(
-                      width: width * 0.4,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            teamSplitted[0],
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            softWrap: false,
-                            style: const TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 8.0),
-                          Text(
-                            teamSplitted[1],
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            softWrap: false,
-                            style: const TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    )
-                  : SizedBox(
-                      width: width * 0.5,
-                      child: Text(
-                        teamSplitted[0],
-                        maxLines: 4,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,
-                        style: const TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-              if (event is Event)
-                if (eventGame!.gameLayout > 3) ...[
-                  Flexible(
-                    child: GestureDetector(
-                      child: Container(
-                        width: width * 0.4,
-                        padding: const EdgeInsets.all(13.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.grey[300]!),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5.0)),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "DO WYDARZENIA",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ] else ...[
-                  Flexible(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: eventGame!.outcomes
-                            .map(
-                              (outcome) => BetButton(outcome: outcome),
-                            )
-                            .toList(),
-                      ),
-                    ),
-                  )
-                ]
+              buildGameName(width),
+              buildOdds(width),
             ],
           ),
         ]),
       ),
     );
+  }
+
+  Widget buildGameName(double width) {
+    List<String> teamSplitted = event.eventName.split(" - ");
+
+    if ((eventGame != null && eventGame!.gameLayout == 9) ||
+        teamSplitted.length == 1) {
+      return SizedBox(
+        width: width * 0.4,
+        child: Text(
+          event.eventName,
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+        ),
+      );
+    } else {
+      return SizedBox(
+        width: width * 0.4,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              teamSplitted[0],
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8.0),
+            Text(
+              teamSplitted[1],
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  Widget buildOdds(double width) {
+    if (event is EventSearched ||
+        eventGame!.gameLayout == 20 ||
+        eventGame!.gameLayout == 9) {
+      return GestureDetector(
+        child: Container(
+          width: width * 0.4,
+          padding: const EdgeInsets.all(13.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: Colors.grey[300]!),
+            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+          ),
+          child: const Center(
+            child: Text(
+              "DO WYDARZENIA",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+      );
+    } else {
+      return Flexible(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: eventGame!.outcomes
+                .map(
+                  (outcome) => BetButton(outcome: outcome),
+                )
+                .toList(),
+          ),
+        ),
+      );
+    }
   }
 }

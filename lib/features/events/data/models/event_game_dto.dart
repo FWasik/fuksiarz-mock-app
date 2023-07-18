@@ -7,7 +7,11 @@ class EventGameDTO extends EventGame {
     required gameName,
     required outcomes,
     required gameLayout,
-  }) : super(gameName: gameName, outcomes: outcomes, gameLayout: gameLayout);
+  }) : super(
+          gameName: gameName,
+          outcomes: outcomes,
+          gameLayout: gameLayout,
+        );
 
   factory EventGameDTO.fromJson(Map<String, dynamic> json) {
     List<Outcome> outcomes = [];
