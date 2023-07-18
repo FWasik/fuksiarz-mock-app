@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fuksiarz_mock_app/common/custom_error_widget.dart';
 import 'package:fuksiarz_mock_app/common/dialog.dart';
 import 'package:fuksiarz_mock_app/common/loading_widget.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/bloc/events_bloc.dart';
@@ -93,20 +94,7 @@ class _EventsContentState extends State<EventsContent> {
             child: const LoadingWidget(),
           );
         } else if (state is ErrorState) {
-          return SizedBox(
-            height: height * 0.5,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: Text(
-                  state.error,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-          );
+          return CustomErrorWidget(errorMessage: state.error);
         } else {
           return Container();
         }

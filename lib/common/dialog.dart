@@ -18,6 +18,7 @@ void showOptionsDialog(BuildContext context, Widget widget, String name) {
                 insetPadding: EdgeInsets.zero,
                 titlePadding: EdgeInsets.zero,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                alignment: Alignment.bottomCenter,
                 shape: const RoundedRectangleBorder(
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(20))),

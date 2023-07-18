@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fuksiarz_mock_app/common/category.dart';
+import 'package:fuksiarz_mock_app/common/custom_error_widget.dart';
 import 'package:fuksiarz_mock_app/common/loading_widget.dart';
 import 'package:fuksiarz_mock_app/common/event_game_widget.dart';
 import 'package:fuksiarz_mock_app/common/events_header.dart';
@@ -131,13 +132,12 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
                       );
                     }),
               );
-            } else if (state is Loading) {
+            } else if (state is LoadingState) {
               return const LoadingWidget();
+            } else if (state is ErrorState) {
+              return CustomErrorWidget(errorMessage: state.error);
             } else {
-              return Container(
-                height: MediaQuery.of(context).size.height,
-                color: Colors.grey[50],
-              );
+              return Container();
             }
           },
         ));

@@ -15,4 +15,8 @@ class FetchedEventsSearchedState extends SearchState {
   const FetchedEventsSearchedState({required this.categories});
 }
 
-class Loading extends SearchState {}
+class LoadingState extends SearchState {}
+
+class ErrorState extends SearchState {
+  final String error = "Coś poszło nie tak. Spróbuj ponownie lub zgłoś błąd";
+}

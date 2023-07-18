@@ -1,3 +1,5 @@
+// ignore_for_file: unused_catch_clause
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fuksiarz_mock_app/common/category.dart';
@@ -12,33 +14,37 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   SearchBloc({required this.getSearchedEvents}) : super(SearchInitial()) {
     on<FetchedEventsSearchedEvent>((event, emit) async {
-      emit(Loading());
+      try {
+        emit(LoadingState());
 
-      String pattern = event.pattern;
+        String pattern = event.pattern;
 
-      List<SportCategory3Name> categories = [];
-      List<EventSearched> events = await getSearchedEvents.call(pattern);
+        List<SportCategory3Name> categories = [];
+        List<EventSearched> events = await getSearchedEvents.call(pattern);
 
-      for (EventSearched event in events) {
-        String categoryName = event.category3Name;
+        for (EventSearched event in events) {
+          String categoryName = event.category3Name;
 
-        SportCategory3Name? existingCategory =
-            categories.cast<SportCategory3Name?>().firstWhere(
-                  (subsubcategory) => subsubcategory!.name == categoryName,
-                  orElse: () => null,
-                );
+          SportCategory3Name? existingCategory =
+              categories.cast<SportCategory3Name?>().firstWhere(
+                    (subsubcategory) => subsubcategory!.name == categoryName,
+                    orElse: () => null,
+                  );
 
-        if (existingCategory != null) {
-          existingCategory.events.add(event);
-        } else {
-          categories
-              .add(SportCategory3Name(name: categoryName, events: [event]));
+          if (existingCategory != null) {
+            existingCategory.events.add(event);
+          } else {
+            categories
+                .add(SportCategory3Name(name: categoryName, events: [event]));
+          }
         }
+
+        categories.sort((a, b) => a.name.compareTo(b.name));
+
+        emit(FetchedEventsSearchedState(categories: categories));
+      } on Exception catch (e) {
+        emit(ErrorState());
       }
-
-      categories.sort((a, b) => a.name.compareTo(b.name));
-
-      emit(FetchedEventsSearchedState(categories: categories));
     });
 
     on<ClearEventsSearchedEvent>(
