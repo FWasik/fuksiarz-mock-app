@@ -39,20 +39,18 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
 
-    double resize;
+    double toolbarHeight;
 
-    if (height > 1000) {
-      resize = 0.12;
-    } else if (height > 700) {
-      resize = 0.15;
+    if (height > 1000 || height < 700) {
+      toolbarHeight = 120;
     } else {
-      resize = 0.20;
+      toolbarHeight = 100;
     }
 
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          toolbarHeight: height * resize,
+          toolbarHeight: toolbarHeight,
           automaticallyImplyLeading: false,
           flexibleSpace: EventsHeader(
             appBarWidget:
@@ -154,8 +152,7 @@ Widget appBarWidget(BuildContext context, TextEditingController controller,
     left: 0,
     right: 0,
     child: Container(
-      width: width,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      padding: const EdgeInsets.only(right: 20, left: 20, top: 30),
       decoration: BoxDecoration(
         color: Colors.grey[50],
         borderRadius: const BorderRadius.only(

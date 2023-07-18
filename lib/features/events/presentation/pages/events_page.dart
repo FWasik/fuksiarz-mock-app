@@ -29,17 +29,17 @@ class _MyHomePageState extends State<MyHomePage> {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
 
-    double resize;
+    double toolbarHeight;
 
-    if (height > 700) {
-      resize = 0.10;
+    if (height > 1000 || height < 700) {
+      toolbarHeight = 100;
     } else {
-      resize = 0.15;
+      toolbarHeight = 80;
     }
 
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: height * resize,
+        toolbarHeight: toolbarHeight,
         elevation: 0,
         flexibleSpace: EventsHeader(
           appBarWidget: appBarWidget(width),
