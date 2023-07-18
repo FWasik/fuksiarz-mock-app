@@ -18,6 +18,7 @@ class EventGameWidget extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     List<String> teamSplitted = event.eventName.split(" - ");
 
     return Padding(
@@ -31,15 +32,26 @@ class EventGameWidget extends StatelessWidget {
         child:
             Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Container(
+                constraints: BoxConstraints(maxWidth: width * 0.6),
+                child: Text(
+                  subsubcategory.name,
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
+                  style: const TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const Spacer(flex: 1),
               Text(
-                "${subsubcategory.name}  ${event.eventDate}",
+                event.eventDate,
                 overflow: TextOverflow.ellipsis,
                 softWrap: false,
                 style:
                     const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
+              const Spacer(flex: 10),
               Container(
                 width: 48,
                 decoration: BoxDecoration(
@@ -62,7 +74,7 @@ class EventGameWidget extends StatelessWidget {
                         )
                       ]),
                 ),
-              )
+              ),
             ],
           ),
           Row(
@@ -94,14 +106,14 @@ class EventGameWidget extends StatelessWidget {
             children: [
               teamSplitted.length > 1
                   ? SizedBox(
-                      width: 150,
+                      width: width * 0.4,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             teamSplitted[0],
-                            maxLines: 2,
+                            maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                             softWrap: false,
                             style: const TextStyle(
@@ -110,7 +122,7 @@ class EventGameWidget extends StatelessWidget {
                           const SizedBox(height: 8.0),
                           Text(
                             teamSplitted[1],
-                            maxLines: 2,
+                            maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                             softWrap: false,
                             style: const TextStyle(
@@ -120,10 +132,10 @@ class EventGameWidget extends StatelessWidget {
                       ),
                     )
                   : SizedBox(
-                      width: 200,
+                      width: width * 0.5,
                       child: Text(
                         teamSplitted[0],
-                        maxLines: 3,
+                        maxLines: 4,
                         overflow: TextOverflow.ellipsis,
                         softWrap: false,
                         style: const TextStyle(
@@ -132,35 +144,42 @@ class EventGameWidget extends StatelessWidget {
                     ),
               if (event is Event)
                 if (eventGame!.gameLayout > 3) ...[
-                  GestureDetector(
-                    child: Container(
-                      padding: const EdgeInsets.all(13.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.grey[300]!),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5.0)),
-                      ),
-                      child: const Text(
-                        "DO WYDARZENIA",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                  Flexible(
+                    child: GestureDetector(
+                      child: Container(
+                        width: width * 0.4,
+                        padding: const EdgeInsets.all(13.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.grey[300]!),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5.0)),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            "DO WYDARZENIA",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ] else ...[
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: eventGame!.outcomes
-                          .map(
-                            (outcome) => BetButton(outcome: outcome),
-                          )
-                          .toList(),
+                  Flexible(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: eventGame!.outcomes
+                            .map(
+                              (outcome) => BetButton(outcome: outcome),
+                            )
+                            .toList(),
+                      ),
                     ),
                   )
                 ]
             ],
-          )
+          ),
         ]),
       ),
     );
