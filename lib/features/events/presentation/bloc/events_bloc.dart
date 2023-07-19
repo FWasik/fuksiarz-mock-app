@@ -26,7 +26,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
           )
         ];
 
-        for (int idx = 1; idx <= 20; idx++) {
+        for (int idx = 1; idx <= 10; idx++) {
           List<Event>? events = await getEvents.call(idx);
 
           if (events.isNotEmpty) {

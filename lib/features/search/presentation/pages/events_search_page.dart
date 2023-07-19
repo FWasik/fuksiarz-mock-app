@@ -9,7 +9,7 @@ import 'package:fuksiarz_mock_app/features/search/domain/entities/event_searched
 import 'package:fuksiarz_mock_app/features/search/presentation/bloc/search_bloc.dart';
 
 class EventsSearchPage extends StatefulWidget {
-  const EventsSearchPage({super.key});
+  const EventsSearchPage({Key? key}) : super(key: key);
 
   @override
   State<EventsSearchPage> createState() => _EventsSearchPageState();
@@ -39,6 +39,7 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
+    Orientation orientation = MediaQuery.of(context).orientation;
 
     double toolbarHeight;
 
@@ -132,7 +133,8 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
                       );
                     }),
               );
-            } else if (state is LoadingState) {
+            } else if (state is LoadingState &&
+                orientation == Orientation.portrait) {
               return const LoadingWidget();
             } else if (state is ErrorState) {
               return CustomErrorWidget(errorMessage: state.error);
