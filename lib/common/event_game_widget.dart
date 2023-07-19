@@ -22,90 +22,90 @@ class EventGameWidget extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
-      child: Container(
-        constraints: const BoxConstraints(minHeight: 140),
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey[300]!),
-            borderRadius: BorderRadius.circular(10.0)),
-        child:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          Row(
-            children: [
-              Container(
-                constraints: BoxConstraints(maxWidth: width * 0.6),
-                child: Text(
-                  subsubcategory.name,
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: false,
-                  style: const TextStyle(
-                      fontSize: 12, fontWeight: FontWeight.bold),
-                ),
-              ),
-              const Spacer(flex: 1),
-              Text(
-                event.eventDate,
-                style:
-                    const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              const Spacer(flex: 30),
-              Container(
-                width: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: Colors.red,
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(
-                          Icons.local_fire_department_outlined,
-                          color: Colors.white,
-                          size: 14.0,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Container(
+          constraints: BoxConstraints(minWidth: width - 25, minHeight: 160),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey[300]!),
+              borderRadius: BorderRadius.circular(10.0)),
+          child: IntrinsicWidth(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "${subsubcategory.name}   ${event.eventDate}",
+                        style: const TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(width: 20),
+                      Container(
+                        width: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: Colors.red,
                         ),
-                        Text(
-                          "HOT",
-                          style: TextStyle(color: Colors.white, fontSize: 10),
-                        )
-                      ]),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Text(
-                event.eventTime,
-                style:
-                    const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              const Flexible(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  child: LinearProgressIndicator(
-                    minHeight: 0.8,
-                    value: 0,
-                    backgroundColor: Colors.grey,
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 6.0, vertical: 2.0),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Icon(
+                                  Icons.local_fire_department_outlined,
+                                  color: Colors.white,
+                                  size: 14.0,
+                                ),
+                                Text(
+                                  "HOT",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 10),
+                                )
+                              ]),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ),
-              const Text(
-                "111",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              )
-            ],
+                  Row(
+                    children: [
+                      Text(
+                        event.eventTime,
+                        style: const TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.bold),
+                      ),
+                      const Flexible(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: LinearProgressIndicator(
+                            minHeight: 0.8,
+                            value: 0,
+                            backgroundColor: Colors.grey,
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.red),
+                          ),
+                        ),
+                      ),
+                      const Text(
+                        "111",
+                        style: TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      buildGameName(width),
+                      buildOdds(),
+                    ],
+                  ),
+                ]),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              buildGameName(width),
-              buildOdds(width),
-            ],
-          ),
-        ]),
+        ),
       ),
     );
   }
@@ -119,6 +119,7 @@ class EventGameWidget extends StatelessWidget {
         width: width * 0.4,
         child: Text(
           event.eventName,
+          maxLines: 4,
           style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
         ),
       );
@@ -127,15 +128,16 @@ class EventGameWidget extends StatelessWidget {
         width: width * 0.4,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               teamSplitted[0],
+              maxLines: 2,
               style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8.0),
             Text(
               teamSplitted[1],
+              maxLines: 2,
               style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             ),
           ],
@@ -144,13 +146,12 @@ class EventGameWidget extends StatelessWidget {
     }
   }
 
-  Widget buildOdds(double width) {
+  Widget buildOdds() {
     if (event is EventSearched ||
         eventGame!.gameLayout == 20 ||
         eventGame!.gameLayout == 9) {
       return GestureDetector(
         child: Container(
-          width: width * 0.4,
           padding: const EdgeInsets.all(13.0),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -166,16 +167,14 @@ class EventGameWidget extends StatelessWidget {
         ),
       );
     } else {
-      return Flexible(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: eventGame!.outcomes
-                .map(
-                  (outcome) => BetButton(outcome: outcome),
-                )
-                .toList(),
-          ),
+      return Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: eventGame!.outcomes
+              .map(
+                (outcome) => BetButton(outcome: outcome),
+              )
+              .toList(),
         ),
       );
     }
