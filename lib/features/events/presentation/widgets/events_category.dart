@@ -301,6 +301,7 @@ class _EventsCategoryState extends State<EventsCategory> {
                                   eventGame.gameName ==
                                   category.currentGameName)
                               .toList();
+
                           return ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),

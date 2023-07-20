@@ -23,28 +23,49 @@ void showOptionsDialog(BuildContext context, Widget widget, String name) {
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(20))),
                 title: SizedBox(
-                  height: 50,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Positioned(
-                        child: Text(
-                          name,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
+                  height: 60,
+                  child: Padding(
+                    padding: EdgeInsets.all(3.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          width: 60,
+                          height: 5,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
                         ),
-                      ),
-                      Positioned(
-                        right: 0,
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(Icons.close),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Positioned(
+                                child: Text(
+                                  name,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Positioned(
+                                right: 0,
+                                child: IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: const Icon(Icons.close),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      )
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 content: SizedBox(
