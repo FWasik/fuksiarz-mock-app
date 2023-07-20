@@ -27,14 +27,14 @@ class LoadingWidget extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.all(3.0),
             child: Text(
-              "DAJ MI CHWILE...",
+              "DAJ NAM CHWILĘ",
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
           ),
           const Padding(
             padding: EdgeInsets.all(3.0),
             child: Text(
-              "PRZESZUKUJĘ BAZE...",
+              "PRZESZUKUJEMY BAZĘ DANYCH",
             ),
           )
         ],
