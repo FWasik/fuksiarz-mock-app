@@ -25,7 +25,7 @@ void showOptionsDialog(BuildContext context, Widget widget, String name) {
                 title: SizedBox(
                   height: 60,
                   child: Padding(
-                    padding: EdgeInsets.all(3.0),
+                    padding: const EdgeInsets.all(3.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

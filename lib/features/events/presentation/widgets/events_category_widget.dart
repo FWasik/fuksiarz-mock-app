@@ -8,18 +8,19 @@ import 'package:fuksiarz_mock_app/common/event_game_widget.dart';
 
 import 'package:fuksiarz_mock_app/common/category.dart';
 
-class EventsCategory extends StatefulWidget {
+class EventsCategoryWidget extends StatefulWidget {
   final FetchedEventsState state;
   final SportCategory1Name category;
 
-  const EventsCategory({Key? key, required this.state, required this.category})
+  const EventsCategoryWidget(
+      {Key? key, required this.state, required this.category})
       : super(key: key);
 
   @override
-  State<EventsCategory> createState() => _EventsCategoryState();
+  State<EventsCategoryWidget> createState() => _EventsCategoryWidgetState();
 }
 
-class _EventsCategoryState extends State<EventsCategory> {
+class _EventsCategoryWidgetState extends State<EventsCategoryWidget> {
   @override
   Widget build(BuildContext context) {
     if (widget.category.isSelected) {

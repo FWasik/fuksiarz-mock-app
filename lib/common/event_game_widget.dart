@@ -10,12 +10,15 @@ class EventGameWidget extends StatelessWidget {
   final EventBase event;
   final EventGame? eventGame;
 
-  const EventGameWidget(
-      {Key? key,
-      required this.subsubcategory,
-      required this.event,
-      this.eventGame})
-      : super(key: key);
+  const EventGameWidget({
+    Key? key,
+    required this.subsubcategory,
+    required this.event,
+    this.eventGame,
+  }) : super(
+          key: key,
+        );
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;

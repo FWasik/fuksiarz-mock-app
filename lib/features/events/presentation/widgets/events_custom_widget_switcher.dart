@@ -59,8 +59,10 @@ class _EventsCustomWidgetSwitcherState
       onTap: () {
         widget.changeIndexCallback(index);
 
-        isSelectedValues = isSelectedValues.map((e) => false).toList();
-        isSelectedValues[index] = true;
+        setState(() {
+          isSelectedValues = isSelectedValues.map((e) => false).toList();
+          isSelectedValues[index] = true;
+        });
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14.0),

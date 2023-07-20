@@ -156,9 +156,10 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
 
         gameNames = Set<String>.from(gameNames).toList();
 
-        currentCategory.gameNames = gameNames;
-
         if (gameNames.isNotEmpty) {
+          gameNames.sort();
+          currentCategory.gameNames = gameNames;
+
           currentCategory.currentGameName = gameNames[0];
         } else {
           currentCategory.currentGameName = null;

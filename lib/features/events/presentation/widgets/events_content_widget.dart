@@ -7,16 +7,11 @@ import 'package:fuksiarz_mock_app/features/events/presentation/bloc/events_bloc.
 
 import 'package:fuksiarz_mock_app/common/category.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_category_button.dart';
-import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_category.dart';
+import 'package:fuksiarz_mock_app/features/events/presentation/widgets/events_category_widget.dart';
 
-class EventsContent extends StatefulWidget {
-  const EventsContent({Key? key}) : super(key: key);
+class EventsContentWidget extends StatelessWidget {
+  const EventsContentWidget({Key? key}) : super(key: key);
 
-  @override
-  State<EventsContent> createState() => _EventsContentState();
-}
-
-class _EventsContentState extends State<EventsContent> {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
@@ -78,7 +73,7 @@ class _EventsContentState extends State<EventsContent> {
                   itemCount: categories.length,
                   itemBuilder: (context, index) {
                     if (categories[index].name != "WSZYSTKO") {
-                      return EventsCategory(
+                      return EventsCategoryWidget(
                           state: state, category: categories[index]);
                     } else {
                       return Container();
