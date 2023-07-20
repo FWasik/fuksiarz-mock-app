@@ -7,6 +7,7 @@ class LoadingWidget extends StatelessWidget {
     return Container(
       color: Colors.grey[50],
       width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.5,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

@@ -45,8 +45,8 @@ class EventGameWidget extends StatelessWidget {
                         style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),
-                      const Spacer(flex: 15),
-                      if (eventGame == null) ...[
+                      const Spacer(flex: 30),
+                      if (event is EventSearched) ...[
                         buildIconContainer(
                           "TV",
                           Colors.blueGrey[300]!,
@@ -57,8 +57,8 @@ class EventGameWidget extends StatelessWidget {
                           ),
                           45,
                         ),
+                        const Spacer(flex: 1),
                       ],
-                      const Spacer(flex: 1),
                       buildIconContainer(
                         "HOT",
                         Colors.red,
