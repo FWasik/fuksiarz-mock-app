@@ -8,10 +8,13 @@ class BetButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Container(
       padding: const EdgeInsets.all(3.0),
       height: 60,
-      width: 65,
+      width: width * 0.15,
+      constraints: const BoxConstraints(minWidth: 65),
       child: OutlinedButton(
         onPressed: () {},
         style: OutlinedButton.styleFrom(

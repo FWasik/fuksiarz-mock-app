@@ -20,56 +20,55 @@ class EventGameWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15.0),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Container(
-          constraints: BoxConstraints(minWidth: width - 25, minHeight: 160),
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey[300]!),
-              borderRadius: BorderRadius.circular(10.0)),
-          child: IntrinsicWidth(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return LayoutBuilder(builder: (context, constraints) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 15.0),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Container(
+            constraints: BoxConstraints(minWidth: constraints.maxWidth),
+            padding: const EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey[300]!),
+                borderRadius: BorderRadius.circular(10.0)),
+            child: IntrinsicWidth(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         "${subsubcategory.name}   ${event.eventDate}",
                         style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(width: 20),
-                      Container(
-                        width: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0),
-                          color: Colors.red,
+                      const Spacer(flex: 15),
+                      if (eventGame == null) ...[
+                        buildIconContainer(
+                          "TV",
+                          Colors.blueGrey[300]!,
+                          const Icon(
+                            Icons.tv,
+                            color: Colors.white,
+                            size: 14.0,
+                          ),
+                          45,
                         ),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 6.0, vertical: 2.0),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Icon(
-                                  Icons.local_fire_department_outlined,
-                                  color: Colors.white,
-                                  size: 14.0,
-                                ),
-                                Text(
-                                  "HOT",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 10),
-                                )
-                              ]),
+                      ],
+                      const Spacer(flex: 1),
+                      buildIconContainer(
+                        "HOT",
+                        Colors.red,
+                        const Icon(
+                          Icons.local_fire_department_outlined,
+                          color: Colors.white,
+                          size: 14.0,
                         ),
+                        50,
                       ),
                     ],
                   ),
+                  const SizedBox(height: 15),
                   Row(
                     children: [
                       Text(
@@ -90,12 +89,15 @@ class EventGameWidget extends StatelessWidget {
                         ),
                       ),
                       const Text(
-                        "111",
+                        "+ 111",
                         style: TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.bold),
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red),
                       )
                     ],
                   ),
+                  const SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -103,11 +105,18 @@ class EventGameWidget extends StatelessWidget {
                       buildOdds(),
                     ],
                   ),
-                ]),
+                  if (event is EventSearched &&
+                      (event as EventSearched).area == "LIVE_EVENT") ...[
+                    const SizedBox(height: 15),
+                    buildAdditionalInfo()
+                  ]
+                ],
+              ),
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget buildGameName(double width) {
@@ -134,7 +143,7 @@ class EventGameWidget extends StatelessWidget {
               maxLines: 2,
               style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 8.0),
+            const SizedBox(height: 6.0),
             Text(
               teamSplitted[1],
               maxLines: 2,
@@ -178,5 +187,59 @@ class EventGameWidget extends StatelessWidget {
         ),
       );
     }
+  }
+
+  Widget buildIconContainer(
+      String text, Color backgroudnColor, Icon icon, double width) {
+    return Container(
+      width: width,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+        color: backgroudnColor,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          icon,
+          Text(
+            text,
+            style: const TextStyle(color: Colors.white, fontSize: 10),
+          )
+        ]),
+      ),
+    );
+  }
+
+  Widget buildAdditionalInfo() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+              decoration: BoxDecoration(
+                color: Colors.grey[500],
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Text(
+                event.eventTime,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 10),
+              ),
+            ),
+          ),
+          const Text("Coś o czymś...", style: TextStyle(fontSize: 12))
+        ],
+      ),
+    );
   }
 }
