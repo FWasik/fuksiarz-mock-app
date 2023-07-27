@@ -101,6 +101,7 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
               );
             }
           },
+          textCapitalization: TextCapitalization.characters,
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
