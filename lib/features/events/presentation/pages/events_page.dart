@@ -96,9 +96,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0))),
-              icon: const Icon(
+              icon: Icon(
                 Icons.add_circle_sharp,
-                color: Colors.red,
+                color: Colors.redAccent[700],
                 size: 28,
               ),
               label: const Text(

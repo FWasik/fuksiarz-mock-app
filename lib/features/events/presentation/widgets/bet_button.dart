@@ -35,7 +35,8 @@ class BetButton extends StatelessWidget {
         },
         style: OutlinedButton.styleFrom(
           padding: const EdgeInsets.all(8.0),
-          backgroundColor: outcome.isClicked ? Colors.red : Colors.white,
+          backgroundColor:
+              outcome.isClicked ? Colors.redAccent[700] : Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0),
           ),

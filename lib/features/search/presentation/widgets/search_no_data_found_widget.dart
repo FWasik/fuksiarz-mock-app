@@ -10,26 +10,26 @@ class SearchNoDataFoundWidget extends StatelessWidget {
     return Container(
       color: Colors.grey[50],
       width: width,
-      child: const Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(5.0),
             child: Icon(
               Icons.warning,
               size: 80.0,
-              color: Colors.red,
+              color: Colors.redAccent[700],
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(5.0),
             child: Text(
               "BRAK WYNIKÓW",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(5.0),
             child: Text(
               "SPRÓBUJ INNEGO ZAPYTANIA",

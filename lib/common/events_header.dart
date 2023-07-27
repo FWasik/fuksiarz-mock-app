@@ -11,7 +11,7 @@ class EventsHeader extends StatelessWidget {
       children: [
         Positioned.fill(
           child: Container(
-            color: Colors.red,
+            color: Colors.redAccent[700],
           ),
         ),
         appBarWidget
