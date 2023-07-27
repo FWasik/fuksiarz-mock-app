@@ -15,6 +15,7 @@ class EventsContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
 
     return BlocBuilder<EventsBloc, EventsState>(
       builder: (context, state) {
@@ -83,7 +84,8 @@ class EventsContentWidget extends StatelessWidget {
             ),
           );
         } else if (state is LoadingState) {
-          return const LoadingWidget();
+          return SizedBox(
+              width: width, height: height * 0.6, child: const LoadingWidget());
         } else if (state is ErrorState) {
           return CustomErrorWidget(errorMessage: state.error);
         } else {
