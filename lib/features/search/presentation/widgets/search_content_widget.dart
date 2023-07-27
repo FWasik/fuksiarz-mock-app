@@ -12,7 +12,7 @@ class SearchContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
       color: Colors.grey[50],
       child: ListView.builder(
           itemCount: state.categories.length,

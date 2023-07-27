@@ -102,26 +102,25 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
             }
           },
           style: const TextStyle(
-            backgroundColor: Colors.white,
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
-            contentPadding: const EdgeInsets.symmetric(vertical: 15.0),
+            contentPadding: const EdgeInsets.symmetric(vertical: 18.0),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey[300]!),
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey[300]!),
             ),
-            border: const OutlineInputBorder(),
+            border: InputBorder.none,
             prefixIcon: IconButton(
               icon: Icon(
                 Icons.keyboard_arrow_left,
                 color: Colors.grey[350]!,
-                size: 32.0,
+                size: 28,
               ),
               onPressed: () {
                 BlocProvider.of<SearchBloc>(context)

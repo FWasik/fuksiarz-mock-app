@@ -28,6 +28,10 @@ class EventGameWidget extends StatelessWidget {
     bool isLiveAndSearched =
         event is EventSearched && (event as EventSearched).area == "LIVE_EVENT";
 
+    String eventNameDate = isLiveAndSearched
+        ? subsubcategory.name
+        : "${subsubcategory.name}   ${event.eventDate}";
+
     return LayoutBuilder(builder: (context, constraints) {
       return Padding(
         padding: const EdgeInsets.only(bottom: 15.0),
@@ -44,7 +48,7 @@ class EventGameWidget extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buildFirstRow(),
+                  buildFirstRow(eventNameDate),
                   buildSecondRow(isLiveAndSearched, width),
                   buildThirdRow(isLiveAndSearched, width),
                   if (isLiveAndSearched) ...[buildAdditionalInfo()]
@@ -57,7 +61,7 @@ class EventGameWidget extends StatelessWidget {
     });
   }
 
-  Widget buildFirstRow() {
+  Widget buildFirstRow(String eventNameDate) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Row(
@@ -65,7 +69,7 @@ class EventGameWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 30.0),
             child: Text(
-              "${subsubcategory.name}   ${event.eventDate}",
+              eventNameDate,
               style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             ),
           ),
