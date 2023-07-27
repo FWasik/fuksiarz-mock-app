@@ -302,6 +302,7 @@ class _EventsCategoryWidgetState extends State<EventsCategoryWidget> {
                           EventGame eventGame = filteredEventGames[indexGame];
 
                           return EventGameWidget(
+                              state: widget.state,
                               subsubcategory: subsubcategory,
                               event: event,
                               eventGame: eventGame);

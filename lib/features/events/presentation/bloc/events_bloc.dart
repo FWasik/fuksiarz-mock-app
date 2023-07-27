@@ -3,6 +3,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event.dart';
+import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
+import 'package:fuksiarz_mock_app/features/events/domain/entities/outcome.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/usecases/get_events.dart';
 import 'package:fuksiarz_mock_app/common/category.dart';
 
@@ -236,6 +238,30 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
         emit(LoadingState());
 
         currentSubsubcategory.isExpanded = !currentSubsubcategory.isExpanded;
+
+        emit(FetchedEventsState(categories: categories));
+      } on Exception catch (e) {
+        emit(ErrorState());
+      }
+    });
+
+    on<ClickedButtonEvent>((event, emit) {
+      try {
+        List<SportCategory1Name> categories = event.categories;
+        EventGame eventGame = event.eventGame;
+        Outcome outcome = event.outcome;
+
+        emit(LoadingState());
+
+        bool isAlreadyClicked = outcome.isClicked;
+
+        for (Outcome outcome in eventGame.outcomes) {
+          outcome.isClicked = false;
+        }
+
+        if (!isAlreadyClicked) {
+          outcome.isClicked = true;
+        }
 
         emit(FetchedEventsState(categories: categories));
       } on Exception catch (e) {

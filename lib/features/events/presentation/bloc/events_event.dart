@@ -72,3 +72,18 @@ class ExpansionEventChangeEvent extends EventsEvent {
   @override
   List<Object> get props => [currentSubsubcategory, categories];
 }
+
+class ClickedButtonEvent extends EventsEvent {
+  final List<SportCategory1Name> categories;
+  final EventGame eventGame;
+  final Outcome outcome;
+
+  const ClickedButtonEvent({
+    required this.categories,
+    required this.eventGame,
+    required this.outcome,
+  });
+
+  @override
+  List<Object> get props => [categories, eventGame, outcome];
+}

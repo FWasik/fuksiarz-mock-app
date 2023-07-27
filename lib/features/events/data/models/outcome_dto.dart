@@ -1,7 +1,7 @@
 import 'package:fuksiarz_mock_app/features/events/domain/entities/outcome.dart';
 
 class OutcomeDTO extends Outcome {
-  const OutcomeDTO({required outcomeName, required outcomeOdds})
+  OutcomeDTO({required outcomeName, required outcomeOdds})
       : super(
           outcomeName: outcomeName,
           outcomeOdds: outcomeOdds,

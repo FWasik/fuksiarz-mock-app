@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fuksiarz_mock_app/common/events_base.dart';
 import 'package:fuksiarz_mock_app/features/events/domain/entities/event_game.dart';
+import 'package:fuksiarz_mock_app/features/events/presentation/bloc/events_bloc.dart';
 import 'package:fuksiarz_mock_app/features/events/presentation/widgets/bet_button.dart';
 import 'package:fuksiarz_mock_app/common/category.dart';
 import 'package:fuksiarz_mock_app/features/search/domain/entities/event_searched.dart';
 
 class EventGameWidget extends StatelessWidget {
+  final FetchedEventsState? state;
   final SportCategory3Name subsubcategory;
   final EventBase event;
   final EventGame? eventGame;
@@ -15,6 +17,7 @@ class EventGameWidget extends StatelessWidget {
     required this.subsubcategory,
     required this.event,
     this.eventGame,
+    this.state,
   }) : super(
           key: key,
         );
@@ -184,7 +187,8 @@ class EventGameWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: eventGame!.outcomes
               .map(
-                (outcome) => BetButton(outcome: outcome),
+                (outcome) => BetButton(
+                    state: state!, eventGame: eventGame!, outcome: outcome),
               )
               .toList(),
         ),
